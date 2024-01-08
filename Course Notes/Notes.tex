@@ -24,20 +24,13 @@
 \usepackage{tensor}
 \usepackage{mathpartir}
 \usepackage[textsize=scriptsize]{todonotes}
-\newcommand{\geoff}[1]{\todo[color=red!20]{{\bf Geoff:} #1}}
 \newcommand{\deni}[1]{\todo[color=blue!25]{{\bf Deni:} #1}}
-\newcommand{\biggeoff}[1]{\todo[inline,color=red!20]{{\bf Geoff:} #1}}
 \newcommand{\bigdeni}[1]{\todo[inline,color=blue!25]{{\bf Deni:} #1}}
 %Hyperlinks
 \hypersetup{
 colorlinks=true,
 linktoc=all
 }
-%   normal style theorems,
-%   numbered within the section
-%\theoremstyle{plain}
-%\newtheorem*{them}{Theorem}%[section]
-%\newtheorem{prop*}[them]{Proposition}
 \theoremstyle{plain}
 \newtheorem{thm}{Theorem}[]
 \newtheorem{cor}[thm]{Corollary}
@@ -45,35 +38,18 @@ linktoc=all
 \newtheorem{lem}[thm]{Lemma}
 \newtheorem*{propp}{Proposition}
 \newtheorem*{corr}{Corollary}
-\newtheorem*{theoremB}{Theorem B}
-\newtheorem*{defn*}{Definition}
-\newtheorem*{rem*}{Remark}
-\newtheorem*{egg}{Example}
-\newtheorem*{negg}{Non-Example}
-\newtheorem*{eggs}{Examples}
 %   Theorem style with roman text
 %   numbered within section
 \theoremstyle{definition}
 \newtheorem{rem}[thm]{Remark}
-\newtheorem{aside}[thm]{Aside}
 \newtheorem{rems}[thm]{Remarks}
 \newtheorem{defn}[thm]{Definition}
-\newtheorem{note}[thm]{Note}
-\newtheorem{notes}[thm]{Notes}
-\newtheorem{fact}[thm]{Fact}
-\newtheorem{facts}[thm]{Facts}
-\newtheorem{eg}[thm]{Example}
-\newtheorem{excs}[thm]{Exercise(s)}
-\newtheorem{egs}[thm]{Examples}
-\newtheorem{prob}[thm]{Problem}
-\newtheorem{conj}[thm]{Conjecture}
-\newtheorem{ques}[thm]{Question}
-%Making crossed arrows available as marking in tikcd
-\tikzset{mid vert/.style={/utils/exec=\tikzset{every node/.append style={outer sep=0.8ex}},
-postaction=decorate,decoration={markings,
-mark=at position 0.5 with {\draw[-] (0,#1) -- (0,-#1);}}},
-mid vert/.default=0.75ex}
-\renewcommand*{\proofname}{Sketch}
+\newtheorem*{defn*}{Definition}
+\newtheorem*{rem*}{Remark}
+\newtheorem*{eg*}{Example}
+\newtheorem*{neg*}{Non-Example}
+\newtheorem*{egs*}{Examples}
+\renewcommand*{\proofname}{Solution}
 \newcommand{\fty}{\infty}
 \newcommand{\lam}{\lambda}
 \newcommand{\mR}{{\mathbb R}}
@@ -171,7 +147,6 @@ mid vert/.default=0.75ex}
 \& {#5}  \ar[from=A, to=B, symbol={\dashv}]
 \ar[from=B, to=C, symbol={\dashv}]
 \end{tikzcd} }
-
 %HOM-ALG SHORTCUTS
 %sequence tikzcd arrows: \seqtkz{domain}{name}{codomain = domain}{name}{codomain}
 \newcommand*\seqtkz[5]{{\begin{tikzcd}[ampersand replacement=\&] 
@@ -203,23 +178,8 @@ mid vert/.default=0.75ex}
 %support
 \newcommand{\supp}{\mathrm{supp}}
 \newcommand{\ab}{\mathrm{Ab}}
-%Double Cat Shortcuts
-%single tikzcd pro-arrow: \artkz{domain}{name}{codomain}
-\newcommand*\prartkz[3]{{\begin{tikzcd}[ampersand replacement=\&] 
-{ #1 } \rar["{#2}", "\bullet" marking] \&  { #3 } \end{tikzcd}}}
-%a square: \sq{4 objects}{4 arrows}{cell}
-\newcommand*\sq[9]{{\begin{tikzcd}[column sep = large, row sep = large, ampersand replacement=\&] 
-{#1} \rar["\bullet"{marking}, "{#7}", 
-{name=top, below}] \dar["{#5}"'] 
-\& {#2} \dar["{#8}"] \ 
-{#3} \rar["\bullet"{marking},"{#6}"', 
-{name=bot, above}] 
-\& {#4}
-\ar[Rightarrow, from=top, to=bot, shorten >= 8 , shorten <= 8, "{#9}" ] \end{tikzcd}}}
-%double categories
-\newcommand{\dbSet}{\mathbb{S}\mathrm{et}}
 %big roomy quotient
-\newcommand{\nat}[6][large]{
+\newcommand{\nat}[6][large]{%
  \begin{tikzcd}
  [ampersand replacement = \&, column sep=#1]
   #2\ar[bend left=40,
@@ -231,46 +191,20 @@ mid vert/.default=0.75ex}
 }
 %pullback
 \newsavebox{\pullback}
-\sbox\pullback{
-\begin{tikzpicture}
-\draw (0,0) -- (1ex,0ex);
-\draw (1ex,0ex) -- (1ex,1ex);
+\sbox\pullback{%
+\begin{tikzpicture}%
+\draw (0,0) -- (1ex,0ex);%
+\draw (1ex,0ex) -- (1ex,1ex);%
 \end{tikzpicture}}
 %pullback comand: \arrow[dr, phantom, "\usebox\pullback" , very near start, color=black]
 %pushout
 \newsavebox{\pushout}
-\sbox\pushout{
-\begin{tikzpicture}
-\draw (0,0) -- (0ex,1ex);
-\draw (0ex,1ex) -- (1ex,1ex);
+\sbox\pushout{%
+\begin{tikzpicture}%
+\draw (0,0) -- (0ex,1ex);%
+\draw (0ex,1ex) -- (1ex,1ex);%
 \end{tikzpicture}}
 %pushout comand: \arrow[ul, phantom, "\usebox\pushout" , very near start, color=black]
-%up right pushout
-\newsavebox{\urpushout}
-\sbox\urpushout{%
-\begin{tikzpicture}%
-\draw (0,0) -- (1ex,0ex);%
-\draw (0ex,0ex) -- (0ex,1ex);%
-\end{tikzpicture}}
-%pushout comand: \arrow[dl, phantom, "\usebox\urpushout" , very near start, color=black]
-%vertical pullback
-\newsavebox{\vpullback}
-\sbox\vpullback{%
-\begin{tikzpicture}%
-\draw (0ex,1ex) -- (1ex, 0ex);%
-\draw (1ex, 0ex) -- (2ex,1ex);%
-\end{tikzpicture}}
-%vert. pullback comand: \arrow[dd, phantom, "\usebox\vpullback" , very near start, color=black]
-%vertical pushout
-\newsavebox{\vpushout}
-\sbox\vpushout{%
-\begin{tikzpicture}%
-\draw (0ex,1ex) -- (1ex, 1ex);%
-\draw (1ex, 1ex) -- (2ex,1ex);%
-\end{tikzpicture}}
-%vert. pushout comand: \arrow[uu, phantom, "\usebox\vpushout" , very near start, color=black]
-\newcommand{\te}[1]{\text{#1}}
-\newcommand{\tf}[1]{\textbf{#1}}
 %Squiggly Arrow Guy: 
 \newcounter{sarrow}
 \newcommand\xrsquigarrow[1]{%
@@ -280,11 +214,53 @@ mid vert/.default=0.75ex}
 \draw[->,decorate] (\thesarrow.south west) -- (\thesarrow.south east);
 \end{tikzpicture}%
 }
-\title{Cat Theory - A5}
-\author{Deni Salja - B00868349}
+\title{Category Theory Course Notes}
+\author{Deni Salja}
 \begin{document}
 \maketitle
-\begin{prob}
 
-\end{prob} 
+\section*{Introduction}
+
+These are course notes from the winter 2024 semester Category Theory course at Dalhousie university taught by Dorette Pronk. We follow Robin's notes \cite{Robin'sNotes} with occasional reference to Emily Riehl's book \cite{CatsinContext}. She gave us the option to give presentations/guest lectures to replace exams in the course. 
+
+There are `analytic' and `synthetic' perspectives to category theory. An analytic point of view considers categories defined by their objects, arrows, and the structures they admit. This focuses more on the compositionality of relationships between the objects in a category. The synthetic point of view views categories as objects in a bigger categorical structure and studying them by the structure preserving relationships between them in that larger context. We begin with the analytic, peeking inside some familiar (concrete) categories and checking out the types of formal structures we can have when we have access to objects that are sets and have elements before defining generalized elements. After that we get more synthetic to talk about adjunctions and monads before finishing up with limits and colimits along with some relationships between the two perspectives. 
+
+
+\section{`Analytic' Category Theory}
+
+A category is an abstract setting where `composition of functions' makes sense. 
+
+\begin{defn}
+A category is a directed multigraph along with an algebra of paths. 
+\end{defn}
+
+\noi The directed multigraph tells you what the `objects' and `arrows' are and the algebra of paths determins the composition of arrows. \par 
+
+For a category $\cC$, the objects are denoted $\cC_0$ and the arrows are denoted $\cC_1$. Let $d_0 : \cC_1 \to \cC_0$ denote the function that picks out the domain of an arrow and $d_1 : \cC_1 \to \cC_0$ the function that picks out the codomain. The path algebra says: for any $f, g \in \cC_1$, if $d_1(f) = d_0(g)$ then there exists a unique composite $g \circ f \in \cC_1$ whose domain and codomain agree with those of $f$ and $g$ respectively. Associativity of the path algebra encodes associativity of arrow  composition in the category $\cC$. The constant paths in the path algebra correspond to identity arrows in the category. \par 
+
+\begin{egs*}
+Here are bunch of examples you can verify yourself!
+\begin{enumerate}[label=(\alph*)]
+\item The category of sets and functions is a category with function composition. 
+\item The category of groups and group homomorphisms is a category again with function composition. 
+\item Vaguely but more generally speaking the category of (algebraic thing) with (algebraic thing) homomorphisms is a category. There's a way to talk about these kinds of `algebraic theories' more generally that we'll encounter later in the course!
+\item Any directed multigraph can be made into a category by freely adding finite paths and identities. 
+\item The small categories $\mathbb{1}$ and $\mathbb{2}$ have as many objects and one less non-identity arrow. The first one is pictured below: 
+
+\[ \begin{tikzcd}
+    A \arrow[loop right] 
+\end{tikzcd}\]
+
+\item Any set with a pre-order defines a category whose objects are the elements of the set and whose arrows are determined by the pre-order relation. 
+\end{enumerate}
+
+\end{egs*}
+
+
+\section{`Synthetic' Category Theory}
+
+
+
+
+
 \end{document}

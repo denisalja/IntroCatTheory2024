@@ -219,11 +219,23 @@ linktoc=all
 \begin{document}
 \maketitle
 
+
+
 \section*{Introduction}
 
-These are course notes from the winter 2024 semester Category Theory course at Dalhousie university taught by Dorette Pronk. We follow Robin's notes \cite{Robin'sNotes} with occasional reference to Emily Riehl's book \cite{CatsinContext}. She gave us the option to give presentations/guest lectures to replace exams in the course. 
+These are course notes from the winter 2024 semester Category Theory course at Dalhousie university taught by Dorette Pronk. We follow Robin's notes~\cite{Robin'sNotes} with occasional reference to Emily Riehl's book~\cite{CatsinContext}. She gave us the option to give presentations/guest lectures to replace exams in the course.\par
 
-There are `analytic' and `synthetic' perspectives to category theory. An analytic point of view considers categories defined by their objects, arrows, and the structures they admit. This focuses more on the compositionality of relationships between the objects in a category. The synthetic point of view views categories as objects in a bigger categorical structure and studying them by the structure preserving relationships between them in that larger context. We begin with the analytic, peeking inside some familiar (concrete) categories and checking out the types of formal structures we can have when we have access to objects that are sets and have elements before defining generalized elements. After that we get more synthetic to talk about adjunctions and monads before finishing up with limits and colimits along with some relationships between the two perspectives. 
+There are `analytic' and `synthetic' perspectives to category theory. An analytic point of view considers categories defined by their objects, arrows, and the structures they admit. This focuses more on the compositionality of relationships between the objects in a category. The synthetic point of view views categories as objects in a bigger categorical structure and studying them by the structure preserving relationships between them in that larger context. We begin with the analytic, peeking inside some familiar (concrete) categories and checking out the types of formal structures we can have when we have access to objects that are sets and have elements before defining generalized elements. After that we get more synthetic to talk about adjunctions and monads before finishing up with limits and colimits along with some relationships between the two perspectives.\par
+
+\section*{A bit of History}
+
+This little summary is from Dorette's slides from her honours talk in Feb 2020. Category theory was developed for a couple of reasons. One was to contextualize the mathematical objects people cared about and study them in terms of their morphisms (Emmy Neother started this idea) and another was the idea of `natural' operations that we could perform on such objects. For example, functions between groups should preserve the group structure in order to be consider morphisms of groups and the isomorphisms between finite dimensional vector spaces and their duals depending on a chosen basis are instances of these ideas showing up. \par
+
+Category theory was particularly important in (re)developing the foundatinos of algebraic topology. Euler characteristic was the first known result of a `topological invariant.' Riemann studied connectivity of complex varieties (zero sets of polynomial equations); for example disconnecting a sphere can be done with one circle and disconnecting a torus requires at least two. M\"obius strips were a first instance of studying orientability of surfaces. Betti numbers were inspired by Riemann's connectivity of surfaces to quantify connectivity in higher dimensions using higher dimensional spheres and boundary relations. Poincare studies solutions to differential equations on algebraic varieties and found betti numbers played an important role in these questions; he introduced torsion coefficients to capture the monodromy. Nowadays we see Betti numbers as ranks of abelian groups that show up in the study of what we now know as (singular) hoomology.\par
+
+Emmy Noether was one of the first people to suggest studying the algebraic complexes associated to spaces, specifically we should study the `holes' in a complex directly as the equivalence classes of cycles in the complex modulo their boundaries. This also led to Alexandrov's theory of `continuous decompositions' which is essentially the perspective of (the image of) a continuous map as a bundle of fibers above points in its codomain. Homology doesn't intertwine the group structure and the topological structure, it relates continuous maps with group homomorphisms. 
+
+
 
 
 \section{`Analytic' Category Theory}
@@ -246,7 +258,7 @@ Here are bunch of examples you can verify yourself!
 \item Vaguely but more generally speaking the category of (algebraic thing) with (algebraic thing) homomorphisms is a category. There's a way to talk about these kinds of `algebraic theories' more generally that we'll encounter later in the course!
 \item Any directed multigraph can be made into a category by freely adding finite paths and identities. 
 \item The small categories $\mathbb{1}$ and $\mathbb{2}$ have as many objects and one less non-identity arrow. The first one is pictured below: 
-
+\item The category of topological spaces and continuous  maps between them is a category. 
 \[ \begin{tikzcd}
     A \arrow[loop right] 
 \end{tikzcd}\]
@@ -258,6 +270,8 @@ Here are bunch of examples you can verify yourself!
 
 
 \section{`Synthetic' Category Theory}
+
+A category is an object in the $2$-category of categories, functors, and natural transformations. 
 
 
 

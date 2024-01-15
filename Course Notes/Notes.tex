@@ -88,6 +88,8 @@ linktoc=all
 \newcommand{\Hom}{\text{Hom}}
 %
 \newcommand{\im}{\text{im}}
+
+\newcommand{\Rel}{\mathbf{Rel}}
 \newcommand{\PAb}{\mathbf{PAb}}
 \newcommand{\PSh}{\mathbf{PSh}}
 \newcommand{\Sh}{\mathbf{Sh}}
@@ -225,7 +227,9 @@ linktoc=all
 
 These are course notes from the winter 2024 semester Category Theory course at Dalhousie university taught by Dorette Pronk. We follow Robin's notes~\cite{Robin'sNotes} with occasional reference to Emily Riehl's book~\cite{CatsinContext}. She gave us the option to give presentations/guest lectures to replace exams in the course.\par
 
-There are `analytic' and `synthetic' perspectives to category theory. An analytic point of view considers categories defined by their objects, arrows, and the structures they admit. This focuses more on the compositionality of relationships between the objects in a category. The synthetic point of view views categories as objects in a bigger categorical structure and studying them by the structure preserving relationships between them in that larger context. We begin with the analytic, peeking inside some familiar (concrete) categories and checking out the types of formal structures we can have when we have access to objects that are sets and have elements before defining generalized elements. After that we get more synthetic to talk about adjunctions and monads before finishing up with limits and colimits along with some relationships between the two perspectives.\par
+Some people talk about `analytic' and `synthetic' perspectives to studying categories. To my understanding, the analytic perspective is to `analyze' categories but sudying their objects, arrows, and the structures/properties they have. This focuses more on the compositionality of relationships between the objects in a category. The synthetic perspective is more about viewing categories as the objects in a categorical context studying them in terms of the structure preserving maps into/out of them. \par 
+
+\noi We begin with the analytic, peeking inside some familiar (concrete) categories and checking out the types of formal structures we can have while having access to familiar objects with underlying sets containing elements. We shake off the elements with some interesting examples and discuss generalizations for such situations. After that we get more synthetic to talk about adjunctions and monads before finishing up with limits and colimits and some relationships between the two perspectives.\par
 
 \section*{A bit of History}
 
@@ -237,8 +241,7 @@ Emmy Noether was one of the first people to suggest studying the algebraic compl
 
 
 
-
-\section{`Analytic' Category Theory}
+\section{An `Analytic' Appraoch to Categories}
 
 A category is an abstract setting where `composition of functions' makes sense. 
 
@@ -254,25 +257,134 @@ For a category $\cC$, the objects are denoted $\cC_0$ and the arrows are denoted
 Here are bunch of examples you can verify yourself!
 \begin{enumerate}[label=(\alph*)]
 \item The category of sets and functions is a category with function composition. 
+
 \item The category of groups and group homomorphisms is a category again with function composition. 
+
 \item Vaguely but more generally speaking the category of (algebraic thing) with (algebraic thing) homomorphisms is a category. There's a way to talk about these kinds of `algebraic theories' more generally that we'll encounter later in the course!
-\item Any directed multigraph can be made into a category by freely adding finite paths and identities. 
+
+\item Any directed multigraph can be made into a category by freely adding finite paths and identities.
+ 
 \item The small categories $\mathbb{1}$ and $\mathbb{2}$ have as many objects and one less non-identity arrow. The first one is pictured below: 
-\item The category of topological spaces and continuous  maps between them is a category. 
+
 \[ \begin{tikzcd}
-    A \arrow[loop right] 
+  A \arrow[loop right] 
 \end{tikzcd}\]
 
+\item The category of topological spaces and continuous  maps between them is a category. 
+
 \item Any set with a pre-order defines a category whose objects are the elements of the set and whose arrows are determined by the pre-order relation. 
+
+\item If $\cC$ is a category and $X \in \cC_0$ is an object, the \textit{slice category over $X$}, $\cC/X$, has arrows in $\cC$ with codomain $X$ as its objects and commuting triangles (over $X$) in $\cC$ as its arrows. Composition and identities are inherited from $\cC$.
 \end{enumerate}
 
 \end{egs*}
 
 
-\section{`Synthetic' Category Theory}
+\subsection{January 12th}
+I missed this class for a tennis tournament, we wrote down some definitions and talked about the path category associated to a directed (multi)graph. We talked about $\mathbf{Rel}$ and $\mathbf{Par}$ as further examples.  
+
+\subsection{January 15th} 
+
+\begin{defn}
+The \textit{dual} of a category $\cC$ is denoted $\cC^{op}$. It has the same objects as $\cC$ and the arrows are determined by those in $\cC$ but are written in the opposite direction: 
+
+\[ \cC^{op} (A,B) = \cC (B,A) \]
+\end{defn}
+
+\begin{egs*}
+\begin{enumerate}
+\item Check that $\cC^{op}$ is in fact a category. 
+\item The category $\mathbf{Rel}$ is isomorphic to its opposite, $\mathbf{Rel}^{op}$. 
+\item The category $\mathbf{Mat(R)}$ has natural numbers as objects and arrows $m \to n$ are $n \times m$-matrices with coefficients in the ring $R$. Composition is matrix multiplication and identites are the identity matrices. 
+\end{enumerate}
+\end{egs*}
+
+Now that we have some examples of categories, let's look at some properties that arrows in a category may have. 
+
+\begin{defn}
+An arrow $f : A \to B$ is a \textit{monomorphism} if $g \circ f = h \circ f$ implies $g = h$. In pictures, if the diagram
+
+\[ \begin{tikzcd}
+  A \rar["f"] & B \rar[shift left, "g"] \rar[shift right, "h"'] & C
+\end{tikzcd}\]
+\noi commutes, then $g = h$. 
+\end{defn}
+
+\begin{egs*}
+What are the monomorphisms in $\Set$? $\Grp$? $\Rel$?  
+\end{egs*}
+
+\noi The dual notion of a monomorphism is an epimorphism. It can be defined as a monomorphism in the opposite category or that result can be proven from the following definition: 
+
+\begin{defn}
+An arrow $f : A \to B$ is an \textit{epimorphism} if $f \circ g = f \circ h \circ f$ implies $g = h$. In pictures, if the diagram
+
+\[ \begin{tikzcd}
+  C \rar[shift left, "g"] \rar[shift right, "h"'] & A \rar["f"] & B 
+\end{tikzcd}\]
+\noi commutes, then $g = h$. 
+\end{defn}
+
+\begin{egs*}
+  What are the epimorphisms in $\Set$? $\Grp$? $\Rel$?  
+\end{egs*}
+
+\begin{prop}
+The mono/epimorphisms in $\cC$ are precisely the epi/monomorphisms in $\cC^{op}$ respectively. 
+\end{prop}
+
+\begin{defn}
+An arrow with a left (post-compositional) inverse is called a \textit{retraction} and an arrow with a right (pre-compositional) inverse is called a \textit{section}. 
+\end{defn}
+
+\begin{egs*}
+An \textit{inverse} of an arrow is a left and a right inverse. Show that such an arrow is necessarily unique. 
+\end{egs*}
+
+\begin{defn}
+An \textit{isomorphism} is an arrow with a left and right inverse. 
+\end{defn}
+
+\begin{egs*}
+Find or construct a category with at least one arrow that's monic and epic but not an isomorphism. 
+\end{egs*}
+
+\begin{lem}
+If $g \circ f$ is monic then $f$ is monic and if $g \circ f$ is epic then $g$ is epic. 
+\end{lem}
+\begin{proof}
+These are dual statements, it suffices to prove one.
+\end{proof}
+
+\begin{lem}
+The following are equivalent: 
+\begin{enumerate}[label=(\alph*)]
+\item The map $f : A \to B$ is an isomorphism. 
+\item $f$ is an epic section 
+\item $f$ is a monic retraction 
+\end{enumerate}
+\end{lem}
+\begin{proof}
+\end{proof}
+
+\begin{defn}
+A \textit{subobject} is an equivalence class of monomorphisms with a common codomain. Two mono's with a common codomain represent the same subobject if they're isomorphic in the slice category over that coodmain. 
+\end{defn}
+
+
+
+\begin{defn}
+An \textit{idempotent} is an arrow $e : A \to A$ such that $e^2 = e$.
+\end{defn}
+
+\noi Dorette thinks about these as `really nice subobjects.'  We'll hear about why next class when we talk about partially defined maps a bit more. 
+
+
+\begin{comment}
+\section{A `Synthetic' Approach to Categories}
 
 A category is an object in the $2$-category of categories, functors, and natural transformations. 
-
+\end{comment}
 
 
 \end{document}

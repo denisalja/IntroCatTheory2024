@@ -225,11 +225,12 @@ linktoc=all
 
 \section*{Introduction}
 
-These are course notes from the winter 2024 semester Category Theory course at Dalhousie university taught by Dorette Pronk. We follow Robin's notes~\cite{Robin'sNotes} with occasional reference to Emily Riehl's book~\cite{CatsinContext}. She gave us the option to give presentations/guest lectures to replace exams in the course.\par
+These are course notes from the winter 2024 semester Category Theory course at Dalhousie university taught by Dorette Pronk. We follow Robin's notes~\cite{Robin'sNotes} with occasional reference to Emily Riehl's book~\cite{CatsinContext}. She gave us options to do seminar-style presentations or guest lectures to replace exams. 
 
-Some people talk about `analytic' and `synthetic' perspectives to studying categories. To my understanding, the analytic perspective is to `analyze' categories but sudying their objects, arrows, and the structures/properties they have. This focuses more on the compositionality of relationships between the objects in a category. The synthetic perspective is more about viewing categories as the objects in a categorical context studying them in terms of the structure preserving maps into/out of them. \par 
 
-\noi We begin with the analytic, peeking inside some familiar (concrete) categories and checking out the types of formal structures we can have while having access to familiar objects with underlying sets containing elements. We shake off the elements with some interesting examples and discuss generalizations for such situations. After that we get more synthetic to talk about adjunctions and monads before finishing up with limits and colimits and some relationships between the two perspectives.\par
+\noi Categories are a lot of things to a lot of people. They are places where mathematical objects are studied by structure preserving morphisms between them that satisfy some composition laws. Like the mathematical objects they so often contextualize, categories can be studied in terms of structure preserving morphisms between them in a `higher' categorical context! We'll get there eventually. 
+
+We begin with some familiar examples of (concrete) categories and check out some of the formal structures and properties they have, but first\dots
 
 \section*{A bit of History}
 
@@ -237,24 +238,36 @@ This little summary is from Dorette's slides from her honours talk in Feb 2020. 
 
 Category theory was particularly important in (re)developing the foundatinos of algebraic topology. Euler characteristic was the first known result of a `topological invariant.' Riemann studied connectivity of complex varieties (zero sets of polynomial equations); for example disconnecting a sphere can be done with one circle and disconnecting a torus requires at least two. M\"obius strips were a first instance of studying orientability of surfaces. Betti numbers were inspired by Riemann's connectivity of surfaces to quantify connectivity in higher dimensions using higher dimensional spheres and boundary relations. Poincare studies solutions to differential equations on algebraic varieties and found betti numbers played an important role in these questions; he introduced torsion coefficients to capture the monodromy. Nowadays we see Betti numbers as ranks of abelian groups that show up in the study of what we now know as (singular) hoomology.\par
 
-Emmy Noether was one of the first people to suggest studying the algebraic complexes associated to spaces, specifically we should study the `holes' in a complex directly as the equivalence classes of cycles in the complex modulo their boundaries. This also led to Alexandrov's theory of `continuous decompositions' which is essentially the perspective of (the image of) a continuous map as a bundle of fibers above points in its codomain. Homology doesn't intertwine the group structure and the topological structure, it relates continuous maps with group homomorphisms. 
+Emmy Noether was the first to suggest studying the algebraic complexes associated to spaces, specifically we should study the `holes' in a complex directly as the equivalence classes of cycles in the complex modulo their boundaries. This also led to Alexandrov's theory of `continuous decompositions' which is essentially the perspective of (the image of) a continuous map as a bundle of fibers above points in its codomain. Homology doesn't intertwine the group structure and the topological structure, it relates continuous maps with group homomorphisms. I'll ask for a link to her slides, anyway category theory will help us contextualize relationships between mathematical objects and state and prove more precise statements about them. 
 
 
+\section{Jan 8th}
 
-\section{An `Analytic' Appraoch to Categories}
-
-A category is an abstract setting where `composition of functions' makes sense. 
+A category is an abstract setting where \textit{composition} makes sense. 
 
 \begin{defn}
-A category is a directed multigraph along with an algebra of paths. 
+A category is a directed multigraph, $(\cC_0, \cC_1)$ along with an associative and unital algebra of paths. 
 \end{defn}
 
-\noi The directed multigraph tells you what the `objects' and `arrows' are and the algebra of paths determins the composition of arrows. \par 
+\noi The directed multigraph tells you what the `objects' and `arrows' are and the algebra of paths says arrows whose domain and codomain agree can be composed. The objects of $\cC$ are denoted $\cC_0$ and the arrows are denoted $\cC_1$. Let $d_0 : \cC_1 \to \cC_0$ denote the function that picks out the domain of an arrow and $d_1 : \cC_1 \to \cC_0$ the function that picks out the codomain. The path algebra says that for any $f, g \in \cC_1$, if $d_1(f) = d_0(g)$ then there exists a unique composite $g \circ f \in \cC_1$ whose domain and codomain agree with those of $f$ and $g$ respectively:
 
-For a category $\cC$, the objects are denoted $\cC_0$ and the arrows are denoted $\cC_1$. Let $d_0 : \cC_1 \to \cC_0$ denote the function that picks out the domain of an arrow and $d_1 : \cC_1 \to \cC_0$ the function that picks out the codomain. The path algebra says: for any $f, g \in \cC_1$, if $d_1(f) = d_0(g)$ then there exists a unique composite $g \circ f \in \cC_1$ whose domain and codomain agree with those of $f$ and $g$ respectively. Associativity of the path algebra encodes associativity of arrow  composition in the category $\cC$. The constant paths in the path algebra correspond to identity arrows in the category. \par 
+\[ \begin{tikzcd}[column sep = large, row sep = large]
+  A \rar["f"] \ar[dr, dashed, "g \circ f"'] & B \dar["g"] \\
+  & C
+\end{tikzcd}\]
+
+\noi Associativity of the path algebra encodes associativity of arrow  composition in the category $\cC$. 
+
+\[ h \circ (g \circ f) = (h \circ g) \circ f,\]
+
+\noi The constant paths in the path algebra correspond to identity arrows, $1_A : A \to A$, and satisfy an identity law,
+
+\[ 1_B \circ f = f = f \circ 1_A \]
+
+\noi for any $f : A \to B$.
 
 \begin{egs*}
-Here are bunch of examples you can verify yourself!
+Here are a bunch of examples you can verify yourself. To show something is a category you need to check there are well-defined objects, arrows, composition, identities, and that identity and associativity laws for composition hold. 
 \begin{enumerate}[label=(\alph*)]
 \item The category of sets and functions is a category with function composition. 
 
@@ -380,9 +393,12 @@ An \textit{idempotent} is an arrow $e : A \to A$ such that $e^2 = e$.
 \noi Dorette thinks about these as `really nice subobjects.'  We'll hear about why next class when we talk about partially defined maps a bit more. 
 
 
-\begin{comment}
-\section{A `Synthetic' Approach to Categories}
 
+
+
+
+\begin{comment}
+\section{}
 A category is an object in the $2$-category of categories, functors, and natural transformations. 
 \end{comment}
 

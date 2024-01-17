@@ -392,15 +392,82 @@ An \textit{idempotent} is an arrow $e : A \to A$ such that $e^2 = e$.
 
 \noi Dorette thinks about these as `really nice subobjects.'  We'll hear about why next class when we talk about partially defined maps a bit more. 
 
+\subsection{January 17th}
 
+\begin{egs*}
+Let $r : A \to B$ be a retraction of $s: B \to A$, a section. Then $r \circ s = 1$ implies $ (s \circ r)^2 = s \circ r$ is idempotent. 
+\end{egs*}
 
+\noi Not every subobject gives an idempotent because there may not be a projection onto that subobject; equivalently: not every projection has a global section. Idempotents that can be given this way are called $\textit{split idempotents}$. In $\Set$ for example, every idempotent $e : X \to X$ splits, via its image, as a retraction followed by a section: 
 
+\[ \begin{tikzcd} 
+  X \rar[rr, "e"] \ar[dr,two heads, "r_e"'] && X \\
+  & \im e  \ar[ur, hookrightarrow, "s_e"]
+\end{tikzcd}\]
 
+\noi where $r_e$ is just $e$ with a restricted codomain and $s_e$ is subset inclusion. 
 
-\begin{comment}
-\section{}
-A category is an object in the $2$-category of categories, functors, and natural transformations. 
-\end{comment}
+\begin{prop}
+Idempotent splittings are unique in the sense that for any two splittings $e = s \circ r$ and $e = r' \circ s'$ of an idempotent $e$ there exists a unique isomorphism $h : \dom s \to \dom s'$ such that $h \circ r = r'$ and $s' \circ h = s$. 
+\end{prop}
+\begin{proof}
+Define $h = r' \circ s$ and check that everything works. The inverse is $h^{-1} = r \circ s'$. 
+\end{proof}
 
+\begin{cor}
+Split idempotents correspond to subobjects. 
+\end{cor}
+
+\begin{defn}
+The universal way to split idempotents in a category $\cC$ is called the `Karoubi envelope.' This is a new category whose objects are the idempotents in $\cC$ and whose arrows $f : e_1 \to e_2$ are given by arrows $f : \dom e_1 \to \dom e_2$ in $\cC$ such that $e_2 \circ f \circ e_2 = f$ so the diagram 
+
+\[ \begin{tikzcd}[column sep = large, row sep = large]
+  A \dar["f"'] \ar[dr, "f"] \rar["e_1"] & A \dar["f"] \\
+  B \rar["e_2"'] & B 
+\end{tikzcd}\]
+\end{defn}
+
+Composition is given by stacking commuting squares
+
+\[ \begin{tikzcd}[column sep = large, row sep = large]
+  A \dar["f"'] \ar[dr, "f"] \rar["e_1"] & A \dar["f"] \\
+  B \rar["e_2"'] \dar["g"'] \ar[dr, "g"] & B \dar["g"] \\
+  C \rar["e_3"'] & C
+\end{tikzcd} = 
+\begin{tikzcd}[column sep = large, row sep = large]
+  A \dar["g \circ f"'] \ar[dr, "g \circ f"] \rar["e_1"] & A \dar["g \circ f"] \\
+  C \rar["e_3"'] & C 
+\end{tikzcd}\]
+
+\noi and the identity arrow on $e$ is $e$. 
+
+\[ \begin{tikzcd}[column sep = large, row sep = large]
+  A \dar["e"'] \ar[dr, "e"] \rar["e"] & A \dar["e"] \\
+  A \rar["e"'] & A 
+\end{tikzcd}\]
+
+\begin{egs*}
+For the category of open subsets of $\mR^n$ and the smooth functions between them, the Karoubi envelope is the category of (smooth) manifolds. This relies on the tubular neighborhood theorem for manifolds (that you can embed them in $\mR^n$ and thicken them with an interval to get an open subset of $\mR^n$). \par
+
+\noi In a similar fashion, vector bundles form the karoubi envolope of the category of trivial bundles. \par
+\end{egs*}
+
+The original category $\cC$ embeds into the Karoubi envelope: 
+
+\[ \cC \to Kar(\cC) \]
+
+\noi by sending each object to its identity map and arrows to the obvious squares. Notice this assignment preserves the `category structure{,}' namely identities and composition.\par 
+
+Split epimorphisms are exmaples of arrows that factor in a universal way as a composite of arrows from two special classes of arrows. A factorization system in a category describes when every arrow factors as a composite of two arrows from two special classes of arrows. An example of a factorization system in $\Set$ is the epi-mono factorization which comes from noticing that every function $f: A \to B$ factors as an epimorphism (given by restricting its codomain to the image) followed by a monomorphism (given by including the image as a subset). 
+
+\begin{defn}
+Let $\cE, \cM \subseteq \cC_1$ be two classes of arrows that are closed under composition and both containing the identity arrows. Then $\cC$ has an $\cE$-$\cM$ factorization system if every arrow in $\cC$ factors as a composite of an arrow in $\cE$ followed by an arorw in $\cM$ and this factorization is unique up to a unique map between the intermediate objects. We write arrows in $\cE$ with two heads and arrows in $\cM$ with tails, the universal property looks like: 
+
+\[\begin{tikzcd}
+  & X \ar[dr] & \\
+  A \ar[ur] \ar[dr] \rar[rr, "f"] && B \\
+  & Y \ar[ur] & 
+\end{tikzcd}\]
+\end{defn}
 
 \end{document}

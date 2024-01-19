@@ -463,11 +463,59 @@ Split epimorphisms are exmaples of arrows that factor in a universal way as a co
 \begin{defn}
 Let $\cE, \cM \subseteq \cC_1$ be two classes of arrows that are closed under composition and both containing the identity arrows. Then $\cC$ has an $\cE$-$\cM$ factorization system if every arrow in $\cC$ factors as a composite of an arrow in $\cE$ followed by an arorw in $\cM$ and this factorization is unique up to a unique map between the intermediate objects. We write arrows in $\cE$ with two heads and arrows in $\cM$ with tails, the universal property looks like: 
 
-\[\begin{tikzcd}
+\[\begin{tikzcd}[column sep = large, row sep= large]
   & X \ar[dr] & \\
   A \ar[ur] \ar[dr] \rar[rr, "f"] && B \\
-  & Y \ar[ur] & 
+  & Y \ar[ur]\ar[from=uu, bend right, crossing over, "\exists !" near end, "\cong"'] & 
 \end{tikzcd}\]
 \end{defn}
+
+\subsection{January 9th}
+
+Today we start with the notion of orthogonality (of arrows in a category). 
+
+\begin{defn}\label{def orthogonal arrows}
+Let $f : A \to B$ and $g : C \to D$ be two arrows in a category $\cC$. We say `$f$ is \textit{left orthogonal} to $g$' or `$g$ is \textit{right orthogonal} to $f${,}' and we write $f \perp g$ if every commutative diagram 
+
+\[ \begin{tikzcd}[column sep = large , row sep = large]
+  A \dar["f"'] \rar["h_1"] & C\dar["g"] \\
+  B \rar["h_2"'] & D
+\end{tikzcd}\]
+
+\noi has a unique filler 
+
+\[ \begin{tikzcd}[column sep = large , row sep = large]
+  A \dar["f"'] \rar["h_1"] & C\dar["g"] \\
+  B \ar[ur, dashed, "k"] \rar["h_2"'] & D
+\end{tikzcd}\]
+
+\noi making each of the triangles commute. 
+\end{defn}
+
+\begin{rem*}
+If $f \perp g$ in $\cC$ then $g^{op} \perp f^{op}$ in $\cC^{op}$. 
+\end{rem*}
+
+\begin{egs*}\
+\begin{enumerate}[label=(\alph*)]
+\item Every epimorphism is left orthogonal to every monomorphism in $\Set$. 
+\item For $f : \{0,1\} \to \{ *\}$ the right orthogonal arrows are functions with singleton fibers. This is required to ensure uniqueness of the filler since $h_1 : \{0,1\} \to C$ is able to separate points in $\cC$ and having singleton fibers is another way to say the function is injective. 
+\end{enumerate}
+\end{egs*}
+
+\noi We say $f$ is \textit{weakly} orthogonal to $g$ if the filler, $k$, in Definition \ref{def orthogonal arrows} exists but is not unique. 
+
+
+\begin{egs*}\
+  \begin{enumerate}[label=(\alph*)]
+  \item For $\emptyset \to \{*\}$ (in $\Set$), the weakly right orthogonal arrows are the surjective functions. The (strictly) right orthogonal arrows are the bijections. To see why, ask yourself `what do the fibers of such a map have to be?' 
+  \item In $\Top$, the weakly right orthogonal maps to the inclusion $\{0\} \hookrightarrow [0,1]$ are those that have the path lifting property with respect to that inclusion. This class includes the covering maps but it also contains more! 
+  \item 
+  
+  \end{enumerate}
+\end{egs*}
+
+
+
 
 \end{document}

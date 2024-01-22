@@ -516,6 +516,76 @@ If $f \perp g$ in $\cC$ then $g^{op} \perp f^{op}$ in $\cC^{op}$.
 \end{egs*}
 
 
+\subsection{January 22nd} 
 
+We have seen that in $\Set$ all epi's are left orthogonal to all mono's. In $\Set$, mono's are also weakly left orthogonal to epi's. 
+
+\bigdeni{Is this related to CSB? Definitely using AC to do this, and that implies CSB.}
+
+\begin{defn}
+Let $\cE, \cM \subseteq \cC_1$ be two classes of arrows in $\cC$. We say $\cE$ is left orthogonal to $\cM$ if every arrow in $\cE$ is left orthogonal to every arrow in $\cM$. 
+\end{defn}
+
+\noi What if we want to add stuff into $\cE$ and $\cM$? 
+
+\begin{defn}
+The class of arrows that are right orthogonal to all arrows in $\cE$ is denoted $\cE_\perp$. The class of arrows that are left orthogonal to all arrows in $\cM$ are denoted $\tensor[_\perp]{\cM}{}$.
+\end{defn}
+
+\begin{prop}
+For any class of arrows $\cE$ we have that $\cE_\perp$ contains all iso's, $ _\perp(\cE_\perp) \supseteq \cE.$
+\end{prop}
+\begin{proof}
+\end{proof}
+
+\begin{prop}
+The class of arrows left orthogonal to the class of isomorphisms is all of the arrows: $_\perp Iso = \cC_1$. 
+\end{prop}
+
+\begin{prop}
+Claim| $( _\perp(\cE_\perp) _\perp = \cE_\perp$
+\end{prop}
+\begin{proof}
+Suppose $A \subseteq A'$, then $A_\perp \supseteq A'_\perp$ and $_\perp A \supseteq \perp A'$ so that 
+
+\[ A \subseteq _\perp(A_\perp). \]
+\noi Applying $\perp$ once more on the right we get 
+\[ A_\perp \supseteq (_\perp (A_\perp))_\perp \]
+
+\noi and also we have $(\perp(A_\perp))_\perp \supseteq A_\perp$. This shows both subset inclusions and the equality follows. 
+\end{proof}
+
+\begin{prop}
+For any class of arrows $A$ there are two maximal classes of arrows $A_1$ and $A_2$ such that $(A_1)\perp = A_2$ and $_\perp(A_2) = A_1$ and $A_1 \supseteq A$. 
+\end{prop}
+\begin{proof}
+Let $A_1 = _\perp (A_\perp)$ and let $A_2 = A_\perp$. 
+\end{proof}
+
+\begin{lem}
+  Let $A \subseteq \cC_1$ be a class of arrows.
+\begin{enumerate}
+\item Isomorphisms are right (and left) orthogonal to $A$. \medskip 
+\item If $x \in A \cap A_\perp$ then $x$ is an iso. \medskip
+\item $A_\perp$ and ${_\perp}A$ are closed under composition. \medskip
+\item If $h \circ g \in A_\perp$ and $h$ is monic then $g \in A_\perp$. Is the dual statement: if $g \circ h \in {_\perp}A$ and $g$ is epic then $h \in  {_\perp}A$?  \medskip
+\item If $h \circ g \in A_\perp$ and $h \in A_\perp$ then $g \in A_\perp$. Write down the dual statement. 
+\end{enumerate}
+\end{lem}
+\begin{proof}
+Exercise in diagram chasing and unraveling definitions. 
+\end{proof}
+
+\begin{defn}
+A(n orthogonal) factorization system in a category $\cC$ is a pair $(\cE, \cM)$ of classes of arrows $\cE, \cM \subseteq \cC_1$ such that $\cE$ and $\cM$ contain all iso's, $\cE$ and $\cM$ are closed under composition, and every map $f$ factors as $f = g \circ h$ where $h \in \cE$ and $g \in \cM$ uniquely up to a unique isomorphism (between the mediating object(s) in the middle). 
+\end{defn}
+
+
+\begin{prop}
+If $(\cE, \cM)$ is a(n orthogonal) factorization system in $\cC$ then $\cE = {_\perp}\cM$ and $\cM = \cE_\perp$. 
+\end{prop}
+\begin{proof}
+Next class, or an exercise. 
+\end{proof}
 
 \end{document}

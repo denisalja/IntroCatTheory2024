@@ -503,7 +503,7 @@ If $f \perp g$ in $\cC$ then $g^{op} \perp f^{op}$ in $\cC^{op}$.
 \end{enumerate}
 \end{egs*}
 
-\noi We say $f$ is \textit{weakly} orthogonal to $g$ if the filler, $k$, in Definition \ref{def orthogonal arrows} exists but is not unique. 
+\noi We say $f$ is \textit{weakly} orthogonal to $g$ if the filler, $k$, in Definition~\ref{def orthogonal arrows} exists but is not unique. 
 
 
 \begin{egs*}\
@@ -520,7 +520,6 @@ If $f \perp g$ in $\cC$ then $g^{op} \perp f^{op}$ in $\cC^{op}$.
 
 We have seen that in $\Set$ all epi's are left orthogonal to all mono's. In $\Set$, mono's are also weakly left orthogonal to epi's. 
 
-\bigdeni{Is this related to CSB? Definitely using AC to do this, and that implies CSB.}
 
 \begin{defn}
 Let $\cE, \cM \subseteq \cC_1$ be two classes of arrows in $\cC$. We say $\cE$ is left orthogonal to $\cM$ if every arrow in $\cE$ is left orthogonal to every arrow in $\cM$. 
@@ -533,7 +532,7 @@ The class of arrows that are right orthogonal to all arrows in $\cE$ is denoted 
 \end{defn}
 
 \begin{prop}
-For any class of arrows $\cE$ we have that $\cE_\perp$ contains all iso's, $ _\perp(\cE_\perp) \supseteq \cE.$
+For any class of arrows $\cE$ we have that $\cE_\perp$ contains all iso's, $ {_\perp}(\cE_\perp) \supseteq \cE$.
 \end{prop}
 \begin{proof}
 \end{proof}
@@ -543,7 +542,7 @@ The class of arrows left orthogonal to the class of isomorphisms is all of the a
 \end{prop}
 
 \begin{prop}
-Claim| $( _\perp(\cE_\perp) _\perp = \cE_\perp$
+Claim| $ ({_\perp}(\cE_\perp))_\perp = \cE_\perp$
 \end{prop}
 \begin{proof}
 Suppose $A \subseteq A'$, then $A_\perp \supseteq A'_\perp$ and $_\perp A \supseteq \perp A'$ so that 
@@ -626,7 +625,7 @@ A(n orthogonal) factorization system in a category $\cC$ is a pair $(\cE, \cM)$ 
     \arrow["{\theta'}", dashed, from=3-3, to=2-2]
 \end{tikzcd}\]
 
-\noi By uniquness of the lifts we have that $\theta \circ \theta'  = k$ and we also have $\ell = \ell'$ as 
+\noi By uniqueness we have $\theta \circ \theta'  = k$ and consequently $\ell = \ell'$:
 
 \begin{align*}
 \ell 
@@ -637,7 +636,7 @@ A(n orthogonal) factorization system in a category $\cC$ is a pair $(\cE, \cM)$ 
 &= \ell' .
 \end{align*}
 
-\noi It follows that the lift is unique. \medskip 
+\noi It follows that the lift $\ell$ is unique. \medskip 
 
 \item Factor the vertical arrows in a commuting square, squish it into a (rectangular) lifting problem that can be uniquely solved.   
 \end{enumerate}

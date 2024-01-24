@@ -581,11 +581,109 @@ A(n orthogonal) factorization system in a category $\cC$ is a pair $(\cE, \cM)$ 
 \end{defn}
 
 
+\subsection{January 24th}
+
 \begin{prop}
-If $(\cE, \cM)$ is a(n orthogonal) factorization system in $\cC$ then $\cE = {_\perp}\cM$ and $\cM = \cE_\perp$. 
+  If $(\cE, \cM)$ is a factorization system in $\cC$ then
+  
+  \begin{enumerate}[label=(\alph*)]
+  \item $\cE $ is left orthogonal to $cM$
+  \item Factorizations extend to commutative squares.
+  \end{enumerate} 
+  \end{prop}
+  \begin{proof}
+  \begin{enumerate}
+    Consider the lifting problem: 
+    \[\begin{tikzcd}
+      A \rar["a"] \dar[two heads,"e"'] & A' \dar[tail, "m"] \\
+      B \rar["b"'] & B'
+      \end{tikzcd}\]
+
+  \noi where the two headed arrow is in $\cE$ and the arrow with a tail is in $\cM$. We factor both the top and bottom arrows and obtain a filler by uniqueness of factorizations: 
+
+  \[\begin{tikzcd}[column sep = large, row sep = large]
+    A \rar[two heads, "e_a"] \dar[two heads,"e"'] & E_A \rar[tail, "m_a"] &  A' \dar[tail, "m"] \\
+    B \rar[two heads, "e_b"'] & E_B \uar[dashed, "k"] \rar[tail, "m_b"] & B'
+    \end{tikzcd}\]
+
+  Notice $\ell = m_a \circ k \circ e_b$ solve the lifting problem. To see this solution is unique suppose there's another solution $\ell'$ and factor it
+
+  \[\begin{tikzcd}[column sep =huge, row sep = huge]
+    \bullet && \bullet && \bullet \\
+    & \bullet \\
+    \bullet && \bullet && \bullet
+    \arrow["e"', two heads, from=1-1, to=3-1]
+    \arrow["{e_a}", two heads, from=1-1, to=1-3]
+    \arrow["{e_{\ell'}}", two heads, from=3-1, to=2-2]
+    \arrow["\theta", dashed, from=2-2, to=1-3]
+    \arrow["{m_a}", tail, from=1-3, to=1-5]
+    \arrow["{m_{\ell'}}", tail, from=2-2, to=1-5]
+    \arrow["\ell"', bend left=-6, from=3-1, to=1-5]
+    \arrow["{\ell'}"', bend left=6, from=3-1, to=1-5]
+    \arrow["{e_b}"', two heads, from=3-1, to=3-3]
+    \arrow["{m_b}"', tail, from=3-3, to=3-5]
+    \arrow["m", tail, from=1-5, to=3-5]
+    \arrow["{\theta'}", dashed, from=3-3, to=2-2]
+\end{tikzcd}\]
+
+\noi By uniquness of the lifts we have that $\theta \circ \theta'  = k$ and we also have $\ell = \ell'$ as 
+
+\begin{align*}
+\ell 
+&= m_a \circ k \circ e_b \\
+&= m_a \circ \theta \circ \theta' \circ e_b \\
+&= m_{\ell'} \circ \theta \circ e_b \\
+&- m_{\ell'} \circ e_{\ell'}\\
+&= \ell' .
+\end{align*}
+
+\noi It follows that the lift is unique. \medskip 
+
+\item Factor the vertical arrows in a commuting square, squish it into a (rectangular) lifting problem that can be uniquely solved.   
+\end{enumerate}
+\end{proof}\medskip 
+
+\begin{defn}
+Given a class $\cE$ of maps we say that an arrow $f$ in in $\cC$ has a maximal $\cE$-factorization if it can be factors as $f = f' \circ e $ with $e \in \cE$ such that for all commutative squares there exists a unique filler as in the diagram below: 
+
+\[ \begin{tikzcd}[column sep = large, row sep = large]
+  \bullet \rar[] \dar[dd,"g'"'] & \bullet \dar["e"'] \\
+  & \bullet \dar["f"']\\
+  \bullet \ar[ur, dashed]\rar[] &\bullet
+\end{tikzcd}.\] 
+
+\noi We say $\cC$ has a maximal $\cE$-factorization if every arrow in $\cC$ has a maximal $\cE$-factorization. 
+\end{defn}
+
+\noi The dual concept is a \textit{maximal $\cM$-cofactorization system}.
+
+\begin{prop}
+The following are equivalent: 
+
+\begin{enumerate}
+\item There are two classes $\cE$ and $\cM$ such that 
+  \subitem $\cE$ is left orthogonal to $\cM$ 
+  \subitem $\cE$ is closed under (post-)composition with iso's. 
+  \subitem $\cM$ is closed under (pre-)composition with iso's. 
+  \subitem Each map $f$ can be factored as $f = m \circ e$ for $e \in \cE$ and $m \in \cM$.
+
+\item $(\cE, \cM)$ is a pair of maximal orthogonal classes of maps such that every map in $\cC$ factors as $m \circ e$ for some $m \in cM$ and $e \in cE$. 
+\item $\cE$ is a class of maps containing all iso's and closed under composition such that each map $f \in \cC$ can be factored as a maximal $\cE$-factorization 
+\item $\cM$ is a class of maps closed under composotion and containing all iso's such that every map factors as a maximal $\cM$-factorization. (dual to the previous one)
+\item $(\cE, \cM)$ is a factorization system. 
+\end{enumerate}
 \end{prop}
 \begin{proof}
-Next class, or an exercise. 
+Next class. 
 \end{proof}
+
+
+
+
+
+
+
+
+
 
 \end{document}

@@ -576,7 +576,7 @@ Exercise in diagram chasing and unraveling definitions.
 \end{proof}
 
 \begin{defn}
-A(n orthogonal) factorization system in a category $\cC$ is a pair $(\cE, \cM)$ of classes of arrows $\cE, \cM \subseteq \cC_1$ such that $\cE$ and $\cM$ contain all iso's, $\cE$ and $\cM$ are closed under composition, and every map $f$ factors as $f = g \circ h$ where $h \in \cE$ and $g \in \cM$ uniquely up to a unique isomorphism (between the mediating object(s) in the middle). 
+A factorization system in a category $\cC$ is a pair $(\cE, \cM)$ of classes of arrows $\cE, \cM \subseteq \cC_1$ such that $\cE$ and $\cM$ contain all iso's, $\cE$ and $\cM$ are closed under composition, and every map $f$ factors as $f = g \circ h$ where $h \in \cE$ and $g \in \cM$ uniquely up to a unique isomorphism (between the mediating object(s) in the middle). 
 \end{defn}
 
 
@@ -676,7 +676,31 @@ The following are equivalent:
 Next class. 
 \end{proof}
 
+\subsection{January 26th}
 
+Today we prove the previous lemma. Dorette wrote the proof down beforehand so I'm not going to live-TeX all of it, I'll just give sketches/hints.Before that, a correction from a couple classes back:
+
+Consider the lifting problem: 
+
+\[ \begin{tikzcd}
+  \{0,1\} \dar[] \rar[] & X \dar[] \\
+\{*\} \rar[] \ar[ur, dashed] & Y \end{tikzcd}\]
+
+\noi The square can only commute if the top horizontal arrow agrees on the fiber of $g$ above the point picked out by the bottom arrow. A lift such as the dashed line above then exists whenever $g$ only has empty or singleton fibers above each point. In this case weak orthogonality implies orthogonality. 
+
+\begin{proof}[(Sketch) of last Proposition]
+The third and fourth statements are duals so we only deal with the third. We show a chain of implications in the order they're stated skipped the fourth by duality. \bigskip
+
+For $(1)$ implies $(2)$ we only need to show maximality of either $\cE$ or $\cM$. We have one of the containments in the assumption so show the other one. For this you pick $g \in \cE$ or $\cM$, factor it, and find a lift to show one of the maps is a section/retraction (depending on which one you started proving). Use that unique lift to find a lift for another square with both sides of it given by the same factorization of $g$. This gives a way to write $g$ factoring through an iso and shows $g$ satisfies the required maximality property \bigskip 
+
+For $(2) \implies (3)$, `closed under composition' and `containing all iso's' was proved in a previous class so we only need to show that the factorization is maximal. Play two factorizations against each other to set up a lifting problem with a unique solution. We ran into some issues with this proof so we're leaving it as an exercise. 
+
+For $(3) \implies (5)$, suppose you have $\cE$ and define $\cM$ to be all the maps whose maximal factorization, $f = f' \circ e$ has $e$ being an isomorphism. Check all the axioms for a factorization system are defined using the maximality property of the factorization $\cE$-factorizations. 
+
+For $(5) \implies (1)$, suppose you have a factorization system. We only need to show $\cE$ is left orthogonal to $\cM$. Set up the lifting problem, factor the horizontal arrows and use closure under composition of $\cE$ and $\cM$ along with uniqueness of factorizations to solve the lifing problem uniquely. 
+
+
+\end{proof}
 
 
 

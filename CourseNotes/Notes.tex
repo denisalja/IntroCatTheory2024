@@ -72,6 +72,7 @@ linktoc=all
 \newcommand{\cB}{{\mathcal B}}
 \newcommand{\cP}{{\mathcal P}}
 \newcommand{\cC}{{\mathcal C}}
+\newcommand{\cD}{{\mathcal D}}
 \newcommand{\cU}{{\mathcal U}}
 \newcommand{\cE}{{\mathcal E}}
 \newcommand{\cM}{{\mathcal M}}
@@ -702,9 +703,42 @@ For $(5) \implies (1)$, suppose you have a factorization system. We only need to
 
 \end{proof}
 
+\subsection{Jan 29}
 
+Snow day and Dorette was sick so no class.
 
+\subsection{Jan 31st}
 
+One last thing about factorization systems: 
+
+\begin{lem}
+If $(\cE, \cM)$ is a factorization system for $\cC$ then 
+
+\begin{enumerate}
+\item If $g \circ f \in \cM$ and $g \in \cM$ then $f \in \cM$
+\item If $g \circ f \in \cM$ and $f \in \cE$ then $g \in \cE$
+\item $\cM$ contains all sections iff all $\cE$ maps that are sections are iso's. 
+\item $\cE$ contains all retractions iff all $\cM$ maps that are retractions are iso's. 
+\end{enumerate}
+\end{lem}
+\begin{proof}
+\end{proof}
+
+\begin{egs*}
+Isomorphisms with all the other arrows in any category (in either order) forms a factorization system. Epimorphisms and monomorphisms in $\Set$, $\Grp$, $\Top$, form factorization systems and in the category of rings localizations and conservative morphisms form another important one in algebraic geometry. 
+\end{egs*}
+
+\begin{defn}
+A functor $F : \cC \to \cD$ assigns objects to objects and arrows to arrows 
+
+\[ F_0 : \cC_0 \to \cD_0 , \quad F_1 : \cC_1 \to \cD_1\]
+
+\noi such that domains, codomains, identities, and composition are all preserved. 
+\end{defn}
+
+\begin{egs*}
+We can pick out objects, arrows, isomorphisms, in a category by looking at functors into out from $\mathbb{1}, \mathbb{2},$ and the `walking isomorphism' category (with 2 objects and 2 non-identity arrows that mutually inverse). 
+\end{egs*}
 
 
 

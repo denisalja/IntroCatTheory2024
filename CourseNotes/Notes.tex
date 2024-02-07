@@ -780,9 +780,53 @@ We say $\varphi$ is \textit{conservative} if it doesn't create new inverses, ie.
 \end{tikzcd}\]
 
 \noi From here we can see that every ring homomorphism factors as a localization followed by a conservative map: given $\varphi : A \to B$ take $S$ to be the set of all $a \in A$ such that $\varphi$ inverts $A$; this set has no zero-divisors and the unique map induced by the localization in the diagram above doesn't create new inverses because everyone who could've been inverted already was. As a result we get a factorization system of localizations and coservative ring homomorphisms. 
+\end{eg*}
 
 \begin{rem}
-This works for rings. A similar localization construction works for categories but we can't do quite the same thing to make a factorization system; we need to take a colimit of all the factorizations. 
+The previous factorization system example works for rings. A similar localization construction works for categories but we can't do quite the same thing to make a factorization system; we need to take a colimit of all the factorizations. 
 \end{rem}
-\end{eg*}
+
+\begin{defn}
+A \textbf{subcategory} $\cA$ of a category $\cB$ consists of a collection of objects and arrows in $\cB$ that contains all identities and is closed under composition. 
+\end{defn}
+
+Note that if $f : A \to A'$ is monic in $\cA$ then it doesn't need to be monic in $\cB$ necessarily, as $\cB$ could have more arrows than $\cA$ that mess things up. However, if $g : B \to B'$ is monic in $\cB$ and contained in $\cA$ then it's still monic in $\cA$ because it satisfied a stronger condition in $\cB$. \medskip 
+
+In general, when we look at functors $F: \cA to \cB$ we often ask whether they \textit{preserve} or \textit{reflect} certain properties. 
+
+\begin{defn}
+A functor $F : \cA \to \cB$ \textbf{preserves} property $P$ if $F(f)$ has property $P$ whenever $f$ has property $P$. \medskip 
+
+It \textbf{reflects} property $P$ if $f$ has property $P$ whenever $F(f)$ has property $P$. 
+\end{defn}
+
+\begin{egs*}
+All functor preserve isomorphisms. Localizations wouldn't be very interesting if all functors reflected isomorphisms. An explicit counter example is any functor out of the walking arrow category that picks out an isomorphism, pick your favourite one. \medskip 
+
+Monomorphisms don't necessarily get preserved or reflected by arbitrary functors. Counter-examples will be in the next assignment.\medskip 
+\end{egs*}
+
+\noi Let's look at some properties of functors. Monic, epic, and iso are all standard properties of arrows in a category. Similar properties exist for functors but there are some subtle variations. 
+
+\begin{defn}
+A functor $F : \cA \to \cB$ is \textbf{full} if all of the induced functions on hom-sets 
+
+\[ \cA(A, A') \to \cB(FA, FA')\]
+
+\noi are surjective. 
+\end{defn}
+
+\begin{defn}
+A functor $F : \cA \to \cB$ is \textbf{faithful} if all of the induced functions on hom-sets 
+
+  \[ \cA(A, A') \to \cB(FA, FA')\]
+  
+\noi are injective. 
+\end{defn}
+
+\begin{defn}
+A functor $F : \cA \to \cB$ is \textbf{essentially surjective} if for each $A \in \cA$ there exists some $B \in \cB$ and an isomorphism $FA \cong B$. 
+\end{defn}
+
+
 \end{document}

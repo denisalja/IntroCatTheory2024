@@ -745,6 +745,29 @@ We can pick out objects, arrows, isomorphisms, in a category by looking at funct
 
 \subsection{Feb 7}
 
+We're wrapping up a proof from the factorization system business. Namely that given a maximal $\cE$-factorization for every arrow we can define $\cM$ to be the arrows whose maximal $\cE$-factorizations have an isomorphism as the $\cE$-factor in the factorizaiton. \medskip 
 
+To see we can $\cE$-$\cM$ factorizations notice we can factor maximal $\cE$-factorizations, $f = f' \circ e$, twice by factoring the non-$\cE$ factor, $f' = f'' \circ e'$. Then show $e'$ is an isomorphism by leveraging the modified lifting property in the square: 
 
+\[\begin{tikzcd}[column sep = large, row sep = large]
+	\bullet & \bullet \\
+	\bullet & \bullet \\
+	\bullet & \bullet
+	\arrow["e"', from=1-1, to=2-1]
+	\arrow["{e'}"', from=2-1, to=3-1]
+	\arrow["k", dashed, from=3-1, to=2-2]
+	\arrow[equals, "", from=1-1, to=1-2]
+	\arrow["e", from=1-2, to=2-2]
+	\arrow["{f'}", from=2-2, to=3-2]
+	\arrow["{f''}"', from=3-1, to=3-2]
+	\arrow[dashed, from=2-1, to=2-2]
+\end{tikzcd}\]
+
+\noi Now show $k \circ e' =1$ and $e' \circ k = 1$ by chasing diagrams/equations. That concludes the proof. \bigskip 
+
+\begin{eg*}
+Let $\varphi : A \to B$ be a ring homomorphism between unital commutative rings. We say $\varphi$ \textit{inverts} $a \ in A$ if $\varphi(a)$ is invertible in $B$. \medskip 
+
+We say $\varphi$ is conservative if it doesn't create new inverses, ie.~if $\varphi$ inversts $a$ then $a$ is invertible in $A$. 
+\end{eg*}
 \end{document}

@@ -768,6 +768,21 @@ To see we can $\cE$-$\cM$ factorizations notice we can factor maximal $\cE$-fact
 \begin{eg*}
 Let $\varphi : A \to B$ be a ring homomorphism between unital commutative rings. We say $\varphi$ \textit{inverts} $a \ in A$ if $\varphi(a)$ is invertible in $B$. \medskip 
 
-We say $\varphi$ is conservative if it doesn't create new inverses, ie.~if $\varphi$ inversts $a$ then $a$ is invertible in $A$. 
+We say $\varphi$ is \textit{conservative} if it doesn't create new inverses, ie.~if $\varphi$ inversts $a$ then $a$ is invertible in $A$. If $S \subseteq A$ has no zero-divisor (and multiplicatively closed) then there exists a ring $S^{-1} A$ and ring homomorphism 
+
+\[ \ell : A \to S^{-1} A\]
+
+\noi called the \textit{localization of $S$} satisfying the universal property that for any $\varphi : A \to B$ that inverts all the elements of $S$ there exists a unique map $S^{-1} A \to B$ factoring $\varphi$ through $\ell$: 
+
+\[ \begin{tikzcd}
+  A \ar[dr, "\ell"'] \rar[rr, "\varphi"] && B \\
+  & S^{-1}A \ar[ur, dashed, "\exists !"']
+\end{tikzcd}\]
+
+\noi From here we can see that every ring homomorphism factors as a localization followed by a conservative map: given $\varphi : A \to B$ take $S$ to be the set of all $a \in A$ such that $\varphi$ inverts $A$; this set has no zero-divisors and the unique map induced by the localization in the diagram above doesn't create new inverses because everyone who could've been inverted already was. As a result we get a factorization system of localizations and coservative ring homomorphisms. 
+
+\begin{rem}
+This works for rings. A similar localization construction works for categories but we can't do quite the same thing to make a factorization system; we need to take a colimit of all the factorizations. 
+\end{rem}
 \end{eg*}
 \end{document}

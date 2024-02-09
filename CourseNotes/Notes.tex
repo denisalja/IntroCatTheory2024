@@ -825,8 +825,86 @@ A functor $F : \cA \to \cB$ is \textbf{faithful} if all of the induced functions
 \end{defn}
 
 \begin{defn}
-A functor $F : \cA \to \cB$ is \textbf{essentially surjective} if for each $A \in \cA$ there exists some $B \in \cB$ and an isomorphism $FA \cong B$. 
+A functor $F : \cA \to \cB$ is \textbf{essentially surjective} if for all $B \in \cB$ there exists an isomorphism $FA \cong B$ for some $A \in \cA$. 
 \end{defn}
+
+
+\subsection{Feb 9}
+
+\begin{defn}
+A functor $F$ is \textbf{replete} if its image is closed under isomorphism. That is, whenever $B \cong FA$ there exists a $A'$ such that $B = FA'$. 
+\end{defn}
+
+\begin{rem}
+A \textbf{contravariant functor} $\cC \to \cD$ is a functor $\cC^{op} \to \cD$; it flips the direction of arrows. 
+\end{rem}
+
+\begin{egs*}\
+\begin{enumerate}
+\item Functors $\mB G \to \mB H$ correspond to group homomorphisms $G \to H$. \medskip
+
+\item The assignment $\mB(-) : \Grp \to \Cat$ is a functor sending each group $G$ to its \textit{delooping} $\mB G$. As mentioned, group homomorphisms get mapped to functors between the groupoids.  \medskip
+
+\item If $P$ and $Q$ are preorders regarded as categories, the functors between them are precisely the order-preserving functions between them. \medskip 
+
+\item Representing a preorder as a category is a functor from the cateogory of pre-ordered sets with order preserving functions to $\Cat$. \medskip 
+
+\item For any category $\cC$ there's a unique functor 
+\[ ! : \cC \to \mathbb{1} \]
+\noi For this reason we call $\mathbb{1}$ the \textbf{terminal category}. \medskip 
+
+\item Similarly there's a unique functor to any category $\cC$ from the empty category $\emptyset$
+\[ \emptyset \to \cC \]
+\noi which gives us reason to call $\emptyset$ the \textbf{initial category}. \medskip 
+
+\item Consider the power-set functor
+\[ \cP : \Set \to \Set \] 
+\noi that sends functions $f : A \to B$ to the functions $\cP(f)$ defined on $U \subseteq A$ to its image in $B$
+\[ \cP(f)(U) = f(U) \subseteq B . \]
+\noi It's a routine exercise to check this preserves identities and composition. \medskip
+
+\item Consider the other power-set functor 
+\[ \cP^* : \Set^{op} \to \Set \]
+\noi defined on functions $f : A \to B$ by the pre-image: $\cP^*(f) : \cP(B) \to \cP(A)$ defined on $V \subseteq B$ by 
+\[ \cP^*(f) (V) = f^{-1}(V).\]\medskip 
+
+\item Consider yet another power-set functor
+
+\[ \cP : \Rel \to \Set \]
+
+\noi defined by sending sets to their power sets and relations between them to their images: $R \subseteq A \times B$ 
+
+\[ \cP(R) (U) = \{ b \in B \ | \ \exists a \in A . a R b \} \]\medskip 
+
+\item Remember the arrow category $\cC^{\mathbf{2}}$. The reason we use this notation is because arrows in $\cC$ correspond precsiely to functors 
+
+\[ \mathbf{2} \to \cC \]
+\noi where $\mathbf{2}$ is the walking arrow category. \medskip
+
+\item There's a functor
+\[ \cC \to \cC^\mathbf{2} \]
+
+\noi which sends objects to their identity arrows and arrows between them to the obvious commuting squares and there are two different functors 
+\[ \cC^\mathbf{2} \to \cC \]
+\noi given by projecting onto the domain and codomain components respectively. 
+\end{enumerate}
+\end{egs*}
+
+There are several factorization systems on $\Cat$ and for that reason there are several ways of talking about `the image' of a functor. For instance, we'll talk about the `replete image' of a functor in these terms later. 
+
+\begin{prop}
+Let $\cE \subseteq \Cat_1$ denote the functors that are full and bijective on objects. The right class $\cM \subseteq \Cat_1$ consists of the faithful functors. This is a factorization system on $\Cat$. 
+\end{prop}
+\begin{proof}
+Solving the lifting problem is left as an exercise. Dorette shows the factorization. For $F : \cC \to \cD$ we factor $F$ through the localization of $\cC$ by the congruence relation 
+
+\[ f \tilde g \iff F(f) = F(g).\]
+\end{proof}
+
+\begin{defn}
+The \textbf{localization} of $\cC$ by a congruence on hom-sets is the category whose objects are those of $\cC$ and whose arrows are equivalence classes in the hom-set quotients. 
+\end{defn}
+
 
 
 \end{document}

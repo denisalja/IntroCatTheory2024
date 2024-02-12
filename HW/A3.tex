@@ -317,7 +317,7 @@ These are all functorial on the discrete category of groups in a trivial way. Is
 \end{prob}
 \begin{proof}\
 \begin{enumerate}[label=(\alph*)]
-\item Assigning each group $G \in \Grp_0$ its commutator subgroup $C(G)$ is functorial on all of $\Grp$. For $\varphi : G \to H$ we can define $C(\varphi)$ on the generators of $C(G)$ by applying $\varphi$
+\item Assigning each group $G \in \Grp_0$ its commutator subgroup $C(G)$ is functorial on all of $\Grp$ (and therefore any of its subcategories). For $\varphi : G \to H$ we can define $C(\varphi)$ on the generators of $C(G)$ by applying $\varphi$
 
 \[ 
 C(\varphi)(ghg^{-1}h^{-1}) 
@@ -376,9 +376,7 @@ Let $\varphi : G \to H$ be a group homomorphism. Then $g \in Z(G)$ whenver it co
 &=  \psi^{-1} \circ \varphi^{-1} \circ \alpha \circ \varphi \circ \psi \\
 &=   \psi^{-1} \circ \Aut(\varphi) (\alpha) \circ \psi \\
 &= \Aut(\psi) \circ \Aut(\varphi) (\alpha).
-\end{align*}\medskip 
-
-\noi The automorphism group assignment is not functorial on the subcategory of epimorphisms in $\Grp$ so it's not functorial on all of $\Grp$. 
+\end{align*} 
 \end{enumerate}
 \end{proof}
 

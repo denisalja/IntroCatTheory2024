@@ -898,13 +898,93 @@ Let $\cE \subseteq \Cat_1$ denote the functors that are full and bijective on ob
 \begin{proof}
 Solving the lifting problem is left as an exercise. Dorette shows the factorization. For $F : \cC \to \cD$ we factor $F$ through the localization of $\cC$ by the congruence relation 
 
-\[ f \tilde g \iff F(f) = F(g).\]
+\[ f \sim g \iff F(f) = F(g).\]
+
+\noi Another way to define this is by taking hom-sets to be the images of hom-sets in $\cC$ under $F$. The identification above happens implicitly then and we need to check that the composition is well-defined on representatives (in $\cC$) of maps in the image of $F$. Functoriality ensures the composition (and identities) are in fact well-defined.
 \end{proof}
 
+
+
+\subsection{February 12th}
+
+Finishing up the last proposition and then looking at a parallel example of localization in $\Set$ factoring maps in $\Set$ through their images. This is another way to think of the isomorphism theorems 
+
+\[ \begin{tikzcd}
+  A \ar[dr,two heads] \rar[rr, "f"] &&B \\
+  & A/ \sim_f \ar[ur, tail] &
+\end{tikzcd}\]
+
+\noi This idea generalizes to categories; namely the localization of a category. The equivalence relations defined on the hom-sets need to `play nicely' with the composition operation. In particular we need the equivalence relation to be a \textbf{congruence} on the hom-sets: if $f \sim g$ then 
+
+\[ f \circ \ell \sim g \circ \ell , \quad k \circ f \sim k \circ g \]
+
+\noi for any composable $k$ and $\ell$. Now the definition of a localization makes sense: 
+
+
 \begin{defn}
-The \textbf{localization} of $\cC$ by a congruence on hom-sets is the category whose objects are those of $\cC$ and whose arrows are equivalence classes in the hom-set quotients. 
+The \textbf{localization} of $\cC$ by a \textit{congruence} on hom-sets is the category whose objects are those of $\cC$ and whose arrows are equivalcence classes in the hom-set quotients. 
+\end{defn}  
+
+Here are some other examples of facrization systems on $\Cat$. Some of these are from Robin's notes, some are from Andre Joyal's `catlab' blog. Feel free to google that, there's lots of cool stuff there.
+
+\begin{egs*}
+\begin{enumerate}
+\item Let $\cE$ denote the essentially surjective functors and let $\cM$ be the replete, fully faithful, and injective on objects.  \medskip  
+\item Let $\cE$ be the functors that are surjective on objects and let $\cM$ be the functors that are fully faithful and monic on objects. For $F : \cA \to \cB$ a functor, the intermediate category for this factorization has objects given by 
+
+\[ F_0(\cA_0) \cup \{ B \in \cB_0 | \ \exists A \in \cA_0 . B \cong F(A)  \}\] 
+
+\noi We needed the entire essential image of $F$ in $\cB$ for the objects, then take the of subcategory  $\cC$ that makes the inclusion fully faithful.This is called the \textbf{replete image} of $F$. \medskip 
+\end{enumerate}
+\end{egs*}
+
+Now let's talk about functors in more than one variable. 
+
+\[ F : \cA \times \cB \to \cC \]
+
+\noi where $\cA \times \cB$ has objects $\cA_0 \times \cB_0$ and arrows $\cA_1 \times \cB_1$ with composition and identities defined coordinate-wise. \medskip 
+
+\noi Notice that for each $A \in \cA_0$ we get a functor 
+
+\[ F (A, -) : \cB \to \cC .\]
+
+\noi Similarly for each $B \in \cB_0$ we get a functor 
+
+\[ F(- , B) : \cA \to \cC .\]
+
+\noi Functoriality in each coordinate is not enough to give functoriality on the product, we also need that they play nicely together. More precisely we need that $F_A (B) = F_B(A)$ agree on objects and that for $f : A \to A'$ in $\cA$ and $g : B \to B'$ in $\cB$ we require
+
+\[ F_{A'}(g) \circ F_{B'}(f) = F_{B'}(f) \circ F_{A} (g) \]
+
+\noi to ensure 
+
+\[ F(1_{A'}, g) \circ F(f, 1_B) = F(f,g) = F(f, 1_{B'}) \circ F(1_A, g)\]
+
+\noi is well-defined. \bigskip 
+
+\begin{defn}
+\textbf{Natural transformations} are structure-preserving maps between functors $F, G : \cA \to \cB$. A natural transformation $\alpha : F \implies G$ is a family of arrows 
+
+\[ (\alpha_A : F(A) \to G(A))_{A \in \cA_0 }\subseteq \cB_1\]
+
+\noi such that the following \textit{naturality square} commutes in $\cB$: for all $f : A \to A'$ in $\cA$, 
+
+\[ \begin{tikzcd}[column sep = large, row sep = large]
+F(A) \dar["F(f)"'] \rar["\alpha_A"] & G(A) \dar["G(f)"] \\
+F(A') \rar["\alpha_{A'}"'] & G(A')
+\end{tikzcd} 
+\] 
 \end{defn}
 
+\begin{prop}
+Natural transformations $\alpha : F \implies G$ can also be defined indexed by the families of arrows 
+
+\[ (\alpha_f : F(A) \to G(A'))_{f \in \cA_1}\]
+
+\noi such that a similar condition recovering naturality commutes. 
+\end{prop}
+\begin{proof}
+\end{proof}
 
 
 \end{document}

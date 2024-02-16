@@ -983,8 +983,6 @@ Natural transformations $\alpha : F \implies G$ can also be defined indexed by t
 
 \noi such that a similar condition recovering naturality commutes. 
 \end{prop}
-\begin{proof}
-\end{proof}
 
 
 
@@ -1043,17 +1041,18 @@ HGY \rar["\beta_{GY}"'] & KGY
   \rar[Rightarrow, "H\circ \alpha"]
    \dar[Rightarrow, "\beta_F"'] 
    & H \circ G \dar[Rightarrow, "\beta_G" ] \\
-  K \circ F \rar[Rightarrow, "K(\alpha)"'] & K \circ G 
+  K \circ F \rar[Rightarrow, "K\circ \alpha"'] & K \circ G 
 \end{tikzcd}\]
 
 \noi To see these definitions agree we need to check their components are equal, namely that the square 
 
 \[ \begin{tikzcd}[column sep = large, row sep = large]
-  H\circ F (X) \dar["\beta_{FX}"']  \rar["H(\alpha_X)"] & H \circ G (X) \dar["\beta_{GX}"] \\
+  H\circ F (X) \dar["\beta_{F(X)}"']  \rar["H(\alpha_X)"] & H \circ G (X) \dar["\beta_{G(X)}"] \\
   K \circ F (X) \rar["K(\alpha_X)"'] & K \circ G (X)
 \end{tikzcd}\]
 
 \noi commutes fpr each $X \in \cA_0$. All these squares commute because they are precisely the naturality squares of $\beta$ associated to the components of $\alpha$. If natural transformations are new to you and you need it to look exactly like the definition just redraw the square with the $\beta$'s horizontally instead of vertically.
+
 
 
 \begin{comment}

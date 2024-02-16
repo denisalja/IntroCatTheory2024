@@ -1009,11 +1009,11 @@ FY \rar["\alpha_Y"'] & GY
 F Y \ar[rr, bend right, "(\gamma\circ \alpha)_Y"'] \rar["\alpha_Y"'] & GY \rar["\gamma_Y"]& HY
 \end{tikzcd}.\]
 
-\noi The identity transformation on a functor $F$ consists of identity components $1_F = (1_{F(X)})_{X \in \cA_0}$. This makes the category of functors $\Cat(\cA, \cB)$ into a category. To view $\Cat$ as a category enriched in $\Cat$ we need to define a composition functor \textit{functor} 
+\noi The identity transformation on a functor $F$ consists of identity components $1_F = (1_{F(X)})_{X \in \cA_0}$. This makes the collection of functors from $\cA$ to $\cB$, $\Cat(\cA, \cB)$, into a category. We know how to compose functors in $\Cat$ 
 
 \[ \Cat(\cB, \cC) \times \Cat(\cA, \cB) \to \Cat(\cA,\cB).\]
 
-\noi On functors it's defined by composition of functors but on arrows there are two ways to define this `horizontal' composition. To see where two possible definitions come from suppose $\alpha : F \implies G$ and $\beta : H \implies K$ are natural transformations where $F,G \in \Cat()\cA, \cB)$ and $H,K \in \Cat( \cB, \cC)$. Functors preserve commuting diagrams so applying $H$ and $K$ to the naturality squares of $\alpha$ in $\cB$ gives new commuting squares 
+\noi and if these homs are categories we could expect the composition of functors above to extend to a functor on the natural transformations as well. This \textbf{horizontal} composition can be defined in two ways. To see where the two possible definitions come from suppose $\alpha : F \implies G$ and $\beta : H \implies K$ are natural transformations where $F,G \in \Cat(\cA, \cB)$ and $H,K \in \Cat( \cB, \cC)$. Functors preserve commuting diagrams so applying $H$ and $K$ to the naturality squares of $\alpha$ in $\cB$ gives new commuting squares 
 
 \[ \begin{tikzcd}
   HFX \rar["H\alpha_X"] \dar["HFf"'] & HGX \dar["HGf"] \\

@@ -986,4 +986,200 @@ Natural transformations $\alpha : F \implies G$ can also be defined indexed by t
 \begin{proof}
 \end{proof}
 
+
+
+
+\subsection{Feb 16}
+
+A natural transformation $\alpha : F \implies G$ between functors $F, G : \cA \to \cB$ is a family of maps $\alpha_X : F(X) \to G(X)$ satisfying a naturality condition: for all $f : X \to Y$ in the domain of $F$ and $G$ 
+
+\[ \begin{tikzcd}
+  FX \rar["\alpha_X"] \dar["Ff"'] & GX \dar["Gf"] \\
+FY \rar["\alpha_Y"'] & GY
+\end{tikzcd}.\]
+
+\noi We call the maps $\alpha_X$ the \textbf{components} the $\alpha$. Vertical composition of natural transformations is given by composing their components in $\cB$. Naturality follows from pasting naturality squares in $\cB$. The identity transformations have identities for components. This makes the category of functors $\Cat(\cA, \cB)$ into a category. To view $\Cat$ as an \textit{enriched} category we need to define a composition functor 
+
+\[ \Cat(\cB, \cC) \times \Cat(\cA, \cB) \to \Cat(\cA,\cB).\]
+
+\noi We've defined this for objects already. On arrows this is defined by horizontal composition of natural transformations. There are two ways to define this composition. Suppose $\alpha : F \implies G$ and $\beta : H \implies K$ are natural transformations where $F: \cA \to \cB$ and $H: \cB \to \cC$. Applying $H$ and $K$ to the naturality squares in $\cB$ gives naturality squares 
+
+\[ \begin{tikzcd}
+  HFX \rar["H\alpha_X"] \dar["HFf"'] & HGX \dar["HGf"] \\
+HFY \rar["H\alpha_Y"'] & HGY
+\end{tikzcd}\qquad ; \qquad 
+\begin{tikzcd}
+  KFX \rar["K\alpha_X"] \dar["KFf"'] & KGX \dar["KGf"] \\
+KFY \rar["K\alpha_Y"'] & KGY
+\end{tikzcd}\]
+
+
+\noi which describe so-called whiskering $\alpha$ by $H$ and $K$, denoted somewhat abusively as composition $H \circ \alpha : H \circ F \implies H \circ G$ and $k \circ \alpha : K \circ F \implies K \circ G$. Naturality of $\beta$ 
+
+\[ \begin{tikzcd}
+  HFX \rar["\beta_{FX}"] \dar["HFf"'] & KFX \dar["KFf"] \\
+HFY \rar["\beta_{FY}"'] & KFY
+\end{tikzcd}\qquad ; \qquad 
+\begin{tikzcd}
+  HGX \rar["\beta_{GX}"] \dar["HGf"'] & KGX \dar["KGf"] \\
+HGY \rar["\beta_{GY}"'] & KGY
+\end{tikzcd}\]
+
+\noi gives us natural transformations $\beta_F: H\circ F \implies K \circ F$ and $\beta_G: H \circ G \implies K \circ G$. These four natural transforamtions give us two possible definitions for a transformation $H \circ F \implies K \circ G$:
+
+\[ \begin{tikzcd}
+  H \circ F 
+  \rar[Rightarrow, "H\circ \alpha"]
+   \dar[Rightarrow, "\beta_F"'] 
+   & H \circ G \dar[Rightarrow, "\beta_G" ] \\
+  K \circ F \rar[Rightarrow, "K(\alpha)"'] & K \circ G 
+\end{tikzcd}\]
+
+\noi To see these agree we need to check their components agree, namely that the square 
+
+\[ \begin{tikzcd}
+  H\circ F (X) \dar["\beta_{FX}"']  \rar["H(\alpha_X)"] & H \circ G (X) \dar["\beta_{GX}"] \\
+  K \circ F (X) \rar["K(\alpha_X)"'] & K \circ G (X)
+\end{tikzcd}\]
+
+
+
+\begin{comment}
+
+
+\subsection{Yoneda's Lemma}
+
+Categories are contexts for mathematical objects we care about that allow us to study them in terms of the morphisms between them. For example, sets are determined by their elements and one way to study a set, $S$, is to view it as an object in the category $\Set$, and then look at the functions 
+
+\[ \{ * \} \to S  \]
+
+\noi corresponding to the elements of $S$. This is a special example where it suffices to look at one kind of arrow in the category but it doesn't always work, for example in the category of abelian groups (and group homomorphisms) $\Ab$ the only such group homomorphism is $0$. \medskip 
+
+When every map can be described in terms of\footnote[1]{I'm being vague, we haven't talked about limits/colimits yet. The category $\Set$ is completely determined by coproducts of its terminal object. I think this is called being well-copowered and being well-powered is the dual concept (with initial object and products)} maps out of the terminal object we can call these maps \textbf{elements}. If we can't do that, no problem, we just take all the maps with a common codomain and call them \textbf{generalized elements} (of their codomain). Think: 
+
+\[ \left( X \to Y \in \cC \right) \quad  \rightsquigarrow \quad \text{ "An $X$-shaped thing in $Y$"} \]
+
+\noi The collection of all these different shapes of things in $Y$ are the its generalized elements and they're encoded in the contravariant hom-functor 
+
+\[ \cC(-,Y) : \cC^{op} \to \Set .\]
+
+\noi Functors $F: \cC^{op} \to \Set$ are often called \textit{presheaves} and for each $X \in \cC_0$ the set $F(X)$ is often called the (set of) \textit{local sections} of $F$ at $X$. The hom-functors are special presheaves that represent the objects of $\cC$ in the category of presheaves on $\cC$ and people sometimes call them (the) \textit{representable(s)}~\footnote[2]{This is somewhat abusive: Representable functors are functors that are isomorphic to the hom-functors and that isomorphism is called a representation. One thinks of the object in $\cC$ as representing the functor in that case.}. It's straightforward to check that assigning each object in $\cC$ to its representable presheaf is itself a functor:
+
+\[ \cC \to \Cat(\cC^{op}, \Set) \quad ; \qquad 
+\left(\begin{tikzcd}
+X \dar["f"] \\ 
+Y
+\end{tikzcd}\right) \mapsto 
+\left( \begin{tikzcd}
+  \cC(- , X) \dar["f \circ (-)"] \\
+  \cC(-,Y)
+\end{tikzcd}\right)
+\]
+
+\noi Yoneda's lemma says the natural transformations from a representable presheaf (on $X$) to another presheaf $F$ naturally correspond to the local sections of $F $ at $X$. 
+
+\begin{thm}
+For any functor $F : \cC^{op} \to \Set$ and every object $X \in \cC_0$, there exists an isomorphism 
+
+\[ \Cat(\cC(-,X), F) \cong_{\varphi_X} F(X) \]
+
+\noi that's natural in $X$ in the sense that for all $g : Y \to in \cC$ the naturality square
+
+\[\begin{tikzcd}[column sep = large, row sep = large]
+  \Cat(\cC(-,X), F) \dar[" (=) \cdot (g \circ (-)) "']\rar["\varphi_X"] & F(X) \dar["F(g)"] \\
+  \Cat(\cC(-,Y), F) \rar["\varphi_Y"'] & F(Y)
+  \end{tikzcd}\]
+
+\noi commutes~\footnote[3]{The `$\cdot$' on the left vertical arrow denotes composition of natural transformations written in applicative order (right to left).}.
+\end{thm}
+\begin{proof}
+For each $X \in \cC_0$ define 
+
+\[ \varphi_X : \Cat(\cC(-,X), F) \to F(X) \]
+
+\noi on a natural transformation $\alpha : \cC(-,X) \implies F$ by evaluating the component $\alpha_X : \cC(X,X) \to F(X)$ at the identity map $1_X \in \cC(X,X)$: 
+
+\[ \varphi_X(\alpha) := \alpha_X(1_X) \]
+
+\noi Now for each $x \in F(X)$ define components of a natural transformation $\psi_{X,x} : \cC(-,X) \implies F$ by evaluating maps in $\cC$ at $F$ and then evaluating the resulting functions at $x \in F(X)$: for every $g : Y \to X$ in $\cC_1$ 
+
+\[ (\psi_{X,x})_Y : \cC(Y,X) \to F(Y) \quad ; \qquad (\psi_{X,x})_Y(g) := F(g)(x)\]
+
+\noi Notice
+
+\[(\psi_{X,x})_X(1_X) = F(1_X)(x) = 1_{F(X)}(x) = x .\]
+
+\noi The induced function 
+
+\[ \psi_X : F(X) \to \Cat(\cC(-,X), F) \quad ; \quad x \mapsto \psi_{X,x}\]
+
+\noi is the inverse of $\varphi_X$. For each $x \in F(X)$
+
+\begin{align*}
+\left(\varphi_X \circ \psi_X \right) (x) 
+&= \varphi_X(\psi_{X,x})\\
+&= (\psi_{X,x})_X(1_X) \\
+&=  F(1_X)(x)\\
+&= 1_{F(X)}(x)
+\end{align*}
+
+\noi shows it's a one-sided inverse. For each natural transformation $\alpha : \cC(-, X) \implies F$ we get another natural transformation
+
+\begin{align*}
+(\psi_X \circ \varphi_X)(\alpha)
+&= \psi_X (\alpha_X(1_X)) \\
+&= \psi_{X, \alpha_X(1_X)} .
+\end{align*}
+
+\noi Evaluating each $Y$-compoenent at an arbitrary $g : Y \to X$ 
+
+\begin{align*}
+  (\psi_{X, \alpha_X(1_X)})_Y(g) 
+  &= F(g) (\alpha_X(1_X)) \\
+  &= F(g) \circ \alpha_X (1_X) \\
+  &= \alpha_Y \circ (1_X \circ g)\\
+  &= \alpha_Y \circ (g)
+\end{align*}
+
+\noi shows $(\psi_X \circ \varphi_X)(\alpha) = \alpha$ and so $\psi_X$ is a two-sided inverse of $\varphi_X$. The second to last equality used naturality of $\alpha$. \medskip 
+
+Naturality of $\varphi$ is an exercise and potential homeowrk problem in type-checking and diagram chasing. For $g : Y \to X$ the function
+
+\[ (=)\cdot (g \circ (-)) : \Cat(\cC(-,X) , F ) \to \Cat(\cC(-,Y) , F) \]
+
+\noi is defined on a natural transformation $\alpha : \cC(-,X) \implies F$ by composing natural transformations $\alpha \cdot (g \circ (-))$. Recall that the $W \in \cC_0$ component of a composite is the composite of components: 
+
+
+\[ 
+\begin{tikzcd}[column sep = large]
+\cC(W,Y) \rar["g \circ (-)"] & \cC(W,X) \rar["\alpha_W"] & F(W") 
+\end{tikzcd}
+\]
+\end{proof}
+
+\begin{cor}
+The functor
+
+\[ y : \cC \to \Cat(\cC^{op} , \Set) \quad ; \quad X \mapsto \cC(-,X)\]
+
+\noi is fully faithful. 
+\end{cor}
+\begin{proof}
+
+\end{proof}
+
+\begin{cor}
+The representing objects $X \in \cC_0$ of representable functors are unique. 
+\end{cor}
+\begin{proof}
+\end{proof}
+
+\begin{cor}
+A presheaf $F : \cC^{op} \to \Set$ is representable if and only if the comma category $(y / \Delta_F)$ has a terminal object where $\Delta_F$ is the constant functor on $F$ and $y$ is the Yoneda embedding. 
+\end{cor}
+\begin{proof}
+We haven't seen what a comma category is, but this is basically just unraveling definitions once we have those. Given the definition of a comma category with which to interpret the notation above, this could be a homework problem. 
+\end{proof}
+\end{comment}
+
 \end{document}

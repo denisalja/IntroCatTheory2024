@@ -1002,18 +1002,18 @@ FY \rar["\alpha_Y"'] & GY
 
 \[ \begin{tikzcd}F \rar[Rightarrow, "\alpha"] &  G \rar[Rightarrow, "\beta"] &  L \end{tikzcd}\]
 
-\noi is given by composing their components in $\cB$. Naturality is preserved by pasting naturality squares in $\cB$: 
+\noi is given by composing their components in $\cB$. This defines a new natural transformation because pasting together naturality squares in $\cB$ gives new naturality squares: 
 
 \[ \begin{tikzcd}[column sep = large]
   FX \ar[rr, bend left, "(\gamma \circ \alpha)_X"] \dar["Ff"'] \rar["\alpha_X"]& GX \dar["Gf"] \rar["\gamma_X"]& HX \dar["Lf"] \\
 F Y \ar[rr, bend right, "(\gamma\circ \alpha)_Y"'] \rar["\alpha_Y"'] & GY \rar["\gamma_Y"]& HY
 \end{tikzcd}.\]
 
-The identity transformation on a functor $F$ consists of identity components $1_F = (1_{F(X)})_{X \in \cA_0}$. This makes the category of functors $\Cat(\cA, \cB)$ into a category. To view $\Cat$ as an \textit{enriched} category we need to define a composition functor 
+\noi The identity transformation on a functor $F$ consists of identity components $1_F = (1_{F(X)})_{X \in \cA_0}$. This makes the category of functors $\Cat(\cA, \cB)$ into a category. To view $\Cat$ as a category enriched in $\Cat$ we need to define a composition functor \textit{functor} 
 
 \[ \Cat(\cB, \cC) \times \Cat(\cA, \cB) \to \Cat(\cA,\cB).\]
 
-\noi We've defined this for objects already. On arrows this is defined by horizontal composition of natural transformations. There are two ways to define this composition. Suppose $\alpha : F \implies G$ and $\beta : H \implies K$ are natural transformations where $F: \cA \to \cB$ and $H: \cB \to \cC$. Applying $H$ and $K$ to the naturality squares of $\alpha$ in $\cB$ gives naturality squares 
+\noi On functors it's defined by composition of functors but on arrows there are two ways to define this `horizontal' composition. To see where two possible definitions come from suppose $\alpha : F \implies G$ and $\beta : H \implies K$ are natural transformations where $F,G \in \Cat()\cA, \cB)$ and $H,K \in \Cat( \cB, \cC)$. Functors preserve commuting diagrams so applying $H$ and $K$ to the naturality squares of $\alpha$ in $\cB$ gives new commuting squares 
 
 \[ \begin{tikzcd}
   HFX \rar["H\alpha_X"] \dar["HFf"'] & HGX \dar["HGf"] \\
@@ -1025,7 +1025,7 @@ KFY \rar["K\alpha_Y"'] & KGY
 \end{tikzcd}\]
 
 
-\noi which describe `whiskering $\alpha$ by $H$ and $K$'. This is often written as $H \circ \alpha : H \circ F \implies H \circ G$ and $k \circ \alpha : K \circ F \implies K \circ G$ because we're applying $H$ to the data of $\alpha$. Naturality of $\beta$ gives families of commuting squares 
+\noi which describe new natural transformations $H \circ \alpha : H \circ F \implies H \circ G$ and $k \circ \alpha : K \circ F \implies K \circ G$. This is called `whiskering $\alpha$ by $H$ and $K$' and the `$\circ$' notation is used for whiskering on this side because we're applying $H$ to the data of $\alpha$. On the other side, naturality of $\beta$ gives families of commuting squares 
 
 \[ \begin{tikzcd}
   HFX \rar["\beta_{FX}"] \dar["HFf"'] & KFX \dar["KFf"] \\
@@ -1036,7 +1036,7 @@ HFY \rar["\beta_{FY}"'] & KFY
 HGY \rar["\beta_{GY}"'] & KGY
 \end{tikzcd},\]
 
-\noi in $\cC$ which describe natural transformations $\beta_F: H\circ F \implies K \circ F$ and $\beta_G: H \circ G \implies K \circ G$. This process is called `whiskering $\beta$ by $F$ and $G$'. Whiskering $\alpha$ and $\beta$ by $H,K$ and $F,G$ respectively gives us four natural transformations which compose to give two possible definitions for a horizontal composition $\beta \circ \alpha : H \circ F \implies K \circ G$:
+\noi in $\cC$ which describe natural transformations $\beta_F: H\circ F \implies K \circ F$ and $\beta_G: H \circ G \implies K \circ G$. This is similarly called `whiskering $\beta$ by $F$ and $G$'. Whiskering $\alpha$ and $\beta$ by $H,K$ and $F,G$ respectively gives us four natural transformations which compose to give two possible definitions for horizontal composition $\beta \circ \alpha : H \circ F \implies K \circ G$:
 
 \[ \begin{tikzcd}
   H \circ F 

@@ -991,18 +991,29 @@ Natural transformations $\alpha : F \implies G$ can also be defined indexed by t
 
 \subsection{Feb 16}
 
-A natural transformation $\alpha : F \implies G$ between functors $F, G : \cA \to \cB$ is a family of maps $\alpha_X : F(X) \to G(X)$ satisfying a naturality condition: for all $f : X \to Y$ in the domain of $F$ and $G$ 
+A natural transformation $\alpha : F \implies G$ between functors $F, G : \cA \to \cB$ is a family of maps $\alpha_X : F(X) \to G(X)$ satisfying the following naturality condition:  for all $f : X \to Y$ in $\cA$
 
 \[ \begin{tikzcd}
   FX \rar["\alpha_X"] \dar["Ff"'] & GX \dar["Gf"] \\
 FY \rar["\alpha_Y"'] & GY
 \end{tikzcd}.\]
 
-\noi We call the maps $\alpha_X$ the \textbf{components} the $\alpha$. Vertical composition of natural transformations is given by composing their components in $\cB$. Naturality follows from pasting naturality squares in $\cB$. The identity transformations have identities for components. This makes the category of functors $\Cat(\cA, \cB)$ into a category. To view $\Cat$ as an \textit{enriched} category we need to define a composition functor 
+\noi We call the maps $\alpha_X$ the \textbf{components} of the natural transformation $\alpha$. \textbf{Vertical composition} of natural transformations 
+
+\[ \begin{tikzcd}F \rar[Rightarrow, "\alpha"] &  G \rar[Rightarrow, "\beta"] &  L \end{tikzcd}\]
+
+\noi is given by composing their components in $\cB$. Naturality is preserved by pasting naturality squares in $\cB$: 
+
+\[ \begin{tikzcd}[column sep = large]
+  FX \ar[rr, bend left, "(\gamma \circ \alpha)_X"] \dar["Ff"'] \rar["\alpha_X"]& GX \dar["Gf"] \rar["\gamma_X"]& HX \dar["Lf"] \\
+F Y \ar[rr, bend right, "(\gamma\circ \alpha)_Y"'] \rar["\alpha_Y"'] & GY \rar["\gamma_Y"]& HY
+\end{tikzcd}.\]
+
+The identity transformation on a functor $F$ consists of identity components $1_F = (1_{F(X)})_{X \in \cA_0}$. This makes the category of functors $\Cat(\cA, \cB)$ into a category. To view $\Cat$ as an \textit{enriched} category we need to define a composition functor 
 
 \[ \Cat(\cB, \cC) \times \Cat(\cA, \cB) \to \Cat(\cA,\cB).\]
 
-\noi We've defined this for objects already. On arrows this is defined by horizontal composition of natural transformations. There are two ways to define this composition. Suppose $\alpha : F \implies G$ and $\beta : H \implies K$ are natural transformations where $F: \cA \to \cB$ and $H: \cB \to \cC$. Applying $H$ and $K$ to the naturality squares in $\cB$ gives naturality squares 
+\noi We've defined this for objects already. On arrows this is defined by horizontal composition of natural transformations. There are two ways to define this composition. Suppose $\alpha : F \implies G$ and $\beta : H \implies K$ are natural transformations where $F: \cA \to \cB$ and $H: \cB \to \cC$. Applying $H$ and $K$ to the naturality squares of $\alpha$ in $\cB$ gives naturality squares 
 
 \[ \begin{tikzcd}
   HFX \rar["H\alpha_X"] \dar["HFf"'] & HGX \dar["HGf"] \\
@@ -1014,7 +1025,7 @@ KFY \rar["K\alpha_Y"'] & KGY
 \end{tikzcd}\]
 
 
-\noi which describe so-called whiskering $\alpha$ by $H$ and $K$, denoted somewhat abusively as composition $H \circ \alpha : H \circ F \implies H \circ G$ and $k \circ \alpha : K \circ F \implies K \circ G$. Naturality of $\beta$ 
+\noi which describe `whiskering $\alpha$ by $H$ and $K$'. This is often written as $H \circ \alpha : H \circ F \implies H \circ G$ and $k \circ \alpha : K \circ F \implies K \circ G$ because we're applying $H$ to the data of $\alpha$. Naturality of $\beta$ gives families of commuting squares 
 
 \[ \begin{tikzcd}
   HFX \rar["\beta_{FX}"] \dar["HFf"'] & KFX \dar["KFf"] \\
@@ -1023,9 +1034,9 @@ HFY \rar["\beta_{FY}"'] & KFY
 \begin{tikzcd}
   HGX \rar["\beta_{GX}"] \dar["HGf"'] & KGX \dar["KGf"] \\
 HGY \rar["\beta_{GY}"'] & KGY
-\end{tikzcd}\]
+\end{tikzcd},\]
 
-\noi gives us natural transformations $\beta_F: H\circ F \implies K \circ F$ and $\beta_G: H \circ G \implies K \circ G$. These four natural transforamtions give us two possible definitions for a transformation $H \circ F \implies K \circ G$:
+\noi in $\cC$ which describe natural transformations $\beta_F: H\circ F \implies K \circ F$ and $\beta_G: H \circ G \implies K \circ G$. This process is called `whiskering $\beta$ by $F$ and $G$'. Whiskering $\alpha$ and $\beta$ by $H,K$ and $F,G$ respectively gives us four natural transformations which compose to give two possible definitions for a horizontal composition $\beta \circ \alpha : H \circ F \implies K \circ G$:
 
 \[ \begin{tikzcd}
   H \circ F 
@@ -1035,13 +1046,14 @@ HGY \rar["\beta_{GY}"'] & KGY
   K \circ F \rar[Rightarrow, "K(\alpha)"'] & K \circ G 
 \end{tikzcd}\]
 
-\noi To see these agree we need to check their components agree, namely that the square 
+\noi To see these definitions agree we need to check their components are equal, namely that the square 
 
-\[ \begin{tikzcd}
+\[ \begin{tikzcd}[column sep = large, row sep = large]
   H\circ F (X) \dar["\beta_{FX}"']  \rar["H(\alpha_X)"] & H \circ G (X) \dar["\beta_{GX}"] \\
   K \circ F (X) \rar["K(\alpha_X)"'] & K \circ G (X)
 \end{tikzcd}\]
 
+\noi commutes fpr each $X \in \cA_0$. All these squares commute because they are precisely the naturality squares of $\beta$ associated to the components of $\alpha$. If natural transformations are new to you and you need it to look exactly like the definition just redraw the square with the $\beta$'s horizontally instead of vertically.
 
 
 \begin{comment}

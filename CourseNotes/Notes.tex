@@ -1097,10 +1097,12 @@ Y
 \noi In the lanuage mentioned above, Yoneda's lemma says the natural transformations from a representable presheaf (on $X$) to another presheaf $F$ naturally correspond to the local sections of $F $ at $X$. 
 
 \begin{thm}
-For any functor $F : \cC^{op} \to \Set$ and every object $X \in \cC_0$, there exists an isomorphism 
+For any functor $F : \cC^{op} \to \Set$ and every object $X \in \cC_0$, there exists a canonical isomorphism 
 
 \[ \begin{tikzcd} \mathbf{Nat}(\cC(-,X), F) \rar["\cong"', "\varphi_X"] &  F(X) \end{tikzcd} \]
 
+
+\begin{comment}
 \noi that's natural in $X$ in the sense that for all $g : Y \to X$ in $\cC$ the naturality square
 
 \[\begin{tikzcd}[column sep = large, row sep = large]
@@ -1109,6 +1111,7 @@ For any functor $F : \cC^{op} \to \Set$ and every object $X \in \cC_0$, there ex
   \end{tikzcd}\]
 
 \noi commutes in $\Set$~\footnote[3]{The `$\cdot$' on the left vertical arrow denotes composition of natural transformations written in applicative order (right to left).}.
+\end{comment}
 \end{thm}
 \begin{proof}[Proof]
 For each $X \in \cC_0$ define $\varphi_X$ on an arbitrary natural transformation $\alpha : \cC(-,X) \implies F$ by evaluating its $X$-component $\alpha_X : \cC(X,X) \to F(X)$ at the identity map $1_X \in \cC(X,X)$: 
@@ -1160,6 +1163,7 @@ For each $X \in \cC_0$ define $\varphi_X$ on an arbitrary natural transformation
 
 \noi shows $(\psi_X \circ \varphi_X)(\alpha) = \alpha$ and so $\psi_X$ is a two-sided inverse of $\varphi_X$. The second to last equality used naturality of $\alpha$. \medskip 
 
+\begin{comment}
 The naturality of this correspondence is straightforward but tedious so we leave it as an exercise (and potential bonus homework problem?) in type-checking and diagram chasing. Note that for $g : Y \to X$ the function
 
 \[ \begin{tikzcd}[column sep = large] \mathbf{Nat}(\cC(-,X) , F ) \rar["(=)\cdot (g \circ (-))"] & \mathbf{Nat} (\cC(-,Y) , F) \end{tikzcd}\]
@@ -1172,6 +1176,7 @@ The naturality of this correspondence is straightforward but tedious so we leave
 \cC(W,Y) \rar["g \circ (-)"] & \cC(W,X) \rar["\alpha_W"] & F(W") 
 \end{tikzcd}
 \]
+\end{comment}
 
 \end{proof}
 
@@ -1213,7 +1218,12 @@ A presheaf $F : \cC^{op} \to \Set$ is representable if and only if the comma cat
 The following example can be thought of as foreshadowing and the details will make a lot more sense after we talk about limits. 
 
 \begin{eg*}
-Groups can be defined in any category with (finite) products. Representable functors preserve products. Yoneda's lemma and its corollaries tell us that an object $G$ is a group object in $\cC$ if and only if the representable functor $\cC(-, G)$ is a group object in the presheaf category $\Cat(\cC^{op}, \Set)$. This is really important in modern algebraic geometry among other places and generalizes to other kinds of `algebraic/essentially algebraic' objects (not just groups) because the representable functors actually preserve all limits. 
+Groups can be defined in any category with (finite) products. Representable functors preserve products. Yoneda's lemma and its corollaries imply that an object $G$ is a group object in $\cC$ if and only if the representable functor $\cC(-, G)$ is a group object in the presheaf category $\Cat(\cC^{op}, \Set)$. \medskip 
+
+\noi Even better, the representable functor $\cC(-,G)$ is a group in the presheaf category if and only if for each $X \in \cC_0$ the hom-set $\cC(X,G)$ is a group. \medskip 
+
+
+\noi This is really important in modern algebraic geometry among other places. This sentence probably won't make sense but this can be done more generally for any Lawvere/essentially algebraic/infinitary-limit theory because this story only relies on the fact that hom functors preserve limits, the yoneda embedding is fully faithful, and limits of presheaves are computed pointwise. 
 \end{eg*}
 
 

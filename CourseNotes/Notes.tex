@@ -1055,26 +1055,33 @@ HGY \rar["\beta_{GY}"'] & KGY
 
 
 
-\begin{comment}
+
 
 
 \subsection{Yoneda's Lemma}
 
-Categories are contexts for mathematical objects we care about that allow us to study them in terms of the morphisms between them. For example, sets are determined by their elements and one way to study a set, $S$, is to view it as an object in the category $\Set$, and then look at the functions 
+Categories are contexts for mathematical objects that allow us to study them in terms of the morphisms between them. For example, sets are determined by their elements and one way to study a set, $S$, is to view it as an object in the category $\Set$, and then look at the functions 
 
 \[ \{ * \} \to S  \]
 
 \noi corresponding to the elements of $S$. This is a special example where it suffices to look at one kind of arrow in the category but it doesn't always work, for example in the category of abelian groups (and group homomorphisms) $\Ab$ the only such group homomorphism is $0$. \medskip 
 
-When every map can be described in terms of\footnote[1]{I'm being vague, we haven't talked about limits/colimits yet. The category $\Set$ is completely determined by coproducts of its terminal object. I think this is called being well-copowered and being well-powered is the dual concept (with initial object and products)} maps out of the terminal object we can call these maps \textbf{elements}. If we can't do that, no problem, we just take all the maps with a common codomain and call them \textbf{generalized elements} (of their codomain). Think: 
+When every map can be described in terms of\footnote[1]{I'm being vague, we haven't talked about limits/colimits yet. The category $\Set$ is completely determined by coproducts of its terminal object. I think this is called being well-copowered and being well-powered is the dual concept (with initial object and products)} maps out of the terminal object we can call these maps \textbf{elements}. If we can't do that we can always consider all the maps with a common codomain; these are called \textbf{generalized elements} (of their codomain). Think: 
 
 \[ \left( X \to Y \in \cC \right) \quad  \rightsquigarrow \quad \text{ "An $X$-shaped thing in $Y$"} \]
 
-\noi The collection of all these different shapes of things in $Y$ are the its generalized elements and they're encoded in the contravariant hom-functor 
+\noi The generalized elements of an object $Y \in \cC_0$ are encoded in the contravariant hom-functor 
 
 \[ \cC(-,Y) : \cC^{op} \to \Set .\]
 
-\noi Functors $F: \cC^{op} \to \Set$ are often called \textit{presheaves} and for each $X \in \cC_0$ the set $F(X)$ is often called the (set of) \textit{local sections} of $F$ at $X$. The hom-functors are special presheaves that represent the objects of $\cC$ in the category of presheaves on $\cC$ and people sometimes call them (the) \textit{representable(s)}~\footnote[2]{This is somewhat abusive: Representable functors are functors that are isomorphic to the hom-functors and that isomorphism is called a representation. One thinks of the object in $\cC$ as representing the functor in that case.}. It's straightforward to check that assigning each object in $\cC$ to its representable presheaf is itself a functor:
+\noi \textbf{Some more notation/language}: 
+\begin{itemize}
+\item Functors $F: \cC^{op} \to \Set$ are called \textit{presheaves} 
+\item \textit{Local sections} of $F$ at $X \in \cC_0$ are the elements of the set $F(X)$. 
+\item The (contravariant) hom-functors are special presheaves that represent the objects of $\cC$ in the much bigger category of presheaves on $\cC$ and people sometimes call them (the) \textit{representable functors}~\footnote[2]{This is a bit abusive: Representable functors are really any functors that are isomorphic to the hom-functors and that isomorphism is called a representation. One thinks of the object in $\cC$ as representing the functor in that case. The hom-functors are canonical representables since the isomorphism in question is the identity}. 
+\end{itemize}
+
+The reason we want to view objects in $\cC$ in the presheaf category $\Cat(\cC^{op}, \Set)$ is because the presheaf category has nice properties that we'll talk about in the future, probably after (co)limits and we do this by assigning each object in $\cC$ to its representable presheaf. It's straightforward to check this is a functor:
 
 \[ \cC \to \Cat(\cC^{op}, \Set) \quad ; \qquad 
 \left(\begin{tikzcd}
@@ -1087,42 +1094,41 @@ Y
 \end{tikzcd}\right)
 \]
 
-\noi Yoneda's lemma says the natural transformations from a representable presheaf (on $X$) to another presheaf $F$ naturally correspond to the local sections of $F $ at $X$. 
+\noi In the lanuage mentioned above, Yoneda's lemma says the natural transformations from a representable presheaf (on $X$) to another presheaf $F$ naturally correspond to the local sections of $F $ at $X$. 
 
 \begin{thm}
 For any functor $F : \cC^{op} \to \Set$ and every object $X \in \cC_0$, there exists an isomorphism 
 
-\[ \Cat(\cC(-,X), F) \cong_{\varphi_X} F(X) \]
+\[ \begin{tikzcd} \mathbf{Nat}(\cC(-,X), F) \rar["\cong"', "\varphi_X"] &  F(X) \end{tikzcd} \]
 
-\noi that's natural in $X$ in the sense that for all $g : Y \to in \cC$ the naturality square
+\noi that's natural in $X$ in the sense that for all $g : Y \to X$ in $\cC$ the naturality square
 
 \[\begin{tikzcd}[column sep = large, row sep = large]
-  \Cat(\cC(-,X), F) \dar[" (=) \cdot (g \circ (-)) "']\rar["\varphi_X"] & F(X) \dar["F(g)"] \\
-  \Cat(\cC(-,Y), F) \rar["\varphi_Y"'] & F(Y)
+  \mathbf{Nat}(\cC(-,X), F) \dar[" (=) \cdot (g \circ (-)) "']\rar["\varphi_X"] & F(X) \dar["F(g)"] \\
+  \mathbf{Nat}(\cC(-,Y), F) \rar["\varphi_Y"'] & F(Y)
   \end{tikzcd}\]
 
-\noi commutes~\footnote[3]{The `$\cdot$' on the left vertical arrow denotes composition of natural transformations written in applicative order (right to left).}.
+\noi commutes in $\Set$~\footnote[3]{The `$\cdot$' on the left vertical arrow denotes composition of natural transformations written in applicative order (right to left).}.
 \end{thm}
-\begin{proof}
-For each $X \in \cC_0$ define 
-
-\[ \varphi_X : \Cat(\cC(-,X), F) \to F(X) \]
-
-\noi on a natural transformation $\alpha : \cC(-,X) \implies F$ by evaluating the component $\alpha_X : \cC(X,X) \to F(X)$ at the identity map $1_X \in \cC(X,X)$: 
+\begin{proof}[Proof]
+For each $X \in \cC_0$ define $\varphi_X$ on an arbitrary natural transformation $\alpha : \cC(-,X) \implies F$ by evaluating its $X$-component $\alpha_X : \cC(X,X) \to F(X)$ at the identity map $1_X \in \cC(X,X)$: 
 
 \[ \varphi_X(\alpha) := \alpha_X(1_X) \]
 
-\noi Now for each $x \in F(X)$ define components of a natural transformation $\psi_{X,x} : \cC(-,X) \implies F$ by evaluating maps in $\cC$ at $F$ and then evaluating the resulting functions at $x \in F(X)$: for every $g : Y \to X$ in $\cC_1$ 
+\noi On the other hand, for each $x \in F(X)$ define a natural transformation $\psi_{X,x} : \cC(-,X) \implies F$ by evaluating maps in $\cC$ at $F$ and then evaluating the resulting functions at $x \in F(X)$. That is, for every map $g : Y \to X$ in $\cC_1$ define the component
 
 \[ (\psi_{X,x})_Y : \cC(Y,X) \to F(Y) \quad ; \qquad (\psi_{X,x})_Y(g) := F(g)(x)\]
 
-\noi Notice
+\noi To see this is a natural transformation let $h : Y \to Z$ be a map in $\cC$ and check that the following naturality square commutes by diagram chasing. 
 
-\[(\psi_{X,x})_X(1_X) = F(1_X)(x) = 1_{F(X)}(x) = x .\]
+\[ \begin{tikzcd}[column sep = large, row sep = large]
+\cC(Z, X) \rar["(\psi_{X,x})_Z"] \dar["(-) \circ h"'] & F(Z) \dar["F(h)"] \\
+\cC(Y,X) \rar["(\psi_{X,x})_Y"'] & F(Y)
+\end{tikzcd}\]
 
-\noi The induced function 
+\noi We claim the induced function 
 
-\[ \psi_X : F(X) \to \Cat(\cC(-,X), F) \quad ; \quad x \mapsto \psi_{X,x}\]
+\[ \begin{tikzcd}[column sep = large] F(X) \rar["\psi_X"] & \mathbf{Nat}(\cC(-,X), F) \end{tikzcd} \quad ; \psi_X(x) := \psi_{X,x}\]
 
 \noi is the inverse of $\varphi_X$. For each $x \in F(X)$
 
@@ -1154,11 +1160,11 @@ For each $X \in \cC_0$ define
 
 \noi shows $(\psi_X \circ \varphi_X)(\alpha) = \alpha$ and so $\psi_X$ is a two-sided inverse of $\varphi_X$. The second to last equality used naturality of $\alpha$. \medskip 
 
-Naturality of $\varphi$ is an exercise and potential homeowrk problem in type-checking and diagram chasing. For $g : Y \to X$ the function
+The naturality of this correspondence is straightforward but tedious so we leave it as an exercise (and potential bonus homework problem?) in type-checking and diagram chasing. Note that for $g : Y \to X$ the function
 
-\[ (=)\cdot (g \circ (-)) : \Cat(\cC(-,X) , F ) \to \Cat(\cC(-,Y) , F) \]
+\[ \begin{tikzcd}[column sep = large] \mathbf{Nat}(\cC(-,X) , F ) \rar["(=)\cdot (g \circ (-))"] & \mathbf{Nat} (\cC(-,Y) , F) \end{tikzcd}\]
 
-\noi is defined on a natural transformation $\alpha : \cC(-,X) \implies F$ by composing natural transformations $\alpha \cdot (g \circ (-))$. Recall that the $W \in \cC_0$ component of a composite is the composite of components: 
+\noi from the naturality diagram in the statement of the theorem is defined on a natural transformation $\alpha : \cC(-,X) \implies F$ by composing natural transformations $\alpha \cdot (g \circ (-))$. For $W \in \cC_0$ the component of this composite is
 
 
 \[ 
@@ -1166,7 +1172,11 @@ Naturality of $\varphi$ is an exercise and potential homeowrk problem in type-ch
 \cC(W,Y) \rar["g \circ (-)"] & \cC(W,X) \rar["\alpha_W"] & F(W") 
 \end{tikzcd}
 \]
+
 \end{proof}
+
+
+\noi Yoneda's lemma gives a few important corollaries. 
 
 \begin{cor}
 The functor
@@ -1176,21 +1186,38 @@ The functor
 \noi is fully faithful. 
 \end{cor}
 \begin{proof}
+Yoneda's lemma gives us an isomorphism
+\[ \mathbf{Nat} (\cC(-,X) , \cC(-,Y))  \cong \cC(X,Y)\]
 
+\noi for all objects $X, Y \in \cC_0$. The left hand side is the collection of maps between $y(X) = \cC(-,X)$ and $y(Y) = \cC(-,Y)$ in the presheaf category and the isomorphism takes place in $\Set$ which means it's a bijection. Injectivity of this map tells us $y$ is faithful and surjectivity tells us it's full. 
 \end{proof}
+
+\noi The previous corollary tells us that the functor $y$ embeds $\cC$ into its presheaf category and that's why $y$ is called the \textit{Yoneda embedding}. The next corollary can gives us a tool for proving two objects in a category are isomorphic. 
 
 \begin{cor}
-The representing objects $X \in \cC_0$ of representable functors are unique. 
+Representing objects $X \in \cC_0$ for the representable functors $\cC(-,X)$ are unique. 
 \end{cor}
 \begin{proof}
+Fully faithful functors reflect isomorphisms so any isomorphism $y(X) \cong y(X')$ must come from an isomorphism $X \cong X'$. 
 \end{proof}
+
+The last corollary may not make sense to us at this point because we haven't really talked about comma categories but it's important because it relates the concept of representability with universal constructions (namely colimits, which we'll get to). 
+
 
 \begin{cor}
 A presheaf $F : \cC^{op} \to \Set$ is representable if and only if the comma category $(y / \Delta_F)$ has a terminal object where $\Delta_F$ is the constant functor on $F$ and $y$ is the Yoneda embedding. 
 \end{cor}
 \begin{proof}
-We haven't seen what a comma category is, but this is basically just unraveling definitions once we have those. Given the definition of a comma category with which to interpret the notation above, this could be a homework problem. 
 \end{proof}
-\end{comment}
+
+The following example can be thought of as foreshadowing and the details will make a lot more sense after we talk about limits. 
+
+\begin{eg*}
+Groups can be defined in any category with (finite) products. Representable functors preserve products. Yoneda's lemma and its corollaries tell us that an object $G$ is a group object in $\cC$ if and only if the representable functor $\cC(-, G)$ is a group object in the presheaf category $\Cat(\cC^{op}, \Set)$. This is really important in modern algebraic geometry among other places and generalizes to other kinds of `algebraic/essentially algebraic' objects (not just groups) because the representable functors actually preserve all limits. 
+\end{eg*}
+
+
+
+
 
 \end{document}

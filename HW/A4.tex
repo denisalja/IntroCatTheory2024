@@ -1,0 +1,460 @@
+\documentclass[11pt]{amsart}
+\usepackage{amssymb, amstext, amsthm, amscd, amsmath,color}
+\usepackage{graphicx} 
+\usepackage[margin = 1 in]{geometry}
+\usepackage{tikz-cd}
+\usepackage{cancel}
+\usepackage{thmtools}
+\usepackage{mathtools}
+\usepackage{stmaryrd}
+\usepackage{comment}
+\usepackage{enumitem}
+\usepackage{xargs}
+\usetikzlibrary{
+  knots,
+  hobby,
+  decorations.pathreplacing,
+  shapes.geometric,
+  calc,
+  decorations.pathmorphing,
+  shapes,
+  decorations.markings
+  }
+\usepackage[hidelinks]{hyperref}
+\usepackage{tensor}
+\usepackage{mathpartir}
+\usepackage[textsize=scriptsize]{todonotes}
+\newcommand{\deni}[1]{\todo[color=blue!25]{{\bf Deni:} #1}}
+\newcommand{\bigdeni}[1]{\todo[inline,color=blue!25]{{\bf Deni:} #1}}
+%Hyperlinks
+\hypersetup{
+colorlinks=true,
+linktoc=all
+}
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem*{propp}{Proposition}
+\newtheorem*{corr}{Corollary}
+%   Theorem style with roman text
+%   numbered within section
+\theoremstyle{definition}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{prob}{Problem}
+\newtheorem{rems}[thm]{Remarks}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem*{defn*}{Definition}
+\newtheorem*{rem*}{Remark}
+\newtheorem*{eg*}{Example}
+\newtheorem*{neg*}{Non-Example}
+\newtheorem*{egs*}{Examples}
+\renewcommand*{\proofname}{Solution}
+\newcommand{\fty}{\infty}
+\newcommand{\lam}{\lambda}
+\newcommand{\mR}{{\mathbb R}}
+\newcommand{\mZ}{{\mathbb Z}}
+\newcommand{\mN}{{\mathbb N}}
+\newcommand{\vep}{\varepsilon}
+\newcommand{\mD}{{\mathbb D}}
+\newcommand{\mC}{{\mathbb C}}
+\newcommand{\mE}{{\mathbb E}}
+\newcommand{\mP}{{\mathbb P}}
+\newcommand{\mS}{{\mathbb S}}
+\newcommand{\mT}{{\mathbb T}}
+\newcommand{\mB}{{\mathbb B}}
+\newcommand{\mF}{{\mathbb F}}
+\newcommand{\mK}{{\mathbb K}}
+\newcommand{\mL}{{\mathbb L}}
+\newcommand{\mA}{{\mathbbl A}}
+\newcommand{\cZ}{{\mathcal Z}}
+\newcommand{\cA}{{\mathcal A}}
+\newcommand{\cB}{{\mathcal B}}
+\newcommand{\cP}{{\mathcal P}}
+\newcommand{\cC}{{\mathcal C}}
+\newcommand{\cD}{{\mathcal D}}
+\newcommand{\cU}{{\mathcal U}}
+\newcommand{\cE}{{\mathcal E}}
+\newcommand{\cM}{{\mathcal M}}
+\newcommand{\cV}{{\mathcal V}}
+\newcommand{\cY}{{\mathcal Y}}
+\newcommand{\cJ}{{\mathcal J}}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\id}{\mathsf{id}}
+\newcommand{\Nat}{\mathrm{Nat}}
+\newcommand{\cov}{\mathrm{cov}}
+\newcommand{\cod}{\mathrm{cod}}
+\newcommand{\dom}{\mathrm{dom}}
+\newcommand{\Hom}{\text{Hom}}
+%
+\newcommand{\im}{\text{im}}
+
+\newcommand{\Rel}{\mathbf{Rel}}
+\newcommand{\PAb}{\mathbf{PAb}}
+\newcommand{\PSh}{\mathbf{PSh}}
+\newcommand{\Sh}{\mathbf{Sh}}
+\newcommand{\Top}{\mathbf{Top}}
+\newcommand{\Cat}{\mathbf{Cat}}
+\newcommand{\Ch}{\mathbf{Ch}}
+\newcommand{\bA}{\mathbf{A}}
+\newcommand{\bB}{\mathbf{B}}
+\newcommand{\bD}{\mathbf{D}}
+\newcommand{\bP}{\mathbf{P}}
+\newcommand{\Sp}{{\mathbf{Sp}}}
+\newcommand{\Set}{{\mathbf{Set}}}
+\newcommand{\Grp}{\mathbf{Grp}}
+\newcommand{\Ab}{\mathbf{Ab}}
+\newcommand{\Par}{\mathbf{Par}}
+\newcommand{\Ring}{\mathbf{Ring}}
+\newcommand{\fkm}{\mathfrak{m}}
+\newcommand{\bG}{\mathbf{G}}
+\newcommand{\bH}{\mathbf{H}}
+\newcommand{\bbA}{{\mathbb{A}}}
+\newcommand{\mbJ}{{\mathbf{J}}}
+\newcommand{\mbX}{{\mathbf {X}}}
+\newcommand{\mbY}{{\mathbf {Y}}}
+\newcommand{\mbZ}{{\mathbf {Z}}}
+\newcommand{\noi}{{\noindent}}
+\newcommand{\mQ}{{\mathbb Q}}
+\newcommand*\quot[2]{{^{\textstyle #1}\big/_{\textstyle #2}}}
+\newcommand{\cO}{\mathcal{O}}
+ %For Adjuncitons
+ \tikzset{%
+    symbol/.style={%
+        draw=none,
+        every to/.append style={%
+            edge node={node [sloped, allow upside down, auto=false]{$#1$}}}
+    }
+}
+%left adjoint on top adjunction
+\newcommand*\ladj[4]{\begin{tikzcd}[column sep = large, row sep = large, ampersand replacement=\&]
+{#1} \ar[r,bend left,"{#2}",
+{name=A, below}] \&  {#3} \ar[l,bend left,"{#4}",
+{name=B,above}] \ar[from=A, to=B, symbol={\dashv}]
+\end{tikzcd} }
+%right adjoint on top adjunction
+\newcommand*\radj[4]{\begin{tikzcd}[column sep = large, row sep = large, ampersand replacement=\&]
+{#1} \ar[r,bend left,"{#2}",
+{name=A, below}] \&  {#3} \ar[l,bend left,"{#4}",
+{name=B,above}] \ar[from=B, to=A, symbol={\dashv}]
+\end{tikzcd} }
+%left adjoint on top adjunction
+\newcommand*\ladjvcomp[5]{\begin{tikzcd}[column sep = huge, row sep = huge, ampersand replacement=\&]
+{#1} \ar[r,bend left = 50,"{#2}",
+{name=A, below}] 
+\ar[from = r,"{#3}", 
+{name=B,above},{name=B',bottom}]
+ \ar[r,bend right=50,"{#4}"',
+{name=C,below}]
+\& {#5}  \ar[from=A, to=B, symbol={\dashv}]
+\ar[from=B, to=C, symbol={\dashv}]
+\end{tikzcd} }
+%HOM-ALG SHORTCUTS
+%sequence tikzcd arrows: \seqtkz{domain}{name}{codomain = domain}{name}{codomain}
+\newcommand*\seqtkz[5]{{\begin{tikzcd}[ampersand replacement=\&] 
+ \cdots \rar \& { #1 } \rar["{#2}"] \&  { #3 } \rar["{#4}"] \&  { #5 } \rar \& \cdots \end{tikzcd}}}
+%short exact sequence: \ses{ob1}{map1}{ob2 }{map2}{ob3}
+\newcommand*\ses[5]{{\begin{tikzcd}[ampersand replacement=\&] 
+ 0 \rar \& { #1 } \rar["{#2}"] \&  { #3 } \rar["{#4}"] \&  { #5 } \rar \& 0 \end{tikzcd}}}
+%induced les cohomology: \lesco{space}{A}{B}{C}{varphi}{psi}
+\newcommandx*\lescoh[6]{{\begin{tikzcd}[ampersand replacement=\&] 
+ 0 \rar \& H^0({#1};{#2} )  \rar["{#5}^*"] \&  H^0({#1};{#3})  \rar["{#6}^*"] \&  H^0({#1};{#4} ) \rar["\delta^0"] \& \cdots \
+  \cdots \rar["\delta^n"] \& H^n({#1};{#2})  \rar["{#5}^*"] \& H^n({#1};{#3})  \rar["{#6}^*"] \&  H^n({#1};{#4})  \rar \& \cdots  
+  \end{tikzcd}}}
+%Injective Resolution: \artkz{domain}{name}{codomain}
+\newcommand*\injresl[3]{{\begin{tikzcd}[ampersand replacement=\&] 
+{ #1 } \rar[tail, "{#2}"] \&  { #3 }^\bullet \end{tikzcd}}}
+%Injective Resolution Open ended: \injreslo{domain}{name}{codomain}
+\newcommand*\injreslo[5]{{\begin{tikzcd}[ampersand replacement=\&] 
+0 \rar[] \& { #1 } \rar[tail, "{#2}"] \&  { #3 } \rar["{#4}"] \& {#5} \rar \& \cdots  \end{tikzcd}}}
+%Proj Resolution: \artkz{domain}{name}{codomain}
+\newcommand*\projresl[3]{{\begin{tikzcd}[ampersand replacement=\&] 
+{ #1 } \rar["{#2}"] \&  { #3 }_\bullet \end{tikzcd}}}
+%etale spce functor
+\newcommand{\Et}{\acute{E}t}
+%germs
+\newcommand*\germ[2]{\mathrm{germ_{#1}({#2})}}
+%opens
+\newcommand*\Op[1]{\mathbf{Open}({#1})}
+\newcommand*\Opo[1]{\mathbf{Open}({#1})^{op}}
+%support
+\newcommand{\supp}{\mathrm{supp}}
+\newcommand{\ab}{\mathrm{Ab}}
+%big roomy quotient
+\newcommand{\nat}[6][large]{%
+ \begin{tikzcd}
+ [ampersand replacement = \&, column sep=#1]
+  #2\ar[bend left=40,
+{name=U}]{r}{#4}
+  \ar[bend right=40,',
+{name=D}]{r}{#5}
+  \& #3 \ar[shorten <=10pt,shorten >=10pt,Rightarrow,from=U,to=D]{d}{~#6}
+  \end{tikzcd}
+}
+%pullback
+\newsavebox{\pullback}
+\sbox\pullback{%
+\begin{tikzpicture}%
+\draw (0,0) -- (1ex,0ex);%
+\draw (1ex,0ex) -- (1ex,1ex);%
+\end{tikzpicture}}
+%pullback comand: \arrow[dr, phantom, "\usebox\pullback" , very near start, color=black]
+%pushout
+\newsavebox{\pushout}
+\sbox\pushout{%
+\begin{tikzpicture}%
+\draw (0,0) -- (0ex,1ex);%
+\draw (0ex,1ex) -- (1ex,1ex);%
+\end{tikzpicture}}
+%pushout comand: \arrow[ul, phantom, "\usebox\pushout" , very near start, color=black]
+%Squiggly Arrow Guy: 
+\newcounter{sarrow}
+\newcommand\xrsquigarrow[1]{%
+\stepcounter{sarrow}%
+\begin{tikzpicture}[decoration=snake]
+\node (\thesarrow) {\strut#1};
+\draw[->,decorate] (\thesarrow.south west) -- (\thesarrow.south east);
+\end{tikzpicture}%
+}
+\title{Assignment 4}
+\author{Deni Salja}
+\begin{document}
+\maketitle
+
+\begin{prob}
+Show that any functor $F : \cA \to \cB$ factors as $F = H \circ G$ where $G$ is surjective on objects and $H$ is fully faithful and monic on objects. \medskip 
+
+\noi Show that the surjective-on-objects functors are left orthogonal to the fully-faithful-and-monic-on-objects functors. 
+\end{prob}
+\begin{proof}
+Define an intermediate category $\cC$ whose objects are $\cC_0 = F_0(\cA_0) \subseteq \cB_0$  and whose arrows are all the arrows in $\cB$ between these objects:
+
+\[ \cC(F(A), F(B)) := \cB(F(A),F(B)).\]
+
+\noi This is a category because it inherits identities and composition from $\cB$, in fact it's a subcategory of $\cB$ by construction. Now we'll define functors $G$ and $H$ such that the diagram 
+
+\[\begin{tikzcd}[column sep = large, row sep = large]
+\cA \rar[rr, "F"] \ar[dr, "G"'] && \cB \\
+& \cC \ar[ur,"H"'] & 
+\end{tikzcd}\]
+
+\noi commutes in the following way. Since $\cC$ is a subcategory of $G$ the functor $H$ will be an inclusion on objects and arrows; this is clearly a functor. It's vacuously injective on objects and fully-faithful by construction:
+
+\[ \cB(H(F(A)), H(F(A'))) = \cB(F(A), F(A')) =: \cC(F(A), F(A')) \] 
+
+\noi The functor $G$ is just $F$ with a restricted codomain so it's a functor because $F$ is and it's surjective on objects because for any $F(A) \in \cC_0$ we have $A \in \cC_0$ and $G(A) := F(A)$ by definition. The diagram commutes because for any $A \in \cA_0$ and $f : A \to A'$ in $\cA_1$ 
+
+\[ H \circ G ( A) = H(G(A)) = H(F(A)) = F(A)\]
+\noi and 
+\[ H \circ G(f) = H(G(f)) = H(F(f)) = F(f).\]\bigskip 
+
+For orthogonality suppose we have a commmuting diagram 
+
+\[ \begin{tikzcd}[column sep = large, row sep = large]
+    \cA \rar["H"] \dar["F"'] &\cC \dar["G"] \\
+    \cB \rar["K"'] & \cD 
+\end{tikzcd}\]
+
+\noi in $\Cat$ where $F$ is surjective on objects and $G$ is fully faithful and injective on objects. We'll show there exists a unique solution to the lifting problem. Define a candidate lift $ L : \cB \to \cC$ 
+
+\noi as follows. On objects, we take $B \in \cB_0$ and take any $A \in \cA_0$ in the fibre of $F$ over $B$. Such an $A$ exists because $F$ is surjective on objects. Then we apply $H_0$: 
+
+\[ L_0(B) := H_0 ( A ) , \quad \text{where} \quad  F_0(A) = B \]
+
+\noi We need to check this is well-defined. Suppose $A'$ is another object in the fibre of $F$ above $B$, then 
+
+\[ G_0(H_0(A')) = K_0(F_0(A')) = K_0(B) = K_0(F_0(A)) = G_0 ( H_0 ( A))\]
+
+\noi and since $G$ is injective on objects we have 
+
+\[ H_0(A') = H_0(A)\]
+
+\noi showing $L_0$ is well-defined. Now for any arrow $\beta : B \to B'$ in $\cB$ we can apply $K$ to get an arrow $K(\beta) : K(B) \to K(B')$ in $\cD$. Notice $K_0(B) = G_0(L_0(B))$ and $K_0(B') = G_0(L_0(B'))$ by commutativity of the original square and definition of $L_0$. Since $G$ is fully faithful there exists a unique map
+
+\[ L_1(\beta) : L_0(B) \to L_0(B') .\]
+
+\noi Define $L : \cB \to \cC$ by $(L_0, L_1)$ on objects and arrows respectively. Identities and composition are preserved by the uniqueness in the definition of $L_1$ coming from $G$ being fully-faithful. This solves the lifting problem because for each $A \in \cA_0$ 
+
+
+\[ H_0(A) = L_0 ( F_0 ( A))\]
+\noi and for ever $f : A \to A'$ in $\cA$ the square commutes so
+\[K_1 (F_1 (f)) = G_1 (H_1 (f)) \]
+\noi and by definition of $L_1$ and the fact that $G$ is fully faithful we must have
+\[ H_1(f) = L_1(F_1(f)).\]
+\noi This shows $H = L \circ F$. On the other hand, for any $B \in \cB_0$ and $A \in \cA_0$ such that $F_0 (A) = B$ we have 
+\[G_0 \circ L_0 (B) = G_0 \circ H_0 (A) = K_0 \circ F_0 (A) = K_0 (B). \]
+\noi For $\beta : B \to B'$ in $\cB_1$ we have that 
+\[G_1 \circ L_1 (\beta) = K_1 (\beta)\]
+\noi by construction so $G \circ L = K$. This shows $L$ solves the lifting problem: 
+
+
+
+\[ \begin{tikzcd}[column sep = large, row sep = large]
+    \cA \rar["H"] \dar["F"'] &\cC \dar["G"] \\
+    \cB \rar["K"'] \ar[ur, dashed, "L"] & \cD 
+\end{tikzcd}\]
+
+\noi To show $L$ is unique suppose $L'$ also solved the lifting problem. Since $F$ is surjective on objects and $L$ and $L'$ both solve the lifting problem we have that for each $B \in \cB_0$ there exists an $A \in \cA_0$ such that 
+
+\[ (L')_0(B) = (L' \circ F)_0 (A) = H_0(A) = (L \circ F)_0(A) = L_0(B) . \]
+
+\noi Similarly we have that for any $\beta \in \cB_1$ 
+
+\[G_1 (L_1(\beta)) = K_1(\beta) = G_1((L')_1 (\beta))\]
+
+\noi since $L$ and $L'$ both solve the lifting problem and since $G$ is fully faithful we can conclude 
+
+\[ L_1 (\beta) = (L')_1(\beta).\]
+
+\noi It follows that $L = L'$ and the solution to the lifting problem is unique. 
+\end{proof}
+
+
+\begin{prob}
+Let $F, G : \cA \to \cB$ and let $\alpha : F \implies G$ has components $\alpha_X$ that are all invertible. Show that the family of inverses form a natural transformation $G \implies F$.
+\end{prob}
+\begin{proof}
+For any $f : X \to Y$ in $\cA$ the naturality square 
+
+\[ \begin{tikzcd}[column sep = large, row sep = large]
+G(X) \dar["G(f)"'] \rar["\alpha^{-1}_X"] & F(X) \dar["F(f)"] \\
+G(Y) \rar["\alpha_Y^{-1}"'] & F(Y)
+\end{tikzcd}\]
+
+\noi commutes in $\cB$ because 
+
+\begin{align*}
+F(f) \circ \alpha_X^{-1} 
+&= \alpha_Y^{-1} \circ \alpha_Y \circ  F(f) \circ \alpha_X^{-1} \\
+&= \alpha_Y^{-1} \circ G(f) \circ \alpha_X \circ \alpha_X^{-1} \\
+&= \alpha_Y^{-1} \circ G(f).
+\end{align*}
+
+\noi This shows $\alpha^{-1} : G \implies F$ is a natural transformation and since all its components are isomorphisms 
+
+\[ \alpha_X \circ \alpha_X^{-1} = 1_{G(X)}\quad ; \quad \alpha_X^{-1} \circ \alpha_X = 1_{F(X)}\]
+
+\noi it's a natural isomorphism.
+\end{proof}
+
+\begin{prob}
+Let $\alpha : F \implies F'$ be a natural transformation between two parallel functors $F , F' : BG \to BH$ where $G$ and $H$ are groups and $BG$ and $BH$ are the categories with one object and arrows determined by $G$ and $H$ respectively. Describe $\alpha$. 
+\end{prob}
+\begin{proof}
+The functors $F$ and $F'$ correspond to group homomorphisms $\varphi, \varphi' : G \to H$. There's only one object in $BG$ so $\alpha$ only has on component $h \in H$ such that for any $g \in G$ the naturality square 
+
+\[ \begin{tikzcd}[column sep = large, row sep = large]
+* \dar["\varphi(g)"'] \rar["h"] & * \dar["\varphi'(g)"] \\
+* \rar["h"'] & *
+\end{tikzcd}\]
+
+\noi commutes in $BH$. This says 
+
+\[ h \varphi'(g) = \varphi(g) h\]
+
+\noi in $H$ or equivalently that
+
+\[ \varphi(g) = h \varphi'(g) h^{-1} \]
+
+\noi We can think of conjugation by an element in $H$ as an action on the set of group homomorphisms $G \to H$ and in this context a natural transformation $\alpha : F \implies F'$ witnesses that the group homomorphisms $\varphi$ and $\varphi'$ are conjugate. 
+\end{proof}
+
+
+\begin{prob}
+Prove that $- \times A : \Set \to \Set$ is a functor and the family of projections $\pi_X : X \times A \to X$ induces a natural transformation $(- \times A) \implies 1_\Set$. 
+\end{prob}
+\begin{proof}
+It assigns a set $X$ to its cartesian product $X \times A$ and it assigns an arrow $f : X \to Y$ to the function 
+
+\[ f \times 1_A : X \times A \to Y \times A \]
+
+\noi defined by 
+
+\[ f \times 1_A ( x,a) := (f(x), a) .\]
+
+\noi This assignment preserves identities because for every set $X$
+
+\[ 1_X \times 1_A (x,a) = (1_X (x), a) = (x,a) = 1_{X \times A}(x,a) \]
+
+
+\noi and it preserves composition as for any composable $f : X \to Y$ and $g : Y \to Z$ 
+
+\begin{align*} 
+(g \circ f) \times 1_A (x,a) 
+&= (g \circ f (x), a) \\
+&= \left( g(f(x)) , a \right)\\
+&= g \times 1_A \left(f(x), a\right)\\
+&= \left((g \times 1_A) \circ (f \times 1_A)\right) (x,a).
+\end{align*}
+
+\noi This shows $- \times A$ is an endofunctor on $\Set$. To see the projections induce a natural transformation to the identity functor we need to check that for every function $X \to Y$ the naturality square 
+
+\[\begin{tikzcd}[column sep = large, row sep = large]
+X \times A \dar["f \times 1_A"']\rar["\pi_X"] & X \dar["f"]\\
+Y \times A \rar["\pi_Y"'] & Y
+\end{tikzcd}\]
+
+\noi commutes. To see this we chase an element $(x,a) \in X \times A$ through the diagram: 
+
+\begin{align*}
+f \circ \pi_X(x,a) 
+&= f ( \pi_X (x,a))\\
+&= f(x) \\
+&= \pi_Y(f(x),a)) \\
+&= \pi_Y \circ (f \times 1_A) (x,a) 
+\end{align*}
+\end{proof}
+
+\begin{prob}
+Let $U : \cC \to \cC^{\to}$ denote the functor that sends objects in $\cC$ to their identity arrows and let $D_0 : \cC^{\to} \to \cC$ denote the domain functor that sends arrows in $\cC$ to their domains. Define a natural transformation $U \circ D_0 \implies 1_{\cC^{\to}}$. 
+\end{prob}
+\begin{proof}
+For every object $f : X \to Y$ in $\cC^{\to}$ define the component 
+\[ \alpha_f : U \circ D_0 (f) \to f \quad ; \quad \alpha_f = (1_X, f)\]
+
+\noi in $\cC^{\to}$. This makes sense becuase $U \circ D_0 (f) = 1_X$ and $1_{\cC^\to}(f) = f$ in $\cC$ and in $\cC$ we view this as a commuting square: 
+
+\[\begin{tikzcd}[column sep = large, row sep = large]
+X \dar[equals] \rar[equals] & X \dar["f"] \\
+X \rar["f"'] & Y
+\end{tikzcd}.\]
+
+\noi For naturality we take an arbitrary arrow $(h_0, h_1) : f \to g$ in $\cC^\to$ where $f : X \to Y$ and $g : W \to Z$ are arrows in $\cC$ and we need to show the naturality square 
+
+\[\begin{tikzcd}[column sep = large, row sep = large]
+U \circ D_0(f) \rar["\alpha_f"] \dar["(U \circ D_0) (h_0{,} h_1)"']& f \dar["(h_0{,}h_1)"] \\
+U \circ D_0(g) \rar["\alpha_g"'] & g
+\end{tikzcd}\]
+
+\noi commutes in $\cC$. Note that the domain of $h_0$ is the domain of $X$ so 
+
+\[ (U \circ D_0)(h_0 , h_1) = U (h_0) = 1_{\partial_0(h_0)} = 1_X.\]
+
+\noi The naturality square above commutes in $\cC^\to$ whenever the cube 
+
+\[\begin{tikzcd}[column sep = large, row sep = large]
+	X && X &&  \\
+	& X && Y \\
+	W && W \\
+	& W && Z
+	\arrow[from=1-1, to=1-3, equals]
+	\arrow["{h_0}"', from=1-1, to=3-1]
+	\arrow["{h_0}"{pos=0.7}, from=1-3, to=3-3]
+	\arrow[from=3-1, to=3-3, equals]
+	\arrow[from=3-1, to=4-2, equals]
+	\arrow[from=1-1, to=2-2, equals]
+	\arrow["f", from=1-3, to=2-4]
+	\arrow["g", from=3-3, to=4-4]
+	\arrow["f"{pos=0.4}, from=2-2, to=2-4, crossing over]
+	\arrow["{h_0}"'{pos=0.3}, from=2-2, to=4-2, crossing over]
+	\arrow["{h_1}", from=2-4, to=4-4]
+	\arrow["g"', from=4-2, to=4-4, crossing over]
+\end{tikzcd}\]
+
+\noi commutes in $\cC$. The bottom, top, left, and back faces of the cube commute by the identity laws for composition in $\cC$. The front and right faces of the cube commute by definition of $(h_0, h_1)$ as an arrow in $\cC^\to$. This shows the cube commutes and it follows that the naturality square commutes in $\cC^\to$. 
+\end{proof}
+
+\end{document}

@@ -1,0 +1,492 @@
+\documentclass[11pt]{amsart}
+\usepackage{amssymb, amstext, amsthm, amscd, amsmath,color}
+\usepackage{graphicx} 
+\usepackage[margin = 1 in]{geometry}
+\usepackage{tikz-cd}
+\usepackage{cancel}
+\usepackage{thmtools}
+\usepackage{mathtools}
+\usepackage{stmaryrd}
+\usepackage{comment}
+\usepackage{enumitem}
+\usepackage{xargs}
+\usetikzlibrary{
+  knots,
+  hobby,
+  decorations.pathreplacing,
+  shapes.geometric,
+  calc,
+  decorations.pathmorphing,
+  shapes,
+  decorations.markings
+  }
+\usepackage[hidelinks]{hyperref}
+\usepackage{tensor}
+\usepackage{mathpartir}
+\usepackage[textsize=scriptsize]{todonotes}
+\newcommand{\deni}[1]{\todo[color=blue!25]{{\bf Deni:} #1}}
+\newcommand{\bigdeni}[1]{\todo[inline,color=blue!25]{{\bf Deni:} #1}}
+%Hyperlinks
+\hypersetup{
+colorlinks=true,
+linktoc=all
+}
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prob}[thm]{Problem}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem*{propp}{Proposition}
+\newtheorem*{corr}{Corollary}
+%   Theorem style with roman text
+%   numbered within section
+\theoremstyle{definition}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{rems}[thm]{Remarks}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem*{defn*}{Definition}
+\newtheorem*{rem*}{Remark}
+\newtheorem*{eg*}{Example}
+\newtheorem*{neg*}{Non-Example}
+\newtheorem*{egs*}{Examples}
+\renewcommand*{\proofname}{Solution}
+\newcommand{\fty}{\infty}
+\newcommand{\lam}{\lambda}
+\newcommand{\mR}{{\mathbb R}}
+\newcommand{\mZ}{{\mathbb Z}}
+\newcommand{\mN}{{\mathbb N}}
+\newcommand{\vep}{\varepsilon}
+\newcommand{\mD}{{\mathbb D}}
+\newcommand{\mC}{{\mathbb C}}
+\newcommand{\mE}{{\mathbb E}}
+\newcommand{\mP}{{\mathbb P}}
+\newcommand{\mS}{{\mathbb S}}
+\newcommand{\mT}{{\mathbb T}}
+\newcommand{\mB}{{\mathbb B}}
+\newcommand{\mF}{{\mathbb F}}
+\newcommand{\mK}{{\mathbb K}}
+\newcommand{\mL}{{\mathbb L}}
+\newcommand{\mA}{{\mathbbl A}}
+\newcommand{\cZ}{{\mathcal Z}}
+\newcommand{\cA}{{\mathcal A}}
+\newcommand{\cB}{{\mathcal B}}
+\newcommand{\cP}{{\mathcal P}}
+\newcommand{\cC}{{\mathcal C}}
+\newcommand{\cU}{{\mathcal U}}
+\newcommand{\cE}{{\mathcal E}}
+\newcommand{\cM}{{\mathcal M}}
+\newcommand{\cV}{{\mathcal V}}
+\newcommand{\cY}{{\mathcal Y}}
+\newcommand{\cJ}{{\mathcal J}}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\id}{\mathsf{id}}
+\newcommand{\Nat}{\mathrm{Nat}}
+\newcommand{\cov}{\mathrm{cov}}
+\newcommand{\cod}{\mathrm{cod}}
+\newcommand{\dom}{\mathrm{dom}}
+\newcommand{\Hom}{\text{Hom}}
+%
+\newcommand{\im}{\text{im}}
+\newcommand{\PAb}{\mathbf{PAb}}
+\newcommand{\PSh}{\mathbf{PSh}}
+\newcommand{\Sh}{\mathbf{Sh}}
+\newcommand{\Top}{\mathbf{Top}}
+\newcommand{\Cat}{\mathbf{Cat}}
+\newcommand{\Ch}{\mathbf{Ch}}
+\newcommand{\bA}{\mathbf{A}}
+\newcommand{\bB}{\mathbf{B}}
+\newcommand{\bD}{\mathbf{D}}
+\newcommand{\bP}{\mathbf{P}}
+\newcommand{\Sp}{{\mathbf{Sp}}}
+\newcommand{\Set}{{\mathbf{Set}}}
+\newcommand{\Grp}{\mathbf{Grp}}
+\newcommand{\Ab}{\mathbf{Ab}}
+\newcommand{\Par}{\mathbf{Par}}
+\newcommand{\Ring}{\mathbf{Ring}}
+\newcommand{\fkm}{\mathfrak{m}}
+\newcommand{\bG}{\mathbf{G}}
+\newcommand{\bH}{\mathbf{H}}
+\newcommand{\bbA}{{\mathbb{A}}}
+\newcommand{\mbJ}{{\mathbf{J}}}
+\newcommand{\mbX}{{\mathbf {X}}}
+\newcommand{\mbY}{{\mathbf {Y}}}
+\newcommand{\mbZ}{{\mathbf {Z}}}
+\newcommand{\noi}{{\noindent}}
+\newcommand{\mQ}{{\mathbb Q}}
+\newcommand*\quot[2]{{^{\textstyle #1}\big/_{\textstyle #2}}}
+\newcommand{\cO}{\mathcal{O}}
+ %For Adjuncitons
+ \tikzset{%
+    symbol/.style={%
+        draw=none,
+        every to/.append style={%
+            edge node={node [sloped, allow upside down, auto=false]{$#1$}}}
+    }
+}
+%left adjoint on top adjunction
+\newcommand*\ladj[4]{\begin{tikzcd}[column sep = large, row sep = large, ampersand replacement=\&]
+{#1} \ar[r,bend left,"{#2}",
+{name=A, below}] \&  {#3} \ar[l,bend left,"{#4}",
+{name=B,above}] \ar[from=A, to=B, symbol={\dashv}]
+\end{tikzcd} }
+%right adjoint on top adjunction
+\newcommand*\radj[4]{\begin{tikzcd}[column sep = large, row sep = large, ampersand replacement=\&]
+{#1} \ar[r,bend left,"{#2}",
+{name=A, below}] \&  {#3} \ar[l,bend left,"{#4}",
+{name=B,above}] \ar[from=B, to=A, symbol={\dashv}]
+\end{tikzcd} }
+%left adjoint on top adjunction
+\newcommand*\ladjvcomp[5]
+{\begin{tikzcd}[column sep = huge, row sep = huge, ampersand replacement=\&]
+{#1} \ar[r,bend left = 50,"{#2}",
+{name=A, below}] 
+\ar[from = r,"{#3}", 
+{name=B,above},{name=B',bottom}]
+ \ar[r,bend right=50,"{#4}"',
+{name=C,below}]
+\& {#5}  \ar[from=A, to=B, symbol={\dashv}]
+\ar[from=B, to=C, symbol={\dashv}]
+\end{tikzcd} }
+%HOM-ALG SHORTCUTS
+%sequence tikzcd arrows: \seqtkz{domain}{name}{codomain = domain}{name}{codomain}
+\newcommand*\seqtkz[5]{{\begin{tikzcd}[ampersand replacement=\&] 
+ \cdots \rar \& { #1 } \rar["{#2}"] \&  { #3 } \rar["{#4}"] \&  { #5 } \rar \& \cdots \end{tikzcd}}}
+%short exact sequence: \ses{ob1}{map1}{ob2 }{map2}{ob3}
+\newcommand*\ses[5]{{\begin{tikzcd}[ampersand replacement=\&] 
+ 0 \rar \& { #1 } \rar["{#2}"] \&  { #3 } \rar["{#4}"] \&  { #5 } \rar \& 0 \end{tikzcd}}}
+%induced les cohomology: \lesco{space}{A}{B}{C}{varphi}{psi}
+\newcommandx*\lescoh[6]{{\begin{tikzcd}[ampersand replacement=\&] 
+ 0 \rar \& H^0({#1};{#2} )  \rar["{#5}^*"] \&  H^0({#1};{#3})  \rar["{#6}^*"] \&  H^0({#1};{#4} ) \rar["\delta^0"] \& \cdots \
+  \cdots \rar["\delta^n"] \& H^n({#1};{#2})  \rar["{#5}^*"] \& H^n({#1};{#3})  \rar["{#6}^*"] \&  H^n({#1};{#4})  \rar \& \cdots  
+  \end{tikzcd}}}
+%Injective Resolution: \artkz{domain}{name}{codomain}
+\newcommand*\injresl[3]{{\begin{tikzcd}[ampersand replacement=\&] 
+{ #1 } \rar[tail, "{#2}"] \&  { #3 }^\bullet \end{tikzcd}}}
+%Injective Resolution Open ended: \injreslo{domain}{name}{codomain}
+\newcommand*\injreslo[5]{{\begin{tikzcd}[ampersand replacement=\&] 
+0 \rar[] \& { #1 } \rar[tail, "{#2}"] \&  { #3 } \rar["{#4}"] \& {#5} \rar \& \cdots  \end{tikzcd}}}
+%Proj Resolution: \artkz{domain}{name}{codomain}
+\newcommand*\projresl[3]{{\begin{tikzcd}[ampersand replacement=\&] 
+{ #1 } \rar["{#2}"] \&  { #3 }_\bullet \end{tikzcd}}}
+%etale spce functor
+\newcommand{\Et}{\acute{E}t}
+%germs
+\newcommand*\germ[2]{\mathrm{germ_{#1}({#2})}}
+%opens
+\newcommand*\Op[1]{\mathbf{Open}({#1})}
+\newcommand*\Opo[1]{\mathbf{Open}({#1})^{op}}
+%support
+\newcommand{\supp}{\mathrm{supp}}
+\newcommand{\ab}{\mathrm{Ab}}
+%big roomy quotient
+\newcommand{\nat}[6][large]{%
+ \begin{tikzcd}
+ [ampersand replacement = \&, column sep=#1]
+  #2\ar[bend left=40,
+{name=U}]{r}{#4}
+  \ar[bend right=40,',
+{name=D}]{r}{#5}
+  \& #3 \ar[shorten <=10pt,shorten >=10pt,Rightarrow,from=U,to=D]{d}{~#6}
+  \end{tikzcd}
+}
+%pullback
+\newsavebox{\pullback}
+\sbox\pullback{%
+\begin{tikzpicture}%
+\draw (0,0) -- (1ex,0ex);%
+\draw (1ex,0ex) -- (1ex,1ex);%
+\end{tikzpicture}}
+%pullback comand: \arrow[dr, phantom, "\usebox\pullback" , very near start, color=black]
+%pushout
+\newsavebox{\pushout}
+\sbox\pushout{%
+\begin{tikzpicture}%
+\draw (0,0) -- (0ex,1ex);%
+\draw (0ex,1ex) -- (1ex,1ex);%
+\end{tikzpicture}}
+%pushout comand: \arrow[ul, phantom, "\usebox\pushout" , very near start, color=black]
+%Squiggly Arrow Guy: 
+\newcounter{sarrow}
+\newcommand\xrsquigarrow[1]{%
+\stepcounter{sarrow}%
+\begin{tikzpicture}[decoration=snake]
+\node (\thesarrow) {\strut#1};
+\draw[->,decorate] (\thesarrow.south west) -- (\thesarrow.south east);
+\end{tikzpicture}%
+}
+\title{Cat Theory - A5}
+\author{Deni Salja}
+\begin{document}
+\maketitle
+
+\begin{prob}
+Let $\cC$ be a category and let $A \in \cC_0$ be an object. 
+\begin{enumerate}[]
+\item[1] Define the the slice category, $A/\cC$, of $\cC$ under $A$. 
+\item[2] Show the $\{*\}/\Set \cong \Set_*$. 
+\item[3] Define the slice category, $\cC/A$, of $\cC$ over $A$. 
+\item[4] Show that $\Set/\{ 0,1\}$ is isomorphic to the category of partitioned sets of index 2 and partition preserving functions between them.
+\end{enumerate}
+\end{prob}
+\begin{proof}\
+\begin{enumerate}
+\item[1] 
+The under-category $A/\cC$ has arrows of $\cC$ with domain $A$ as its objects and commuting triangles in $\cC$ as arrows. Identities and composition are inherited from $\cC$ as the diagrams
+
+\[\begin{tikzcd}[column sep = large, row sep = large]
+& A \ar[dr,"f"] \ar[dl,"f"'] & \\
+B \rar[rr,equals] & & B
+\end{tikzcd}\quad ; \quad 
+\begin{tikzcd}[column sep = large, row sep = large]
+& \ar[dl, "f"'] \ar[d, "g"] A \ar[dr, "h"] & \\
+B \rar["k"'] \ar[rr, bend right, "\ell \circ k"'] & C \rar["\ell"'] &  D 
+\end{tikzcd}\]
+
+\noi commute. The identity laws in $A/\cC$ follow from the identity laws in $\cC$ via the commuting diagram:
+
+\[
+\begin{tikzcd}[column sep = large, row sep = large]
+& \ar[dl, "f"'] \ar[d, "f"] A \ar[dr, "g"] & \\
+B \rar[equals] \ar[rr, bend right, " \ell"'] & B \rar["\ell"'] &  C
+\end{tikzcd}
+\quad ; \quad 
+\begin{tikzcd}[column sep = large, row sep = large]
+& \ar[dl, "h"'] \ar[d, "f"] A \ar[dr, "f"] & \\
+A \rar["k"'] \ar[rr, bend right, " k"'] & B \rar[equals] &  B 
+\end{tikzcd}\]
+
+\noi Associativity follows from associativity in $\cC$ via the commuting diagram:
+
+\[ \begin{tikzcd}[column sep = huge, row sep = huge]
+& A \ar[dl, "f"'] \dar["g"'] \ar[dr, "h"] \ar[drr, "k"] &&   \\
+B \rar["b"'] \ar[rr, bend right, "c \circ b"'] & C \rar["c"'] \ar[rr, bend right, crossing over, "d \circ c"'] & D \rar["d"'] & E 
+\end{tikzcd}\]\medskip
+
+\item[2]
+Define $F: \{*\}/\Set \to \Set_*$ on objects and arrows simultaneously by  
+
+\[ \label{F1} 
+F\left( \begin{tikzcd}
+& \{*\} \ar[dl, "a"'] \ar[dr, "b"] & \\
+A \rar[rr,"f"'] && B
+\end{tikzcd} \right) =  
+\begin{tikzcd}
+(A,a(*)) \rar["f"] & (B,b(*)) 
+\end{tikzcd} \tag{1}
+.\]
+
+\noi This is well defined because $a(*) \in A, \ b(*) \in B$, and $f\circ a = b $ implies $f(a(*)) = b(*)$. Composition and identities in both categories are determined by the composition and identities from $\Set$ so it's clear that $F$ preserves them and is a functor. \medskip 
+
+On the other hand define $G : \Set_* \to \{*\}/\Set$ on objects and arrows by 
+
+\[ \label{G1}G\left( \begin{tikzcd}
+    (A,a) \rar["f"] & (B,b) 
+    \end{tikzcd}  \right) = \begin{tikzcd}
+    & \{*\} \ar[dl, "\alpha"'] \ar[dr, "\beta"] & \\
+    A \rar[rr,"f"'] && B
+    \end{tikzcd} \tag{2}
+    \]
+
+\noi where $\alpha(*) = a$ and $\beta(*) = b$. This is well defined because maps between pointed sets preserve the basepoints 
+
+\[ f \circ \alpha (*) = f(a) = b = \beta(*). \]
+
+\noi Composition and identities are similarly preserved because they're inherited from $\Set$ in both categories so $G$ is a functor. To see $G \circ F = 1_{\{*\}/\Set}$ we apply $G$ to the diagram on the right hand side of equation~(\ref{F1}) above and notice
+
+\[ G\left( \begin{tikzcd}
+    (A,a(*)) \rar["f"] & (B,b(*)) 
+    \end{tikzcd}  \right) = \begin{tikzcd}
+    & \{*\} \ar[dl, "a"'] \ar[dr, "b"] & \\
+    A \rar[rr,"f"'] && B
+    \end{tikzcd} \]
+
+\noi by definition of $F$. Similarly we check $F \circ G = 1_{\Set_*}$ by applying $F$ to the diagram on the right hand side of equation (\ref{G1}) and noticing 
+
+\[ \label{F1} 
+F\left( \begin{tikzcd}
+& \{*\} \ar[dl, "\alpha"'] \ar[dr, "\beta"] & \\
+A \rar[rr,"f"'] && B
+\end{tikzcd} \right) =  
+\begin{tikzcd}
+(A,a) \rar["f"] & (B,b) 
+\end{tikzcd} \tag{1}
+\]
+
+\noi since $\alpha(*) = a$ and $\beta(*)=b$ by definition of $G$.\medskip 
+
+\item[3] The slice category $\cC/A$ has arrows in $\cC$ with codomain $A \in \cC_0$ as objects and commuting triangles in $\cC$ as arrows. Identities and composition are inherited from $\cC$ in the same fashion as the under-category $A/\cC$ and the associatiity and identitiy laws hold similarly (just reverse the non-horizontal arrows in the diagrams above from part 1.)\medskip 
+
+\item[4] Let $\Set_2$ denote the category of partitioned sets of index $2$ with partition preserving functions between them. Any index 2 partition $S$ can be uniquely identified with the disjoint union $S = S_0 \coprod S_1$ in $\Set$ and a partition preserving function $g : S \to T$ can be identified with unique map induced by the universal property of the coproduct in $\Set$: 
+
+\[ \begin{tikzcd}[column sep = large, row sep = large]
+    S_0 \dar["i_0"']\rar["g_0"] & T_0 \dar["j_0"]\\
+    S_0 \coprod S_1 \rar[dashed, "g"] & T_0 \coprod T_1 \\
+    S_1 \uar["i_1"] \rar["g_1"'] & T_1 \uar["j_1"']
+ \end{tikzcd} \]
+
+\noi With this notation we define $F : \Set / \{0,1\} \to \Set_2$ by 
+
+\[ \label{F2}F\left(\begin{tikzcd}
+A \ar[dr, "\alpha"' ]\rar[rr,"f"]& & B \ar[dl, "\beta"]\\
+&\{0,1\} & 
+\end{tikzcd}\right) = 
+\begin{tikzcd}[column sep = huge]
+A_0 \dar["i_0"'] \rar["f|_{A_0}"] & B_0 \dar["j_0"]\\ 
+A_0 \coprod A_1 \rar[dashed, "f"]  & B_0 \coprod B_1\\
+A_1 \uar["i_1"] \rar["f|_{A_1}"'] & B_1 \uar["j_1"'] 
+\end{tikzcd} \tag{$\star$}\]
+
+\noi where $A_i = \alpha^{-1}(i)$ and $B_i = \beta^{-1}(i)$ for $i \in \{0,1\}$ are the fibers of $\alpha$ and $\beta$. Commutativity of the triangle on the left hand side implies
+\[ f(A_0) \subseteq B_0 \qquad f(A_1) \subseteq B_1\]
+
+\noi so that the diagram on the right hand side is well-defined. Functoriality follows immediately from the universal property of coproducts in $\Set$. \medskip 
+
+\noi On the other hand, define $G : \Set_2 \to \Set / \{0,1\}$ by 
+
+\[ \label{G2} G\left( \begin{tikzcd}[column sep = large, row sep = large]
+    S_0 \dar["i_0"'] \rar["g_0"] & T_0 \dar["j_0"]\\ 
+    S_0 \coprod S_1 \rar[dashed, "g"]  & T_0 \coprod T_1\\
+    S_1 \uar["i_1"] \rar["g_1"'] & T_1 \uar["j_1"'] 
+    \end{tikzcd}\right) = 
+\begin{tikzcd}[column sep = large, row sep = large]
+S \ar[dr, "s"']\rar[rr,"g"] && T \ar[dl, "t"] \\
+& \{ 0 , 1 \} & 
+\end{tikzcd} \tag{$\star \star$}\]
+
+\noi where $S = S_0 \coprod S_1$ and $T = T_0 \coprod T_1$ are the sets being partitioned and $s$ and $t$ map $S_i$ and $T_i$ to $i \in \{0,1\}$ respectively. These can be described with the universal property of coproducts
+
+\[\begin{tikzcd}[column sep = large, row sep = large]
+    S_0 \dar["i_0"'] \rar["!_0"] & \{0\}\dar["\subseteq "] & T_0 \dar["j_0"] \lar["!_0"']\\ 
+    S_0 \coprod S_1 \rar[dashed, "s"]  & \{ 0,1 \} & T_0 \coprod T_1  \lar[dashed, "t"'] \\
+    S_1 \uar["i_1"] \rar["!_1"'] & \{1\} \uar["\subseteq"'] & T_1 \lar["!_1"] \uar["j_1"']
+    \end{tikzcd}\]
+
+
+\noi so this is well-defined and functorial by the universal property of coproducts in $\Set$. To see $G \circ F = 1_{\Set_2}$ we apply $G$ to the diagram on the right hand side of equation~(\ref{F2}) and notice 
+
+\[G \left(\begin{tikzcd}[column sep = huge]
+A_0 \dar["i_0"'] \rar["f|_{A_0}"] & B_0 \dar["j_0"]\\ 
+A_0 \coprod A_1 \rar[dashed, "f"]  & B_0 \coprod B_1\\
+A_1 \uar["i_1"] \rar["f|_{A_1}"'] & B_1 \uar["j_1"'] 
+\end{tikzcd}\right) = 
+\begin{tikzcd}[column sep = large, row sep = large]
+    A \ar[dr, "\alpha"']\rar[rr,"f"] && B \ar[dl, "\beta"] \\
+    & \{ 0 , 1 \} & 
+    \end{tikzcd}
+\]
+
+\noi because $\alpha|_{A_i} = !_i$ by definition of $A_i = \alpha^{-1}(i)$ for $i \in \{0,1\}$ respectively. To see $F \circ G = 1_{\Set/\{0,1\}}$ apply $F$ to the diagram on the right hand side of equation~(\ref{G2}) and notice 
+
+
+\[ F \left(\begin{tikzcd}[column sep = large, row sep = large]
+    S \ar[dr, "s"']\rar[rr,"g"] && T \ar[dl, "t"] \\
+    & \{ 0 , 1 \} & 
+    \end{tikzcd}\right) = 
+    \begin{tikzcd}[column sep = huge]
+    S_0 \dar["i_0"'] \rar["g_0"] & T_0 \dar["j_0"]\\ 
+    S_0 \coprod A_1 \rar[dashed, "g"]  & T_0 \coprod B_1\\
+    S_1 \uar["i_1"] \rar["g_1"'] & T_1 \uar["j_1"'] 
+    \end{tikzcd}
+    \]
+
+\noi because $g|_{S_i} = g_i$ by definition of $g$. 
+\end{enumerate}
+\end{proof}
+
+\begin{prob}
+Show $1_\Set : \Set \to \Set$ is representable and talk about the endomorphisms on $1_\Set$. 
+\end{prob}
+\begin{proof}
+The identity functor on $\Set$ is representable by a singleton. Yoneda's lemma implies there's only one endomorphism $1_\Set \implies 1_\Set$; namely the identity natural transformation. 
+\end{proof}
+
+
+\begin{prob}
+Let $f : X \to Y$ be a function between sets. View $\cP(X)$ and $\cP(Y)$ are posetal categories under subset inclusion. Show there exists an adjoint triple 
+
+\[ \begin{tikzcd}[column sep = huge, row sep = huge]
+    \cP(X) \ar[r,bend left = 50,"{\exists_f}", ""'{name=A, below}] 
+    \ar[from = r,"{f^*}" {pos=0.25},""'{name=B,above},""{name=C,below}]
+     \ar[r,bend right=50,"{\forall_f}"',""{name=D,above}]
+    & \cP(Y)  
+    \ar[from=A, to=B, symbol={\dashv}]
+    \ar[from=C, to=D, symbol={\dashv}]
+\end{tikzcd}\]
+\end{prob}
+\begin{proof}
+For $S \subseteq X$ define 
+
+\[ \exists_f (S) = \{ y \in Y \ | \ \exists x \in S . f(x) = y \} \quad ; \quad \forall_f (S) = \{ y \in Y \ | \ \forall x \in X. (f(x) = y) \implies x \in S \}. \]
+
+\noi If $S \subseteq S' \subseteq X$ then $y \in \exists_f(S)$ means $x \in S \susbeteq S'$ such that $f(x) = y$ so $y \in \exists_f(S')$. Similarly for any $y \in \forall_f(S)$ we have that $f(x) = y$ implies $x \in S \subseteq S'$ so $y \in \forall_f(S')$. This implies 
+
+\[ \exists_f(S) \subseteq \exists_f(S') \quad ; \quad \forall_f(S) \subseteq \forall_f(S') \]
+
+\noi On the other hand, for $T \subseteq Y$ we define 
+
+\[ f^*(T) = \{ x \in X \ | \ f(x) \in T \}\]
+
+\noi and notice for $T \subseteq T'$ we have $f(x) \in T$ implies $f(x) \in T'$ so $f^*(T) \subseteq f^*(T')$. Functoriality for all three of these assignments follows from the fact that $\cP(X)$ and $\cP(Y)$ are posetal categories. \medskip 
+
+\noi To show these are adjunctions it suffices to show the unit and counit exist in each instance because naturality and the triangle identities will immediately follow from the posetal context we're in. We start with $\exists_f \dashv f^*$. For $S \subseteq X$ 
+
+\begin{align*}
+f^* \circ \exists_f(S) 
+&= \{ x \in X \ | \ f(x) \in \exists_f(S)\} \\
+&= \{ x \in X \ | \ \exists x' \in S . f(x') = f(x)\}
+\end{align*}
+
+\noi and for any $s \in S$ we have $f(s) = f(s)$ so $S \subseteq f^* \circ \exists_f(S)$ shows the unit of adjunction exists. For $T \subseteq Y$ we unpack the definition
+
+\begin{align*}
+\exists_f \circ f^* (T) 
+&= \{ y \in Y \ | \ \exists x \in f^*(T) . f(x) = y \} \\
+&= \{ y \in Y \ | \ \exists y' \in T . f(x) = y' \text{ and } f(x) = y \}  \\
+&= \{ y \in Y \ | \ \exists y' \in T . y' = y \} \\
+&= T  
+\end{align*}
+
+\noi to see that the counit is an isomorphism (equality because we're in a posetal category). For the other adjunction $f^* \dashv \forall_f$ we have 
+
+\begin{align*}
+\forall_f \circ f^* (T) 
+&= \{ y \in Y \ | \ \forall x \in X. (f(x) = y) \implies x \in f^*(T) \}\\
+&= \{ y \in Y \ | \ \forall x \in X. (f(x) = y) \implies f(x) \in T \}.
+\end{align*}
+
+
+\noi In particular for any $t \in T$ and $x \in X$, if $f(x) = t$ then $t \in T$ so $T \subseteq \forall_f \circ f^* (T) 
+$ defines the unit of adjunction. On the other hand 
+
+\begin{align*}
+f^* \circ \forall_f(S)
+&= \{ x \in X \ | \ f(x) \in \forall_f(S) \} \\
+&= \{ x \in X \ | \ \forall x' \in X. (f(x') = f(x)) \implies x' \in S \}
+\end{align*}
+
+\noi and in particular the condition becomes tautological for any $x \in f^* \circ \forall_f(S)$ so we have $x \in S$ showing the counit, $f^* \circ \forall_f(S) \subseteq S$, exists. 
+\end{proof}
+
+
+
+\begin{prob}
+Let $\cC$ be a small category. We'll show that the category of presheaves on $\cC^{op}$, $\Set^\cC$, is cartesian closed. 
+\end{prob}
+\begin{proof}
+\end{proof}
+
+
+
+\begin{prob}
+\end{prob}
+\begin{proof}
+\end{proof}
+
+
+
+
+
+
+\end{document}

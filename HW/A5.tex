@@ -79,6 +79,7 @@ linktoc=all
 \newcommand{\cV}{{\mathcal V}}
 \newcommand{\cY}{{\mathcal Y}}
 \newcommand{\cJ}{{\mathcal J}}
+\newcommand{\cD}{{\mathcal D}}
 \DeclareMathOperator{\Ext}{Ext}
 \DeclareMathOperator{\rk}{rk}
 \DeclareMathOperator{\id}{\mathsf{id}}
@@ -399,7 +400,24 @@ A_1 \uar["i_1"] \rar["f|_{A_1}"'] & B_1 \uar["j_1"']
 Show $1_\Set : \Set \to \Set$ is representable and talk about the endomorphisms on $1_\Set$. 
 \end{prob}
 \begin{proof}
-The identity functor on $\Set$ is representable by a singleton. Yoneda's lemma implies there's only one endomorphism $1_\Set \implies 1_\Set$; namely the identity natural transformation. 
+The identity functor on $\Set$ is representable by a singleton:
+
+\[ y(\{*\}) = \Set^{op}( - , \{*\}) = \Set(\{*\} , - ) \cong 1_\Set\]
+
+\noi because elements of a set $A$ naturally correspond to functions functions $\{*\} \to A$. That is for $f : A \to A'$ the diagram 
+
+\[ \begin{tikzcd}[column sep = large, row sep = large]
+\Set(\{*\} , A ) \dar["f \circ (-)"']\rar["\vep_{A}"] & A \dar["f"] \\
+\Set(\{*\} , A') \rar["\vep_{A'}"'] & A'
+\end{tikzcd}\]
+
+\noi commutes where $\vep_A(\alpha) = \alpha(*)$ is defined by evaluation for each $\alpha : \{*\} \to A$. We saw this function and its inverse in problem 1 so the natural isomorphism of hom-sets is clear. \medskip 
+
+\noi Yoneda's lemma implies there's only one endomorphism on $1_\Set$ in the functor category $[\Set , \Set]$. 
+
+\[ \Nat(1_\Set, \Set) \cong \Nat (y(\{*\} , 1_\Set )) \cong 1_{\Set}(\{*\}) = \{*\},\]
+
+\noi namely the identity natural transformation. 
 \end{proof}
 
 
@@ -469,24 +487,17 @@ f^* \circ \forall_f(S)
 \noi and in particular the condition becomes tautological for any $x \in f^* \circ \forall_f(S)$ so we have $x \in S$ showing the counit, $f^* \circ \forall_f(S) \subseteq S$, exists. 
 \end{proof}
 
-
-
-\begin{prob}
-Let $\cC$ be a small category. We'll show that the category of presheaves on $\cC^{op}$, $\Set^\cC$, is cartesian closed. 
+\begin{comment}
+\begin{prob}[Bonus]
+Every equivalence of categories can be made into an adjoint equivalence. 
 \end{prob}
 \begin{proof}
+Suppose $F : \cC \to \cD$ is an equivalence of categories. Then there exists a functor $G : \cD \to \cC$ and natural isomorphisms $1_\cC \cong G \circ F$ and $G \circ F \cong 1_\cD$. \medskip 
+
+\noi We can modify one of the natural isomorphisms in order to satisfy the triangle identities. 
+
 \end{proof}
-
-
-
-\begin{prob}
-\end{prob}
-\begin{proof}
-\end{proof}
-
-
-
-
+\end{comment}
 
 
 \end{document}

@@ -1,0 +1,541 @@
+\documentclass[11pt]{amsart}
+\usepackage{amssymb, amstext, amsthm, amscd, amsmath,color}
+\usepackage{graphicx} 
+\usepackage[margin = 1 in]{geometry}
+\usepackage{tikz-cd}
+\usepackage{cancel}
+\usepackage{thmtools}
+\usepackage{mathtools}
+\usepackage{stmaryrd}
+\usepackage{comment}
+\usepackage{enumitem}
+\usepackage{xargs}
+\usetikzlibrary{
+  knots,
+  hobby,
+  decorations.pathreplacing,
+  shapes.geometric,
+  calc,
+  decorations.pathmorphing,
+  shapes,
+  decorations.markings
+  }
+\usepackage[hidelinks]{hyperref}
+\usepackage{tensor}
+\usepackage{mathpartir}
+\usepackage[textsize=scriptsize]{todonotes}
+\newcommand{\deni}[1]{\todo[color=blue!25]{{\bf Deni:} #1}}
+\newcommand{\bigdeni}[1]{\todo[inline,color=blue!25]{{\bf Deni:} #1}}
+%Hyperlinks
+\hypersetup{
+colorlinks=true,
+linktoc=all
+}
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prob}[thm]{Problem}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem*{propp}{Proposition}
+\newtheorem*{corr}{Corollary}
+%   Theorem style with roman text
+%   numbered within section
+\theoremstyle{definition}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{rems}[thm]{Remarks}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem*{defn*}{Definition}
+\newtheorem*{rem*}{Remark}
+\newtheorem*{eg*}{Example}
+\newtheorem*{neg*}{Non-Example}
+\newtheorem*{egs*}{Examples}
+\renewcommand*{\proofname}{Solution}
+\newcommand{\fty}{\infty}
+\newcommand{\lam}{\lambda}
+\newcommand{\mR}{{\mathbb R}}
+\newcommand{\mZ}{{\mathbb Z}}
+\newcommand{\mN}{{\mathbb N}}
+\newcommand{\vep}{\varepsilon}
+\newcommand{\mD}{{\mathbb D}}
+\newcommand{\mC}{{\mathbb C}}
+\newcommand{\mE}{{\mathbb E}}
+\newcommand{\mP}{{\mathbb P}}
+\newcommand{\mS}{{\mathbb S}}
+\newcommand{\mT}{{\mathbb T}}
+\newcommand{\mB}{{\mathbb B}}
+\newcommand{\mF}{{\mathbb F}}
+\newcommand{\mK}{{\mathbb K}}
+\newcommand{\mL}{{\mathbb L}}
+\newcommand{\mA}{{\mathbbl A}}
+\newcommand{\cZ}{{\mathcal Z}}
+\newcommand{\cA}{{\mathcal A}}
+\newcommand{\cB}{{\mathcal B}}
+\newcommand{\cP}{{\mathcal P}}
+\newcommand{\cC}{{\mathcal C}}
+\newcommand{\cU}{{\mathcal U}}
+\newcommand{\cE}{{\mathcal E}}
+\newcommand{\cM}{{\mathcal M}}
+\newcommand{\cV}{{\mathcal V}}
+\newcommand{\cY}{{\mathcal Y}}
+\newcommand{\cJ}{{\mathcal J}}
+\newcommand{\cD}{{\mathcal D}}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\id}{\mathsf{id}}
+\newcommand{\Nat}{\mathrm{Nat}}
+\newcommand{\cov}{\mathrm{cov}}
+\newcommand{\cod}{\mathrm{cod}}
+\newcommand{\dom}{\mathrm{dom}}
+\newcommand{\Hom}{\text{Hom}}
+%
+\newcommand{\im}{\text{im}}
+\newcommand{\PAb}{\mathbf{PAb}}
+\newcommand{\PSh}{\mathbf{PSh}}
+\newcommand{\Sh}{\mathbf{Sh}}
+\newcommand{\Top}{\mathbf{Top}}
+\newcommand{\Cat}{\mathbf{Cat}}
+\newcommand{\Ch}{\mathbf{Ch}}
+\newcommand{\bA}{\mathbf{A}}
+\newcommand{\bB}{\mathbf{B}}
+\newcommand{\bD}{\mathbf{D}}
+\newcommand{\bP}{\mathbf{P}}
+\newcommand{\Sp}{{\mathbf{Sp}}}
+\newcommand{\Set}{{\mathbf{Set}}}
+\newcommand{\Grp}{\mathbf{Grp}}
+\newcommand{\Ab}{\mathbf{Ab}}
+\newcommand{\Par}{\mathbf{Par}}
+\newcommand{\Ring}{\mathbf{Ring}}
+\newcommand{\fkm}{\mathfrak{m}}
+\newcommand{\bG}{\mathbf{G}}
+\newcommand{\bH}{\mathbf{H}}
+\newcommand{\bbA}{{\mathbb{A}}}
+\newcommand{\mbJ}{{\mathbf{J}}}
+\newcommand{\mbX}{{\mathbf {X}}}
+\newcommand{\mbY}{{\mathbf {Y}}}
+\newcommand{\mbZ}{{\mathbf {Z}}}
+\newcommand{\noi}{{\noindent}}
+\newcommand{\mQ}{{\mathbb Q}}
+\newcommand*\quot[2]{{^{\textstyle #1}\big/_{\textstyle #2}}}
+\newcommand{\cO}{\mathcal{O}}
+\DeclareMathOperator{\colim}{colim}
+
+ %For Adjuncitons
+ \tikzset{%
+    symbol/.style={%
+        draw=none,
+        every to/.append style={%
+            edge node={node [sloped, allow upside down, auto=false]{$#1$}}}
+    }
+}
+%left adjoint on top adjunction
+\newcommand*\ladj[4]{\begin{tikzcd}[column sep = large, row sep = large, ampersand replacement=\&]
+{#1} \ar[r,bend left,"{#2}",
+{name=A, below}] \&  {#3} \ar[l,bend left,"{#4}",
+{name=B,above}] \ar[from=A, to=B, symbol={\dashv}]
+\end{tikzcd} }
+%right adjoint on top adjunction
+\newcommand*\radj[4]{\begin{tikzcd}[column sep = large, row sep = large, ampersand replacement=\&]
+{#1} \ar[r,bend left,"{#2}",
+{name=A, below}] \&  {#3} \ar[l,bend left,"{#4}",
+{name=B,above}] \ar[from=B, to=A, symbol={\dashv}]
+\end{tikzcd} }
+%left adjoint on top adjunction
+\newcommand*\ladjvcomp[5]
+{\begin{tikzcd}[column sep = huge, row sep = huge, ampersand replacement=\&]
+{#1} \ar[r,bend left = 50,"{#2}",
+{name=A, below}] 
+\ar[from = r,"{#3}", 
+{name=B,above},{name=B',bottom}]
+ \ar[r,bend right=50,"{#4}"',
+{name=C,below}]
+\& {#5}  \ar[from=A, to=B, symbol={\dashv}]
+\ar[from=B, to=C, symbol={\dashv}]
+\end{tikzcd} }
+%HOM-ALG SHORTCUTS
+%sequence tikzcd arrows: \seqtkz{domain}{name}{codomain = domain}{name}{codomain}
+\newcommand*\seqtkz[5]{{\begin{tikzcd}[ampersand replacement=\&] 
+ \cdots \rar \& { #1 } \rar["{#2}"] \&  { #3 } \rar["{#4}"] \&  { #5 } \rar \& \cdots \end{tikzcd}}}
+%short exact sequence: \ses{ob1}{map1}{ob2 }{map2}{ob3}
+\newcommand*\ses[5]{{\begin{tikzcd}[ampersand replacement=\&] 
+ 0 \rar \& { #1 } \rar["{#2}"] \&  { #3 } \rar["{#4}"] \&  { #5 } \rar \& 0 \end{tikzcd}}}
+%induced les cohomology: \lesco{space}{A}{B}{C}{varphi}{psi}
+\newcommandx*\lescoh[6]{{\begin{tikzcd}[ampersand replacement=\&] 
+ 0 \rar \& H^0({#1};{#2} )  \rar["{#5}^*"] \&  H^0({#1};{#3})  \rar["{#6}^*"] \&  H^0({#1};{#4} ) \rar["\delta^0"] \& \cdots \
+  \cdots \rar["\delta^n"] \& H^n({#1};{#2})  \rar["{#5}^*"] \& H^n({#1};{#3})  \rar["{#6}^*"] \&  H^n({#1};{#4})  \rar \& \cdots  
+  \end{tikzcd}}}
+%Injective Resolution: \artkz{domain}{name}{codomain}
+\newcommand*\injresl[3]{{\begin{tikzcd}[ampersand replacement=\&] 
+{ #1 } \rar[tail, "{#2}"] \&  { #3 }^\bullet \end{tikzcd}}}
+%Injective Resolution Open ended: \injreslo{domain}{name}{codomain}
+\newcommand*\injreslo[5]{{\begin{tikzcd}[ampersand replacement=\&] 
+0 \rar[] \& { #1 } \rar[tail, "{#2}"] \&  { #3 } \rar["{#4}"] \& {#5} \rar \& \cdots  \end{tikzcd}}}
+%Proj Resolution: \artkz{domain}{name}{codomain}
+\newcommand*\projresl[3]{{\begin{tikzcd}[ampersand replacement=\&] 
+{ #1 } \rar["{#2}"] \&  { #3 }_\bullet \end{tikzcd}}}
+%etale spce functor
+\newcommand{\Et}{\acute{E}t}
+%germs
+\newcommand*\germ[2]{\mathrm{germ_{#1}({#2})}}
+%opens
+\newcommand*\Op[1]{\mathbf{Open}({#1})}
+\newcommand*\Opo[1]{\mathbf{Open}({#1})^{op}}
+%support
+\newcommand{\supp}{\mathrm{supp}}
+\newcommand{\ab}{\mathrm{Ab}}
+%big roomy quotient
+\newcommand{\nat}[6][large]{%
+ \begin{tikzcd}
+ [ampersand replacement = \&, column sep=#1]
+  #2\ar[bend left=40,
+{name=U}]{r}{#4}
+  \ar[bend right=40,',
+{name=D}]{r}{#5}
+  \& #3 \ar[shorten <=10pt,shorten >=10pt,Rightarrow,from=U,to=D]{d}{~#6}
+  \end{tikzcd}
+}
+%pullback
+\newsavebox{\pullback}
+\sbox\pullback{%
+\begin{tikzpicture}%
+\draw (0,0) -- (1ex,0ex);%
+\draw (1ex,0ex) -- (1ex,1ex);%
+\end{tikzpicture}}
+%pullback comand: \arrow[dr, phantom, "\usebox\pullback" , very near start, color=black]
+%pushout
+\newsavebox{\pushout}
+\sbox\pushout{%
+\begin{tikzpicture}%
+\draw (0,0) -- (0ex,1ex);%
+\draw (0ex,1ex) -- (1ex,1ex);%
+\end{tikzpicture}}
+%pushout comand: \arrow[ul, phantom, "\usebox\pushout" , very near start, color=black]
+%Squiggly Arrow Guy: 
+\newcounter{sarrow}
+\newcommand\xrsquigarrow[1]{%
+\stepcounter{sarrow}%
+\begin{tikzpicture}[decoration=snake]
+\node (\thesarrow) {\strut#1};
+\draw[->,decorate] (\thesarrow.south west) -- (\thesarrow.south east);
+\end{tikzpicture}%
+}
+
+
+\title{Cat Theory - A7}
+\begin{document}
+\maketitle
+
+
+    \begin{prob}
+    Let $\cC$ be a category and let $F$ and $G$ be presheaves on $\cC$. Describe the presheaf $F^G$ and show it satisfies the universal property. 
+    \end{prob}
+    \begin{proof}
+    It should be the right adjoint to the product functor $- \times G$. Yoneda's lemma and cartesian closure say that for any object $A$ we should have
+    
+    \[ F^G (A) \cong \Hom (y(A), F^G) \cong \Hom(y(A) \times G , F) .\]
+    
+    \noi For any arrow $f : A \to B$ we have a natural transformation 
+    
+    \[ y(f) : y(A) \implies y(B) \]
+    
+    \noi whose components are given by post-composition with $f$:
+    
+    \[ y(f)_X : \cC(X,A) \to \cC(X,B) ; g \mapsto f \circ g \]
+    
+    \noi This induces a natural transformation 
+    
+    \[ y(f) \times 1_G : y(A) \times G \implies y(B) \times G \]
+    
+    \noi whose components are 
+    
+    \[ (y(f) \times 1_G)_X : \cC(X,A) \times G(X) \to \cC(X,B) \times G(X) ; (g, a) \mapsto (f \circ g, a). \]
+    
+    \noi Now $F^G$ is a presheaf so for $f : A \to B$ in $\cC$ we define 
+
+    \[ F^G(f) : F^G(B) \to F^G(A)\]
+    
+    \noi to be the map 
+
+    \[ \Hom(y(B) \times G , F) \to \Hom(y(A) \times G , F)  \]
+
+    \noi defined on a transformation $\beta : y(B) \times G \implies F$ as 
+
+    \[ F^G(f)(\beta) = \beta \circ (y(f) \times 1_G).  \]
+    %: y(A) \times G \implies F ; \]
+
+    %\noi with components 
+
+    %\[ \left(F^G(f)(\alpha) \right)_X : \cC(X,A) \times G(X) \to F(X) ; (g,a) \mapsto \alpha \circ (y(f) \times 1_G)\alpha_X (f \circ g , a) .\]
+
+    \noi Identities are preserved because for any $\alpha \in \Hom(y(A) \times G, F)$  
+
+    \begin{align*}
+    (F^G(1_A)(\alpha) 
+    &:= \alpha \circ (y(1_A) \times 1_G) \\
+    &= \alpha \circ (1_{y(A)} \times 1_G) \\
+    &= \alpha \circ 1_{y(A) \times 1_G} \\
+    &= \alpha \\
+    &= 1_{F^G(A)} (\alpha)
+    \end{align*}
+
+    %\[ \left(F^G(1_A)(\alpha) \right)_X (g,a) := \alpha_X( 1_A \circ g ,a ) = \alpha_X (g , a)\]
+
+    \noi and composition is preserved because for any $f : A \to B$ and $f' : B \to C$ in $\cC$ and $\gamma : F^G(C)$ we have 
+
+    \begin{align*}
+    F^G(f \circ f') (\gamma)
+    &= \gamma \circ (y(f' \circ f) \times 1_G) \\
+    &= \gamma \circ ((y(f') \circ y(f)) \times 1_G) \\
+    &= \gamma \circ \left((y(f') \times 1_G) \circ (y(f) \times 1_G)\right) \\
+    &= \left(\gamma \circ (y(f') \times 1_G)\right) \circ (y(f) \times 1_G) \\
+    &= F^G(f) \left(\gamma \circ (y(f') \times 1_G)\right)  \\
+    &= \left(F^G(f) \circ F^G(f')\right) (\gamma) .
+    \end{align*}
+
+    \noi These calculations use the definition and functoriality of the Yoneda embedding, $y : \cC \to [\cC^{op}, \Set]$, along with the product functor $(-) \times G$ on $[\cC^{op} , \Set]$. The natural isomorphism for the rest of the adjunction follows from the density lemma for the yoneda embedding and the fact that representable functors preserve limits. In particular presheaves are colimits of representables. Let $H \cong \colim y(X_\alpha)$ be an arbitrary presheaf and notice and compute 
+    
+    \begin{align*}
+    \Hom (H, F^G) 
+    &\cong \Hom (\colim y(X_\alpha) , F^G) \\
+    &\cong \lim \Hom(y(X_\alpha) , F^G) \\
+    &\cong \lim \Hom(y(X_\alpha) \times G, F) \\
+    &\cong \Hom(\colim y(X_\alpha) \times G , F) \\
+    &\cong \Hom(H \times G, F).
+    \end{align*}
+    
+
+    \noi You asked for the universal property of the adjunction, so here's a sketch. For any presheaves $F$ and $G$ define 
+
+    \[ \eta_F : F \implies (F \times G)^G\] 
+
+    \noi with components
+
+    \[ (\eta_F)_X : F(X) \to (F \times G)^G (X)\]
+
+    \noi on an element $a \in F(X)$ to be the natural transformation 
+
+    \[ (\eta_F)_X(a) : y(X) \times G \implies F \times G \]
+
+    \noi with components 
+
+    \[ \left( (\eta_F)_X(a) \right)_Y : \cC(Y,X) \times G(Y) \to F(Y) \times G(Y)\] 
+
+    \noi defined by 
+
+    \[ \left( (\eta_F)_X(a) \right)_Y ( f , b) = ( F(f)(a) , b). \]
+
+    \noi Naturality follows from functoriality of $F$ after unpacking the mountain of definitions. I checked it on the board, I'm not TeX-ing it. Given a natural transformation $\alpha : F \implies H^G$ there's a natural transformation  
+
+    \[ \alpha^\# : F \times G \implies G\]
+
+    \noi whose components are defined on $(b,b') \in F(B) \times G(B)$ in terms of $\alpha$: 
+
+    \[ (\alpha^\#)_B (b,b') = (\alpha_B)(b)(1_B, b').\]
+
+    \noi Naturality of $\alpha^\#$ follows from naturality of $\alpha$. Now 
+
+    \[   (\alpha^\#)^G  : (F \times G)^G \implies H^G \]
+
+    \noi and 
+
+    \[ (\alpha^\#)^G  \circ \eta_F = \alpha . \] 
+
+    \noi This is another gross calculation I wrote out on the board that I'm not going to typeset; it unpacks the definitions above by evaluating nested components of natural transformations and appeals to naturality of $\alpha$ at the end and the definition of $H^G$ on arrows. Uniqueness is forced by $\alpha$, its aforemented naturality, and the definition of $H^G$ on arrows in $\cC^{op}$. I can send you a photo of the board as some justification if you want but I'll spare you the time and effort of parsing my definitions. 
+    \end{proof} 
+    
+
+
+    \begin{prob}
+    Show that for any adjunction the following are equivalent 
+
+    \begin{enumerate}
+    \item[$(i)$]$\eta_{G \circ F (X)}$ is an iso
+    \item[$(ii)$] $G \circ F (\eta_X)$ is an iso 
+    \item[$(iii)$] $\eta_{G(Y)}$ is an iso 
+    \end{enumerate}
+    \end{prob}
+    \begin{proof}
+    The triangle identities give 
+
+    \[ G(\vep_{F(X)}) \circ G \circ F(\eta_X) = 1_{G(F(X))} = G(\vep_{F(X)}) \circ \eta_{G\circ F(X)}\]
+
+    \noi so $(i)$ and $(ii)$ are equivalent because isomorphisms satisfy the two-for-three property. It's clear that $(iii)$ implies $(i)$ but the proof I had in mind for the other direction doesn't actually work. 
+    
+    
+    %so it suffices to show $(i)$ implies $(iii)$. Assume $\eta_{G \circ F}$ is an isomorphism; I claim restricting the adjunction to the image of $G$ gives a fully faithful unit, $\eta_G$. \medskip 
+
+    %\noi For fullness take $f : F\circ G(Y) \to F \circ G(Y')$. Apply $G$, and compose with $\eta_{G \circ F(Y)}$ and $\eta_{G \circ F(Y')}^{-1}$. Call this new composite $g$ and apply $F$ to it. The following diagram commutes by functoriality of $F$, definition of $g$, naturality of $\vep$, and the triangle identities: 
+
+    %\[\begin{tikzcd}[column sep = huge, row sep = huge]
+    %F \circ G (Y) \rar["F(\eta_{G \circ F (Y)})", "\cong"'] \rar[rrr, bend left , "F(g)"]
+    %& (F \circ G)^2 (Y) \rar["F\circ G (f)"] 
+    %\dar["\vep_{F \circ G(Y)}"']
+    %& (F \circ G)^2 (Y') 
+    %\dar["\vep_{F \circ G(Y')}"]
+    %& F \circ G (Y') \lar["F(\eta_{G \circ F (Y')})"', "\cong"] \\
+    %& F \circ G(Y) \rar["f"'] \ar[ul, equals]
+    %& F \circ G(Y') \ar[ur, equals]
+    %\end{tikzcd}\]
+
+    
+    %\noi To see it's faithful suppose $F(f) = F(f')$ as maps $F \circ G(Y) \to F \circ G(Y')$. Applying $G$ and using naturality of $\eta$ along with the assumption that $\eta_{G \circ F}$ is an inverse shows $f = g$: 
+
+    %\[\begin{tikzcd}[column sep = large, row sep = large]
+    %G \circ F \circ G(Y) 
+    %\rar[shift left, "F(f)"]
+    %\rar[shift right, "F(f')"'] 
+    %& G \circ F \circ G(Y') \\
+    %G(Y) 
+    %\uar["\eta_{G \circ F(Y)}", "\cong"']\rar[shift left, "f"] 
+    %\rar[shift right, "f'"'] 
+    %& G(Y')\uar["\eta_{G \circ F(Y')}"', "\cong"]
+    %\end{tikzcd}\]
+    \end{proof}
+    
+
+    \begin{prob}
+    Show that retractions are stable under pullback. Show that sections aren't necessarily stable under pullback. 
+    \end{prob}
+    \begin{proof}
+    Let $r : B \to A$ be a retraction and let $f : X \to A$ be any map in a category $\cC$. The result follows from the universal property of the following pullback diagram: 
+
+    \[\begin{tikzcd}[column sep = large, row sep = large]
+    X & A \\
+    P & B \\
+    X & A 
+    \arrow[from=1-1,to=1-2, "f"]
+    \arrow[from=1-2,to=3-2, bend left = 40, "1_A"]
+    \arrow[from=1-1,to=3-1, bend right = 40, "1_X"']
+    \arrow[from=1-1,to=2-1, dashed, ""']
+    \arrow[from=2-1,to=2-2, ""']
+    \arrow[from=1-2,to=2-2, "s"]
+    \arrow[from=2-1,to=3-1, "r^*f"]
+    \arrow[from=2-2,to=3-2, "r"]
+    \arrow[from=3-1,to=3-2, "f"']
+    \end{tikzcd}\]\
+
+    \noi Sections aren't stable under pullback in general; for example in $\Set$ take the inclusion $\{0\} \to \{0,1\}$. It's a section of the unique map $\{0,1\} \to \{0\}$ but its pullback along the inclusion $\{1\} \to \{0,1\}$ is the unique map $\emptyset \to \{1\}$ which can't be a section because there are no smooth functions into the emptyset. 
+    \end{proof}
+
+    \begin{prob}
+    Describe the induced monads and comonads for the following adjoint pairs of functors: 
+
+    \begin{enumerate}
+    \item[$(i)$] The free-forget adjunction between sets and monoids.
+    \item[$(ii)$] The free-forget adjunction between graphs and categories.
+    \end{enumerate}
+    \end{prob}
+    \begin{proof}
+        \begin{enumerate}
+        \item[$(i)$] Let $T = G \circ F$ be the associated monad where $G$ us the forgetful functor and $F$ is the free functor. For every set $X$ the set $T(X)$ can be thought of as the set of finite non-empty lists (instead of words) with terms (instead of letters) in $X$. This makes the notation less cumbersome; computer scientists call this the `list monad.' The unit
+        
+        \[ \eta : 1_{\Set} \implies T \]
+
+        \noi is the unit of the adjunction; it includes a set into the lists of length $1$: 
+
+        \[ \eta_X : X \to T(X) ; x \mapsto [x]\]
+
+        \noi Multiplication 
+        
+        \[ \mu : T^2 \implies T \]
+
+        \noi has components 
+
+        \[ \mu_X : T(T(X)) \to T(X) \]
+
+        \noi defined by concatenating the lists within a finite list of finite lists: 
+
+        \[ [ [x_{0 ; 0}, \dots , x_{0 ; i_0}], \dots , [x_{n;0} , \dots , x_{n ; i_n}] ] \mapsto  [ x_{0;0}, \dots,  x_{n;i_n}] . \]
+
+        \noi The identity laws hold because 
+
+        \[ \mu_X ([[x_0, \dots, x_n]] = [x_0, \dots, x_n] = \mu_X ([[x_0], \dots, [x_n]] )\]
+
+        \noi and multiplication is associative because concatenating lists is associative. \medskip 
+
+        \noi The comonad for the adjunction, $L = F \circ G$, is an endofunctor on the category of monoids. For a monoid $M$, $L(M)$ is the monoid of non-empty finite lists in $M$. The counit
+
+        \[ \vep : L \implies 1 \]
+
+        \noi is the counit of the adjunction. It's given by evaluating the list using the multiplication from $M$: 
+
+        \[ \vep_M : L(M) \to M ; [m_0 , \dots , m_n] \mapsto m_0 \dots m_n \]
+
+        \noi The comultiplication 
+
+        \[ \nu : L \implies L^2 \]
+
+        \noi takes a non-empty list in $M$ and gives a list of lists of length $1$ in $M$:
+
+        \[ \nu_M : L(M) \to L^2(M) ; [m_0, \dots, m_n ] \mapsto [[m_0] , \dots , [m_n]]\]
+
+        \noi The counit laws follow from the fact that concatenating length one lists in $L(M)$ is the same as evaluating length one lists in $M$ and then listing them in $L(M)$: 
+
+        \[ \vep_{L(M)} ([[m_0] , \dots , [m_n]]) = [m_0] * \dots * [m_n] = [m_0 , \dots , m_n] = L(\vep_M) ([[m_0] , \dots , [m_n]])\]
+
+        \noi Coassociativity follows from
+        
+        %Now $\nu_{L(M)}$ takes a list of lists and makes a new list of length-one lists by putting brackets on each inner list. On the other hand $L(\nu_M)$ takes a list of lists and makes a new list by making each inner list a length-one list before concatenating them in $L^2(M)$. 
+
+        \[ \nu_{L(M)} ([[m_0] , \dots , [m_n]])
+        = [[[m_0] , \dots , [m_n]]]
+        = L(\nu_M) ([[m_0] , \dots , [m_n]])\]
+
+        \noi where the first equality adds new brackets on the inside of the outer-most brackets while the second one adds brackets on the outside. \bigskip 
+
+
+        
+        
+
+        
+        
+
+
+
+
+        
+        
+        \item[$(ii)$] Let $T$ be the monad of the free-forget adjunction. For any graph $G$ the vertices of $T(G)$ are those of $G$ and the edges of $T(G)$ are finite paths in $G$. We can write these finite paths as lists: 
+        
+        \[ [\gamma_0, \dots , \gamma_1] \in T(G)_1 \]
+        
+        \noi The unit is the usual unit of adjunction. For a graph $G$, 
+        
+        \[ \eta_G : G \to T(G)\] 
+        
+        \noi is the identity on vertices and includes edges in $G$ to length-one paths in $T(G)$. The multiplication 
+        
+        \[ \mu : T^2 \implies T\]
+
+        \noi has graph homomorphism components 
+
+        \[ \mu_G : T^2 G \to T G \]
+
+        \noi given by identities on vertices and concatenating paths:
+        
+        \[ \mu_G ([[\gamma_{0,0}, \dots , \gamma_{0,i_0}] , \dots , [\gamma_{n,0} \gamma_{n,i_n}]]) := [\gamma_{0,0}, \dots , \gamma_{n,i_n}]\]
+        
+        \noi The similarity with the list-monad in the previous part is obvious and the identity and associativity laws follow from identical calculations replacing all the elements `$x \in X$' with edges `$\gamma \in G_1$.' \medskip 
+
+        The comonad, $T'$, takes a (small) category $\cC$ to the path category of its underlying graph, $T'(C)$. It inherits its counit from the counit of adjunction 
+
+        \[ \vep_\cC : T'(\cC) \to \cC \]
+
+        \noi which is the identity on objects and sends finite paths from the underlying graph of $\cC$ to their composites in $\cC$. The comultiplication 
+
+        \[ \nu :  T' \implies (T')^2 \]
+
+        \noi has component functors
+        
+        \[ \nu_\cC :  T'(\cC) \to (T')^2 (\cC )\]
+        
+        \noi that are identities on objects and send finite paths from the underlying graph of $\cC$ to paths of length-one paths: 
+
+        \[ [\gamma_0, \dots , \gamma_n ] \mapsto [[\gamma_0] , \dots , [\gamma_n]]\]
+
+        \noi The rest follows similarly to the comonad for monoids.
+    \end{enumerate}
+    \end{proof}
+
+\end{document}
